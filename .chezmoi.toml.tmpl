@@ -1,0 +1,10 @@
+# {{ $hasGUI := promptBool "Does this system have a GUI? (y/n)" -}}
+# data:
+#   gui: {{ $hasGUI | quote }}
+[facts]
+  os = {{ .chezmoi.os }}
+  vm = {{ empty (expandenv "$VM") | ternary "false" (expandenv "$VM") }}
+  distro = {{ .chezmoi.osRelease.name }}
+  gui = {{ empty (expandenv "$GUI") | ternary "false" (expandenv "$GUI") }}
+  ip = {{ expandenv "$IP" }}
+  hostname = {{ .chezmoi.hostname }}
