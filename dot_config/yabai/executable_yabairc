@@ -1,0 +1,176 @@
+#!/usr/bin/env bash
+set -x
+#killall autoraise &>/dev/null
+#$HOME/.config/bin/autoraise -delay 2 &>/dev/null &
+sudo killall kmonad &>/dev/null 
+
+CTRL=$(ioreg -p IOUSB | grep -o CTRL)
+if [[ $CTRL = "CTRL" ]]; then 
+    sudo $HOME/.config/bin/kmonad $HOME/.config/kmonad/ctrl.kbd &>/dev/null &
+else
+    sudo $HOME/.config/bin/kmonad $HOME/.config/kmonad/m1.kbd &>/dev/null &
+fi 
+
+# Y A B A I
+
+# Get Colors
+background=$(grep -io "background.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+foreground=$(grep -io "foreground.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+color0=$(grep -io "color0.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+color1=$(grep -io "color1:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+color2=$(grep -io "color2.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+color3=$(grep -io "color3.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+color4=$(grep -io "color4.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+color5=$(grep -io "color5.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+# grep -io "color6.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+# grep -io "color7.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+color8=$(grep -io "color8.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
+# grep -io "color9.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+# grep -io "color10.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+# grep -io "color11.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+# grep -io "color12.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+# grep -io "color13.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+# grep -io "color14.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+# grep -io "color15.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+
+# Load Scripting Additions
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# Create Spaces
+. $HOME/.config/bin/helper && create_spaces
+
+# T I L I N G
+yabai -m config external_bar main:"$(sketchybar -m --query bar | jq -r '.height')":0
+yabai -m config window_placement second_child
+yabai -m config window_topmost on
+yabai -m config split_ratio 0.50
+yabai -m config split_type horizontal
+yabai -m config auto_balance off
+
+# W I N D O W S
+yabai -m config window_shadow off
+yabai -m config window_opacity off
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.95
+yabai -m config window_animation_duration 0.0
+
+# M O U S E
+yabai -m config mouse_modifier ctrl
+yabai -m config mouse_action1 resize
+yabai -m config mouse_action2 move
+yabai -m config mouse_drop_action swap
+yabai -m config mouse_follows_focus on
+yabai -m config focus_follows_mouse autoraise
+
+# L A Y O U T
+yabai -m config layout bsp
+yabai -m config top_padding 18
+yabai -m config bottom_padding 18
+yabai -m config left_padding 18
+yabai -m config right_padding 18
+yabai -m config window_gap 18
+
+# S P A C E S
+yabai -m config --space 2 layout stack
+
+# R U L E S
+# N O T E S
+yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" border=off manage=off
+# Bitwarden
+#yabai -m rule --add app="^Bitwarden$" manage=off
+#yabai -m rule --add app="^Bitwarden$" sticky=on
+# Authy
+#yabai -m rule --add app="^Authy.*" manage=off
+#yabai -m rule --add app="^Authy.*" sticky=on
+# System Preferences
+yabai -m rule --add app="^System Preferences$" manage=off
+# App Store
+yabai -m rule --add app="^App Store$" manage=off
+# Archive Utility
+yabai -m rule --add app="^Archive Utility$" manage=off
+# Firefox
+yabai -m rule --add app="^Firefox*" title="^Opening*" manage=off
+yabai -m rule --add app="^Firefox*" title="^Set Desktop Background$" manage=off
+yabai -m rule --add app="^Firefox*" title="- noVNC$" manage=off
+yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" opacity=1.0
+# Spark
+# yabai -m rule --add app="^Spark$" title="^New Message*" manage=off
+# yabai -m rule --add app="^Spark$" title="^New Message*" sticky=on
+# yabai -m rule --add app="^Spark$" title="^RE:*" manage=off
+# yabai -m rule --add app="^Spark$" title="^RE:*" sticky=on
+# yabai -m rule --add app="^Spark$" title="^FWD:*" manage=off
+# yabai -m rule --add app="^Spark$" title="^FWD:*" sticky=on
+# yabai -m rule --add app="^Spark$" space=2
+# Apple Mail
+# yabai -m rule --add app="^Mail$" title="^New Message*" manage=off
+# yabai -m rule --add app="^Mail$" title="^New Message*" sticky=on
+# yabai -m rule --add app="^Mail$" title="^Re:*" manage=off
+# yabai -m rule --add app="^Mail$" title="^Re:*" sticky=on
+# yabai -m rule --add app="^Mail$" title="^Fwd:*" manage=off
+# yabai -m rule --add app="^Mail$" title="^Fwd:*" sticky=on
+# yabai -m rule --add app="^Mail$" space=2
+# yabai -m rule --add app="^Mail$" title="^General$" manage=off
+# Messages
+yabai -m rule --add app="^Messages$" space=2
+# WeBull
+yabai -m rule --add app="^Webull Desktop$" space=4
+# Screen Sharing
+yabai -m rule --add app="^Screen Sharing$" title="^Screen Sharing$" manage=off
+yabai -m rule --add app="^Screens" title!="Screens Library" manage=off 
+# Music
+yabai -m rule --add app="^Music$" space=3
+yabai -m rule --add app="^Music$" title="MiniPlayer" manage=off
+# Microsoft Teams
+yabai -m rule --add app="^Microsoft Teams$" space=2
+# Finder
+yabai -m rule --add app="^Finder$" manage=off
+# FaceTime
+yabai -m rule --add app="^FaceTime$" title="Window" manage=off
+# Font Book
+yabai -m rule --add app="^Font Book$" manage=off
+# Etcher
+yabai -m rule --add app="^balenaEtcher.*" manage=off
+# Epson Scanner
+yabai -m rule --add app="^Epson.*" manage=off
+# iTerm2
+yabai -m rule --add app="^iTerm" title="^Quake" manage=off
+yabai -m rule --add app="^iTerm" title="^Float" manage=off grid=2:1:1000:1000:1:1 sticky=on
+# Kitty
+yabai -m rule --add app="^kitty" title="^Wallpaper" manage=off grid=2:1:1000:1000:1:1 sticky=on border=off
+# Alfred Preferences
+yabai -m rule --add app="^Alfred Preferences$" manage=off
+# Preview
+
+# S I G N A L S
+# Sketchybar
+yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
+
+# Teams
+yabai -m signal --add \
+      event=application_activated \
+      app="^Microsoft Teams$" \
+      action='${HOME}/.config/bin/yabai_teams_helper.sh'
+
+yabai -m signal --add \
+      event=window_focused \
+      app="^Microsoft Teams$" \
+      title="^Microsoft Teams Notification$" \
+      action='${HOME}/.config/bin/yabai_teams_helper.sh'
+
+# B O R D E R S
+yabai -m config window_border on
+yabai -m config window_border_width 2
+yabai -m config active_window_border_color 0XFF50fa7b
+yabai -m config normal_window_border_color 0xFF$color8
+yabai -m config insert_feedback_color 0XFF$color1
+yabai -m config window_border_blur off
+# yabai -m config window_opacity_duration 0.0
+
+echo "Yabai Loaded..."
+
+# NOTE: If not using Felix Fork disable autoraise

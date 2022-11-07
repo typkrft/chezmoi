@@ -1,0 +1,75 @@
+(defcfg
+  input (iokit-name "\"CTRL\"")
+  output (kext)
+  fallthrough true
+  allow-cmd true
+)
+
+(defsrc
+  esc       f1 f2 f3 f4      f5 f6 f7 f8     f9 f10 f11 f12    prnt slck pause
+  grv   1   2   3   4   5   6   7   8   9   0   -   =   bspc   ins  home pgup
+  tab    q   w   e   r   t   y   u   i   o   p  [   ]   \      del  end  pgdn
+  caps    a   s   d   f   g   h   j   k   l   ;   '    ret
+  lsft     z   x   c   v   b   n   m   ,   .   /     rsft            up
+  lctl lalt lmet            spc           rmet ralt rctl esc   left down right
+)
+
+
+(deflayer default
+  _         brdn brup mctl @cmdspc f5 @sleep prev pp next mute vold volu _ _ _
+  _     _   _   _   _   _   _   _   _   _   _   _   _   _      _    _    _
+  @ralt  _   _   _   _   _   _   _   _   _   _  @obra @cbra _  _    _    _
+  @rmeh   _   _   _   _   _   _   _   _   _   _   _    _
+  _        _   _   @copy @paste _ _ _  _   _   _     _               _
+  _    _    @cmdspc         _             _    _    _    _     _    _    _
+)
+
+(defalias
+    ralt (tap-hold 200 tab ralt)
+    rmeh (tap-hold 200 caps RA-RC-rsft)
+    obra (tap-hold 200 [ RA-[)
+    cbra (tap-hold 200 ] RA-])
+    cmdspc (tap-hold 150 M-spc lmet)
+    cding #((cmd-button "afplay /System/Library/Sounds/Funk.aiff") M-c)
+    vding #((cmd-button "afplay /System/Library/Sounds/Funk.aiff") M-v)
+    copy (tap-hold 300 c @cding)
+    paste (tap-hold 300 v @vding)
+    sleep (cmd-button "pmset sleepnow")
+)
+
+;; Autoshift is making everything slow
+;; (deflayer test
+;; _         _  _  _  _       _  _  _  _      _  _   _   _      _    _    _
+;; @grv  @1  @2  @3  @4  @5  @6  @7  @8  @9  @0  @min @equ _    _    _    _
+;; @tab   @q  @w @e @r   @t   @y   @u   @i   @o   @p   @lbrk   @rbrk  @fslsh      _    _    _
+;; _       @a   @s   @d   @f   @g   @h   @j   @k   @l   @scln   @squo    _
+;; _       @z   @x   @c   @v   @b   @n   @m   @cmma   @prd   @slsh     _               _
+;; _    _    _               _             _    _    _    _     _    _    _
+;; ) 
+
+;; AutoShift
+;; (defalias 
+;;   grv (tap-hold-next-release 2000 ` ~) 1 (tap-hold-next-release 2000 1 !) 2 (tap-hold-next-release 2000 2 @) 
+;;   3 (tap-hold-next-release 2000 3 #) 4 (tap-hold-next-release 2000 4 $) 5 (tap-hold-next-release 2000 5 %) 
+;;   6 (tap-hold-next-release 2000 6 ^) 7 (tap-hold-next-release 2000 7 &) 8 (tap-hold-next-release 2000 8 *) 
+;;   9 (tap-hold-next-release 2000 9 \() 0 (tap-hold-next-release 2000 0 \)) min (tap-hold-next-release 2000 - \_) 
+;;   equ (tap-hold-next-release 2000 = +)
+  
+;;   q (tap-hold-next-release 2000 q Q) w (tap-hold-next-release 2000 w W) e (tap-hold-next-release 2000 e !)
+;;   r (tap-hold-next-release 2000 r R) t (tap-hold-next-release 2000 t T) y (tap-hold-next-release 2000 y !)
+;;   u (tap-hold-next-release 2000 u U) i (tap-hold-next-release 2000 i I) o (tap-hold-next-release 2000 o !)
+;;   p (tap-hold-next-release 2000 p P) lbrk (tap-hold-next-release 2000 [ {) rbrk (tap-hold-next-release 2000 ] })
+;;   fslsh (tap-hold-next-release 2000 \\ |) 
+  
+;;   a (tap-hold-next-release 2000 a A) s (tap-hold-next-release 2000 s S) d (tap-hold-next-release 2000 d D) 
+;;   f (tap-hold-next-release 2000 f F) g (tap-hold-next-release 2000 g G) h (tap-hold-next-release 2000 h H) 
+;;   j (tap-hold-next-release 2000 j J) k (tap-hold-next-release 2000 k K) l (tap-hold-next-release 2000 l L) 
+;;   scln (tap-hold-next-release 2000 ; :) squo (tap-hold-next-release 2000 ' ") 
+  
+;;   z (tap-hold-next-release 2000 z Z) x (tap-hold-next-release 2000 x X) c (tap-hold-next-release 2000 c C) 
+;;   v (tap-hold-next-release 2000 v V) b (tap-hold-next-release 2000 b B) n (tap-hold-next-release 2000 n N) 
+;;   m (tap-hold-next-release 2000 m M) cmma (tap-hold-next-release 2000 , <) prd (tap-hold-next-release 2000 . >) 
+;;   slsh (tap-hold-next-release 2000 / ?)
+;; )
+
+;; (defalias tab (tap-hold-next-release 200 tab C-S))   ;; Tab as Tab/Ctrl-Shift

@@ -1,0 +1,142 @@
+# Modes
+:: default : echo default && sketchybar -m --set modal_indicator icon="N" icon.color="0xFFf6c177" --bar color="0xFF000000"
+:: window @ : echo window && sketchybar -m --set modal_indicator icon="W" icon.color="0xFFf8f8f2" --bar color="0xFFffb86c"
+:: scripts @ : echo scripts && sketchybar -m --set modal_indicator icon="S" icon.color="0xFFf8f8f2" --bar color="0xFF50fa7b"
+
+# Mode Shortcuts
+# NOTE: This will toggle through modes with meh - escape
+default, scripts < meh - escape ; window
+window, scripts < escape ; default
+default, window < meh - escape ; scripts
+
+# Navigate Windows
+default < meh - left : yabai -m window --focus prev || yabai -m window --focus first 
+default < meh - right : yabai -m window --focus next || yabai -m window --focus last
+default < meh - up : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+default < meh - down : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+
+# Resize Windows
+default < hyper - left :                                                           \
+    yabai -m window --resize left:-100:0 || yabai -m window --resize right:-100:0    \
+    || yabai -m window --resize left:100:0 || yabai -m window --resize right:100:0
+default < hyper - right :                                                          \
+    yabai -m window --resize left:100:0 || yabai -m window --resize right:100:0      \
+    || yabai -m window --resize left:-100:0 || yabai -m window --resize right:-100:0
+default < hyper - up :                                                             \
+    yabai -m window --resize top:0:-100 || yabai -m window --resize bottom:0:-100    \
+    || yabai -m window --resize top:0:100 || yabai -m window --resize bottom:0:100
+default < hyper - down :                                                           \
+    yabai -m window --resize top:0:100 || yabai -m window --resize bottom:0:100      \
+    || yabai -m window --resize top:0:-100 || yabai -m window --resize bottom:0:-100
+
+# Stack Window
+default < meh - return :                                           \
+    window_id=$(yabai -m query --windows --window | jq -re '.id'); \
+    sleep 2;                                                       \
+    yabai -m window mouse --stack $window_id
+
+# Unstack Window
+default < meh - backspace : yabai -m window --toggle float --toggle float;
+
+# Toggle Split
+default < meh - s : yabai -m window --toggle split
+
+# Rotate Space
+default < meh - r : yabai -m space --rotate 90;
+
+# Roatate Windows
+default < hyper - r : . $HOME/.config/bin/helper && cycle_windows;
+
+# Zoom Window
+default < meh - z : yabai -m window --toggle zoom-fullscreen
+
+# Toggle Layout
+default < meh - space : . $HOME/.config/bin/helper && toggle_layout
+
+# Balance Windows in Space
+default < meh - 0x18 : yabai -m space --balance
+
+# Toggle Gaps and Padding
+default < meh - g : yabai -m space --toggle padding --toggle gap
+
+# Decrease Gaps
+default < hyper - 0x1B : yabai -m space --padding rel:-6:-6:-6:-6 --gap rel:-6
+
+# Increase Gaps
+default < hyper - 0x18 : yabai -m space --padding rel:6:6:6:6 --gap rel:6
+
+# Change Wallpaper
+scripts < w : . $HOME/.config/bin/helper && set_wallpaper $HOME/.config/wallpapers/
+
+# Open New Window in Stack
+# NOTE: Change new Window Shortcuts in System Preferences > Keyboard > Shortcuts > App Shortcuts 
+# or you get an infinite loop.
+default < cmd - n [
+"firefox" : yabai -m window --insert stack; skhd -k "cmd + shift - n"
+"code" : yabai -m window --insert stack; skhd -k "cmd + shift - n"
+"iterm2" : . $HOME/.config/bin/helper && new_window "iTerm2" "stack"
+"kitty" : yabai -m window --insert stack; skhd -k "cmd + shift - n"
+]
+
+default < meh - x [
+# Merge and Clean up windows in Firefox
+"firefox" : skhd -k 'ctrl + shift - m'; skhd -k 'ctrl + shift - x'; skhd -k 'ctrl + shift - a'
+]
+
+# Cmd - q closes window instead of quits bitwarden
+default < cmd - q [
+"bitwarden" : skhd -k 'cmd - w'
+]
+
+# Float
+default < meh - f : yabai -m window --toggle float
+
+# Reset Topmost and Floats
+default < meh - t : . $HOME/.config/bin/helper && float_reset
+default < hyper - t : yabai -m window --toggle topmost
+
+# Toggle Sticky
+default < hyper - s : yabai -m window --toggle sticky
+
+# Move window through spaces 
+default < meh - 1 : yabai -m window --space 1
+default < meh - 2 : yabai -m window --space 2
+default < meh - 3 : yabai -m window --space 3
+default < meh - 4 : yabai -m window --space 4
+default < meh - 5 : yabai -m window --space 5
+
+# Move to Different Space
+default < hyper - 1 : yabai -m space --focus 1
+default < hyper - 2 : yabai -m space --focus 2
+default < hyper - 3 : yabai -m space --focus 3
+default < hyper - 4 : yabai -m space --focus 4
+default < hyper - 5 : yabai -m space --focus 5
+
+# Open Terminal
+default < cmd - return [
+    * : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ &> /dev/null
+    "mail" ~
+    "messages" ~
+    "microsoft teams" ~
+] 
+
+# Open Browser
+default < cmd + shift - return [
+    * : /Applications/Firefox.app/Contents/MacOS/firefox-bin --new-window &> /dev/null
+    "mail" ~
+    "messages" ~
+    "microsoft teams" ~
+] 
+
+default < meh -  0x2C [
+    "firefox": skhd -k "cmd - l";  skhd -k "shift - 5";  skhd -k "space"
+]
+
+# Restart yabai
+scripts < y : brew services restart yabai; skhd -k 'escape'
+# Restart skhd
+scripts < s  : brew services restart skhd
+# Restart Authy
+scripts < a  : open -a Authy\ Desktop; skhd -k 'escape'
+# Restart Bitwarden
+scripts < b  : open -a Bitwarden; skhd -k 'escape'

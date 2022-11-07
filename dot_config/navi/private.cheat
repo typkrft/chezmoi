@@ -1,0 +1,7 @@
+% work 
+
+# Upload Ascend Data
+rsync --progress -ave ssh <csv> netrunner:/volume1/Files/Work/Metabase\\\ Data/<scac>.csv && /usr/bin/ssh -t netrunner python3 /volume1/Files/Personal/Brandon/Code/Python/import_database.py && rm <csv>
+
+$ csv: /bin/ls ~/Downloads/ascend_*.csv
+$ scac: echo -e "srxb\neztq\nsrrv"

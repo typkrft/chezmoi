@@ -1,0 +1,38 @@
+(defcfg
+  input (iokit-name "Apple Internal Keyboard / Trackpad")
+  output (kext)
+  fallthrough true
+  allow-cmd true
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+  fn   lctl lalt lmet           spc            rmet ralt left down rght
+)
+
+(deflayer default
+    _    brdn brup mctl @cmdspc f5 @sleep prev pp next mute vold volu
+    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    @meh _    _    _    _    _    _    _    _    _    _    _    _
+    _    _    _    _    _    _    _    _    _    _    _    _    _
+    @hypr _   _    _              _              _    _    _    _    _     
+)
+
+(defalias
+    ralt (tap-hold 200 tab ralt)
+    meh (tap-hold 200 caps C-A-lsft)
+    hypr (tap-hold 200 fn C-A-M-lsft)
+    obra (tap-hold 350 [ RA-[)
+    cbra (tap-hold 350 ] RA-])
+    cmdspc (tap-hold 150 M-spc lmet)
+    cding #((cmd-button "afplay /System/Library/Sounds/Funk.aiff") M-c)
+    vding #((cmd-button "afplay /System/Library/Sounds/Funk.aiff") M-v)
+    copy (tap-hold 350 c @cding)
+    paste (tap-hold 350 v @vding)
+    sleep (cmd-button "pmset sleepnow")
+)

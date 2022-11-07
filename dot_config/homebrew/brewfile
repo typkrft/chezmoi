@@ -1,0 +1,48 @@
+# Taps
+tap "eth-p/software"
+tap "felixkratz/formulae"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "koekeishiya/formulae"
+tap "mas-cli/tap"
+
+# Casks
+cask "alfred"
+cask "font-iosevka-nerd-font"
+cask "kitty" 
+cask "authy"                            
+cask "font-victor-mono-nerd-font"
+cask "visual-studio-code"
+cask "firefox"                
+cask "hammerspoon"
+
+# Brew
+brew "exa", args:  ["--head"]
+brew "iperf"
+brew "bitwarden-cli"
+brew "bpytop"
+brew "fd"
+brew "bat"
+brew "bat-extras"
+brew "macos-trash"
+brew "timg"
+brew "wallpaper"
+brew "watchman"
+brew "mas"
+brew "neovim" 
+brew "pandoc" 
+brew "jq" 
+brew "simnalamburt/x/totp"
+brew "rsync"
+brew "ripgrep"
+brew "skhd", args: ["--head"], restart_service: :changed
+brew "yabai", args: ["--head"], restart_service: :changed
+brew "sketchybar", args: ["--head"], restart_service: :changed
+# brew "luarocks"
+
+# MAS Apps
+mas "Things 3", id: 904280696
+mas "LanScan", id: 472226235

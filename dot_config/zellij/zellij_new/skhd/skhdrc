@@ -1,0 +1,181 @@
+# S K H D
+
+# Blacklist
+# .blacklist [
+  # "screen sharing"
+# ] 
+
+# M O D E S
+  :: default : echo default && sketchybar -m --set modal_indicator icon="N" icon.color="0xFFf6c177" --bar color="0xFF000000"
+  :: window @ : echo window && sketchybar -m --set modal_indicator icon="W" icon.color="0xFFf8f8f2" --bar color="0xFFffb86c"
+  :: scripts @ : echo scripts && sketchybar -m --set modal_indicator icon="S" icon.color="0xFFf8f8f2" --bar color="0xFF50fa7b"
+
+# Mode Shortcuts
+  default, scripts < fn - escape ; window
+  window, scripts < escape ; default
+  default, window < fn + lctrl - escape ; scripts
+
+# D E F A U L T  M O D E
+  # Cycle Tabs -> 0x1E = ]
+    default < cmd - tab [
+      "firefox" : skhd -k "ctrl - tab"
+      "iterm2" : skhd -k "shift + cmd - 0x1E"
+      "kitty" : skhd -k "ctrl - tab"
+    ]
+
+  # Cycle Tabs <- 0x21 = [
+    default < cmd + shift - tab [
+      "firefox" : skhd -k "shift + ctrl - tab"
+      "iterm2" : skhd -k "shift + cmd - 0x21"
+      "kitty" : skhd -k "shift + ctrl - tab"
+    ]
+
+  # Open New Window in Stack
+    default < cmd - n [
+      "firefox" : . $HOME/.config/bin/helper && new_window "Firefox" "stack"
+      "code" : . $HOME/.config/bin/helper && new_window "Code" "stack"
+      "iterm2" : . $HOME/.config/bin/helper && new_window "iTerm2" "stack"
+      "kitty" : . $HOME/.config/bin/helper && new_window "kitty" "stack"
+    ]
+
+  # HACK: Toggle Topmost 
+  default < fn - t : yabai -m window --toggle topmost; yabai -m window --toggle topmost
+
+  # Move Down in Stack
+  default < cmd - 0x21 : yabai -m window --focus stack.prev 
+  
+  # Move up in Stack
+  default < cmd - 0x1E : yabai -m window --focus stack.next
+
+  # Restart yabai
+  default < cmd + alt - backspace : brew services restart yabai
+
+  # Restart skhd
+  default < cmd + alt + shift - backspace : brew services restart skhd
+
+  # Open Private Window Firefox
+  # HACK: See Helper Firefox New Window Issue
+    default < cmd + shift - p [
+      "firefox" : /Applications/Firefox.app/Contents/MacOS/firefox-bin --private-window
+    ]
+
+  # Window Focus
+    default < ctrl + alt - right : yabai -m window --focus next || yabai -m window --focus first
+    default < ctrl + alt - left : yabai -m window --focus prev || yabai -m window --focus last
+
+  # Move Windows
+    default < meh - left : yabai -m window --swap prev || yabai -m window --swap last
+    default < meh - right : yabai -m window --swap next || yabai -m window --swap first
+
+  # Toggle Layout
+    default < ctrl + alt - space : . $HOME/.config/bin/helper && toggle_layout
+  
+  # Insert into stack
+    default < ctrl + alt - return : yabai -m window --insert stack; skhd -k "escape"
+
+  # Rotate
+    default < ctrl + alt - r : yabai -m space --rotate 90
+  
+  # Toggle Split
+    default < ctrl + alt - s : yabai -m window --toggle split
+
+  # Resize
+    default < ctrl + alt - up : yabai -m window --resize right:50:50 || yabai -m window --resize left:-50:-50 
+    default < ctrl + alt - down : yabai -m window --resize right:-50:-50 || yabai -m window --resize left:50:50 
+    default < meh - down : yabai -m window --resize top:50:50 || yabai -m window --resize bottom:-50:-50
+    default < meh - up : yabai -m window --resize top:-50:-50 || yabai -m window --resize bottom:50:50
+
+  # Reload SKHD 
+  default < meh - s : brew services restart skhd
+
+  # Cmd - q closes window instead of quits bitwarden
+  default < cmd - q [
+    "bitwarden" : skhd -k 'cmd - w'
+  ]
+
+  # CMD + Enter is New Terminal when not in Mail
+    default < cmd - return [
+      "mail" ~
+      "screen sharing" ~
+      * : . $HOME/.config/bin/helper && new_window "kitty" 
+      # * : . $HOME/.config/bin/helper&&  new_iterm 
+    ]
+
+  # Open New Firefox
+    default < cmd + shift - return [
+      "screen sharing" ~
+      * : /Applications/Firefox.app/Contents/MacOS/firefox-bin --new-window
+    ]
+
+  # Open Bitwarden
+    default < ctrl + alt - b : open -a Bitwarden.app
+  # Open Authy
+    default < ctrl + alt - a : open -a Authy\ Desktop.app
+
+# W I N D O W  M O D E
+  # Balance 0x18 -> =
+    window < 0x18 : yabai -m space --balance; skhd -k "escape"
+  # Rotate
+    window < r : yabai -m space --rotate 90
+  # Change Split
+    window < s : yabai -m window --toggle split
+  # Move Window Left
+    window < shift - left : yabai -m window --swap prev || yabai -m window --swap last
+  # Move Window Right
+    window < shift - right : yabai -m window --swap next || yabai -m window --swap first
+  # Toggle Layouts 
+    window < space : . $HOME/.config/bin/helper && toggle_layout
+  # Focus Window Next 
+    window < right : yabai -m window --focus next || yabai -m window --focus first
+  #Focus Window Prev
+    window < left : yabai -m window --focus prev || yabai -m window --focus last
+  # Cycle Stack Next
+    window < down : yabai -m window --focus stack.next || yabai -m window --focus stack.prev
+  # Cycle Stack Prev
+    window < up : yabai -m window --focus stack.prev || yabai -m window --focus stack.next
+  # Insert into Stack
+    window < return : yabai -m window --insert stack; skhd -k "escape"
+  # Increase Opacity
+    window < shift - up : . $HOME/.config/bin/helper && opacity_up
+  # Decrease Opacity
+    window < shift - down : . $HOME/.config/bin/helper && opacity_down
+  # Close Window
+    window < backspace : . $HOME/.config/bin/helper && close_window
+  # Toggle Float
+    window < f : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2; skhd -k "escape";
+  # Toggle Borders
+    window < b : . $HOME/.config/bin/helper && toggle_border
+  # Decrease Gaps
+    window < g : . $HOME/.config/bin/helper && decrease_gaps
+  # Increase Gaps
+    window < shift - g : . $HOME/.config/bin/helper && increase_gaps
+  # Increase Padding
+    # left
+      window < lalt - left : . $HOME/.config/bin/helper && increase_padding_left
+    # right
+      window < lalt - right : . $HOME/.config/bin/helper && increase_padding_right
+    # top
+      window < lalt - up : . $HOME/.config/bin/helper && increase_padding_top
+    # bottom
+      window < lalt - down : . $HOME/.config/bin/helper && increase_padding_bottom
+    # all
+      window < shift - p : . $HOME/.config/bin/helper && increase_padding_all
+  # Decrease Padding
+    # left
+      window < lalt + shift - left : . $HOME/.config/bin/helper && decrease_padding_left
+    # right
+      window < lalt + shift - right : . $HOME/.config/bin/helper && decrease_padding_right
+    # top
+      window < lalt + shift - up : . $HOME/.config/bin/helper && decrease_padding_top
+    # bottom
+      window < lalt + shift - down : . $HOME/.config/bin/helper && decrease_padding_bottom
+    # all
+      window < p : . $HOME/.config/bin/helper && decrease_padding_all
+
+# S C R I P T S  M O D E
+  # Create Todo
+    scripts < t : skhd -k "escape"; hs -A -c "create_todo()"
+  # Wallpaper
+    scripts < w : . $HOME/.config/bin/helper && set_wallpaper $HOME/.config/wallpapers/
+  # Get Pixel Color
+    scripts < c : . $HOME/.config/bin/helper && get_pixel_color

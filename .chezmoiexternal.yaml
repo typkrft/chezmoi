@@ -1,0 +1,108 @@
+.config/zsh/plugins/zfm:
+  type: "archive"
+  url: "https://github.com/typkrft/zfm/archive/master.tar.gz"
+  exact: true
+  stripComponents: 1
+  refreshPeriod: "168h"
+
+.config/zsh/plugins/fzf-tab:
+  type: "archive"
+  url: "https://github.com/Aloxaf/fzf-tab/archive/master.tar.gz"
+  exact: true
+  stripComponents: 1
+  refreshPeriod: "168h"
+  
+.config/zsh/plugins/auto-pair:
+  type: "archive"
+  url: "https://github.com/hlissner/zsh-autopair/archive/master.tar.gz"
+  exact: true
+  stripComponents: 1
+  refreshPeriod: "168h"
+
+.config/zsh/plugins/auto-suggestions:
+  type: "archive"
+  url: "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
+  exact: true
+  stripComponents: 1
+  refreshPeriod: "168h"
+
+.config/zsh/plugins/fast-syntax-highlighting:
+  type: "archive"
+  url: "https://github.com/zdharma-continuum/fast-syntax-highlighting/archive/master.tar.gz"
+  exact: true
+  stripComponents: 1
+  refreshPeriod: "168h"
+
+.config/zsh/plugins/fzf/key-bindings.zsh:
+  type: "file"
+  url: https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh
+  refreshPeriod: "168h"
+
+.config/zsh/plugins/fzf/completions.zsh:
+  type: "file"
+  url: https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh
+  refreshPeriod: "168h"
+
+.config/zsh/plugins/history/history.zsh:
+  type: "file"
+  url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib/history.zsh
+  refreshPeriod: "168h"
+
+.config/zsh/plugins/sudo/sudo.zsh:
+  type: "file"
+  url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
+  refreshPeriod: "168h"
+
+.config/zsh/completions/zsh-completions:
+  type: "archive"
+  url: "https://github.com/zsh-users/zsh-completions/archive/master.tar.gz"
+  exact: true
+  stripComponents: 1
+  refreshPeriod: "168h"
+
+.config/zsh/completions/chezmoi/_chezmoi:
+  type: "file"
+  url: "https://raw.githubusercontent.com/twpayne/chezmoi/master/completions/chezmoi.zsh"
+  refreshPeriod: "168h"
+
+.config/zsh/plugins/ssh/zsh-ssh.zsh:
+  type: "file"
+  url: "https://raw.githubusercontent.com/sunlei/zsh-ssh/master/zsh-ssh.zsh"
+  refreshPeriod: "168h"
+
+# NOTE: Currently Unable to use this a git repo because I can't add the custom folder 
+# .config/nvim:
+#   type: "git-repo"
+#   url: "https://github.com/NvChad/NvChad"
+#   clone.args: ["--depth=1"]
+#   refreshPeriod: "168h"
+
+{{ if .gui }}
+# TODO: Install Fonts https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
+{{ if eq .chezmoi.os "darwin" }}
+Library/Fonts/nerdfontsymbols:
+  type: "archive"
+  url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.1/NerdFontsSymbolsOnly.zip"
+  exact: false
+  stripComponents: 0
+  refreshPeriod: "168h"
+  include: ["*.ttf"]
+Library/Fonts/victormono:
+  type: "archive"
+  url: "https://rubjo.github.io/victor-mono/VictorMonoAll.zip"
+  exact: false
+  stripComponents: 1
+  refreshPeriod: "168h"
+  include: ["*TTF/*.ttf"]
+Library/Fonts/iosevka:
+  type: "archive"
+  url: "https://github.com/be5invis/Iosevka/releases/download/v16.1.0/ttf-iosevka-16.1.0.zip"
+  exact: false
+  stripComponents: 0
+  refreshPeriod: "168h"
+  include: ["*.ttf"]
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+# Install 
+{{ end }}
+{{ end }}

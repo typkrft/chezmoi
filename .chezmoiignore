@@ -1,0 +1,27 @@
+{{ if ne .chezmoi.os "darwin" }}
+.config/yabai
+.config/sketchybar
+.config/skhd
+.config/macos
+.config/homebrew
+{{ else if eq .chezmoi.os "darwin" }}
+.config/dnf
+{{ end }}
+
+{{ if eq .chezmoi.os "linux" }}
+{{ if ne .chezmoi.osRelease.id "fedora" }}
+.config/dnf
+{{ end }}
+{{ end }}
+
+{{ if eq .gui "false" }}
+.config/wallpapers
+.config/wezterm
+.config/kitty
+.config/wal
+.config/firefox
+{{ end }}
+
+# Ignore on All Systems
+# Check: Fix zfm That gets overwritten 
+# Use Code to set variables in chezmoi data look at template here https://github.com/felipecrs/dotfiles/commit/749a9e3d72c6aedd3740b389f8c8e95e9e918235#diff-0f79af90a63180dbf048d02ea75bd46c2cab7d53783b5bdd79580ec4706b1c2eR30
