@@ -14,6 +14,13 @@
 {{ end }}
 {{ end }}
 
+{{ if eq .gui "false" }}
+.config/wallpapers
+.config/wezterm
+.config/kitty
+.config/wal
+.config/firefox
+{{ end }}
 
 # Ignore on All Systems
 # Check: Fix zfm That gets overwritten 

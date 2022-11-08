@@ -11,7 +11,7 @@
   exact: true
   stripComponents: 1
   refreshPeriod: "168h"
-
+  
 .config/zsh/plugins/auto-pair:
   type: "archive"
   url: "https://github.com/hlissner/zsh-autopair/archive/master.tar.gz"
@@ -69,10 +69,40 @@
   type: "file"
   url: "https://raw.githubusercontent.com/sunlei/zsh-ssh/master/zsh-ssh.zsh"
   refreshPeriod: "168h"
-# NOTE: Currently Unable to use this a git repo because I can't add the custom folder
+
+# NOTE: Currently Unable to use this a git repo because I can't add the custom folder 
 # .config/nvim:
 #   type: "git-repo"
 #   url: "https://github.com/NvChad/NvChad"
 #   clone.args: ["--depth=1"]
 #   refreshPeriod: "168h"
 
+{{ if .gui }}
+# TODO: Install Fonts https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
+{{ if eq .chezmoi.os "darwin" }}
+Library/Fonts/nerdfontsymbols:
+  type: "archive"
+  url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.1/NerdFontsSymbolsOnly.zip"
+  exact: false
+  stripComponents: 0
+  refreshPeriod: "168h"
+  include: ["*.ttf"]
+Library/Fonts/victormono:
+  type: "archive"
+  url: "https://rubjo.github.io/victor-mono/VictorMonoAll.zip"
+  exact: false
+  stripComponents: 1
+  refreshPeriod: "168h"
+  include: ["*TTF/*.ttf"]
+Library/Fonts/iosevka:
+  type: "archive"
+  url: "https://github.com/be5invis/Iosevka/releases/download/v16.1.0/ttf-iosevka-16.1.0.zip"
+  exact: false
+  stripComponents: 0
+  refreshPeriod: "168h"
+  include: ["*.ttf"]
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+# Install 
+{{ end }}
+{{ end }}

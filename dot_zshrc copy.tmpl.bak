@@ -98,6 +98,13 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 ### switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
+{{ if eq .gui "true" }}
+# T E R M  P R O G R A M
+if [[ -z "$TERM_PROGRAM" ]]; then
+    [[ ! -z "$KITTY_PID" ]] && export TERM_PROGRAM='kitty'
+fi
+{{ end }}
+
 # A L I A S E S 
 {{ if eq .chezmoi.os "linux" }}
 {{ if eq .chezmoi.osRelease.id "fedora" }}
@@ -285,3 +292,7 @@ if [ -d $HOME/.config/zsh ]; then
         source "$file"
     done
 fi
+
+{{ if eq .packer "true" }}
+export PACKER="true"
+{{ end }}

@@ -1,11 +1,6 @@
-[data]
-  os = {{ .chezmoi.os }}
-  vm = {{ empty (expandenv "$VM") | ternary "false" (expandenv "$VM") }}
-{{ if eq .chezmoi.os "linux" }}
-  distro = {{ .chezmoi.osRelease.id }}
-{{ else if eq .chezmoi.os "darwin" }}
-  distro = ""
-{{ end }}
-  gui = {{ empty (expandenv "$GUI") | ternary "false" (expandenv "$GUI") }}
-  ip = {{ expandenv "$IP" }}
-  hostname = {{ .chezmoi.hostname }}
+[facts]
+gui = ""
+ip = ""
+os = "{{ .chezmoi.os }}"
+hostname = "{{ .chezmoi.hostname }}"
+packer = "{{ empty (expandenv "$PACKER") | ternary "false" (expandenv "$PACKER") }}"
