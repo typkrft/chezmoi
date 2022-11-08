@@ -285,3 +285,7 @@ if [ -d $HOME/.config/zsh ]; then
         source "$file"
     done
 fi
+
+{{ if eq .packer "true" }}
+export PACKER="true"
+{{ end }}
