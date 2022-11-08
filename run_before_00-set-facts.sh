@@ -5,6 +5,7 @@ ex +g/^ip/d -cwq ~/.config/chezmoi/chezmoi.toml
 ex +g/^gui/d -cwq ~/.config/chezmoi/chezmoi.toml
 
 # Set IP
+if [[ $ ]]
 ip_addr=$(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' | tail -n1)
 sed -i.chez_bak "2i\\
 ip = \"$ip_addr\"
