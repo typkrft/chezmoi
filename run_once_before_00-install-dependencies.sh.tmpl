@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 
 # Platform Agnostic 
-# C H E Z M O I
-if ! command -v chezmoi &>/dev/null; then
-    echo Installing chezmoi...
-    sh -c "$(curl -fsLS https://chezmoi.io/get)" -- -b $HOME/.config/bin
-fi
-
 ## Install FZF if not
 if ! command -v fzf &>/dev/null; then
     echo Installing fzf...
@@ -22,31 +16,18 @@ if ! command -v starship &>/dev/null; then
     curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir=$HOME/.config/bin &>/dev/null
 fi 
 
+# Install Navi
 if ! command -v navi &>/dev/null; then
     echo Installing Navi...
     PATH="/usr/bin:/bin" BIN_DIR="$HOME"/.config/bin /bin/bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install) &>/dev/null
 fi
 
+# Install NVChad
 if [[ ! -d "$HOME/.config/nvim" ]]; then 
     git clone https://github.com/NvChad/NvChad $HOME/.config/nvim --depth 1
 fi
 
 {{ if eq .chezmoi.os "darwin" }}
-# Sign in to the App Store if Needed
-read -p "Are you signed into to the Mac App Store? [y/N]: " yn
-case ${yn:-n} in 
-    [Yy]*) ;;
-    [Nn]*) 
-        echo 'Please Sign into the App Store First, then press any key to continue.'
-        /usr/bin/open -a 'App Store.app' 
-        while true; do 
-            read -t 3 -n 1
-            if [ $? = 0 ]; then 
-                break
-            fi
-        done
-esac
-
 # Create Sudoedit
 ln -s $(which sudo) ~/.config/bin/sudoedit
 
@@ -54,19 +35,12 @@ ln -s $(which sudo) ~/.config/bin/sudoedit
 if ! command -v brew; then
     CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
-
-# Install brew taps, casks, pkgs, and mas apps (Set to always succeed)
-# brew bundle --file $HOME/.config/homebrew/brewfile || true
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
 {{ if eq .chezmoi.osRelease.id "fedora" }}
 sudo dnf install -y $(cat $HOME/.config/dnf/base_pkgs)
-
 {{ end }}
-
 {{ if eq .chezmoi.osRelease.id "ubuntu" }}
-# Setup Nala 
-
 {{ end }}
 {{ end }}
