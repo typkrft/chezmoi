@@ -22,6 +22,7 @@
 {{ end }}
 
 LICENSE
+private
 
 # Ignore on All Systems
 # Check: Fix zfm That gets overwritten 
