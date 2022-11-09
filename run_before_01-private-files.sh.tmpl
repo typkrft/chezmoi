@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
-# Navi
-ln -s $HOME/.local/share/chezmoi/private/navi/private.cheat $HOME/.config/navi/private.cheat
+if [[ -d $HOME/.local/share/chezmoi/private ]]; then
+    # Navi
+    ln -s $HOME/.local/share/chezmoi/private/navi/private.cheat $HOME/.config/navi/private.cheat
+fi
