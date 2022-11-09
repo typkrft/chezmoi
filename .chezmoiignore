@@ -23,6 +23,10 @@
 
 LICENSE
 private
+.config/bin
+!.config/bin/helper
+!.config/bin/yabai_teams_helper.sh
+
 
 # Ignore on All Systems
 # Check: Fix zfm That gets overwritten 
