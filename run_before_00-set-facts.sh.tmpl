@@ -5,20 +5,27 @@ ex +g/^ip/d -cwq ~/.config/chezmoi/chezmoi.toml
 ex +g/^gui/d -cwq ~/.config/chezmoi/chezmoi.toml
 
 # Set IP
-ip_addr = ""
+ip_addr=""
+{{ if eq .chezmoi.os "darwin" }}
 if type ifconfig  &>/dev/null; then 
     ip_addr=$(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' | tail -n1)
 fi
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
 if type hostname &>/dev/null; then 
     ip_addr=$(hostname -I | awk '{print $1}')
 fi
+{{ end }}
 sed -i.chez_bak "2i\\
 ip = \"$ip_addr\"
 " ~/.config/chezmoi/chezmoi.toml
 
 # Set GUI
+{{ if eq .chezmoi.os "linux" }}
 wayland=$(ls /usr/share/wayland-sessions)
 xorg=$(ls /usr/share/xsessions)
+{{ end }}
+
 if [[ ( $wayland != "" )  || ( $xorg != "" ) || ( $(uname -s) = "Darwin" ) ]]; then
     sed -i.chez_bak "2i\\
 gui = \"true\"

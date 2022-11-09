@@ -21,7 +21,7 @@ setopt HIST_REDUCE_BLANKS
 bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
 
 {{ if eq .chezmoi.os "darwin" }}
 # I N S T A L L 
@@ -72,16 +72,16 @@ compinit
 # P L U G I N S
 # TODO: Look in to configurations especially autosuggestions
 ZSH_PLUGINS_DIR="$HOME/.config/zsh/plugins"
-source "$ZSH_PLUGINS_DIR/fzf-tab/fzf-tab.plugin.zsh" # First
-source "$ZSH_PLUGINS_DIR/history/history.zsh"
-source "$ZSH_PLUGINS_DIR/auto-suggestions/zsh-autosuggestions.plugin.zsh"
-source "$ZSH_PLUGINS_DIR/zfm/zfm.plugin.zsh"
-source "$ZSH_PLUGINS_DIR/fzf/completions.zsh"
-source "$ZSH_PLUGINS_DIR/fzf/key-bindings.zsh"
-source "$ZSH_PLUGINS_DIR/sudo/sudo.zsh"
-source "$ZSH_PLUGINS_DIR/auto-pair/zsh-autopair.plugin.zsh"
-source "$ZSH_PLUGINS_DIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
-[[ -f "$HOME/.ssh/config" ]] && source "$ZSH_PLUGINS_DIR/ssh/zsh-ssh.zsh"
+. "$ZSH_PLUGINS_DIR/fzf-tab/fzf-tab.plugin.zsh" # First
+. "$ZSH_PLUGINS_DIR/history/history.zsh"
+. "$ZSH_PLUGINS_DIR/auto-suggestions/zsh-autosuggestions.plugin.zsh"
+. "$ZSH_PLUGINS_DIR/zfm/zfm.plugin.zsh"
+. "$ZSH_PLUGINS_DIR/fzf/completions.zsh"
+. "$ZSH_PLUGINS_DIR/fzf/key-bindings.zsh"
+. "$ZSH_PLUGINS_DIR/sudo/sudo.zsh"
+. "$ZSH_PLUGINS_DIR/auto-pair/zsh-autopair.plugin.zsh"
+. "$ZSH_PLUGINS_DIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+[[ -f "$HOME/.ssh/config" ]] && . "$ZSH_PLUGINS_DIR/ssh/zsh-ssh.zsh"
 
 ## Change/Turn of Paste Highlighting
 # zle_highlight=('paste:fg=black,bg=blue,underline')
@@ -97,6 +97,13 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 ### switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+
+{{ if eq .gui "true" }}
+# T E R M  P R O G R A M
+if [[ -z "$TERM_PROGRAM" ]]; then
+    [[ ! -z "$KITTY_PID" ]] && export TERM_PROGRAM='kitty'
+fi
+{{ end }}
 
 # A L I A S E S 
 {{ if eq .chezmoi.os "linux" }}

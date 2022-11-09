@@ -1,11 +1,10 @@
-{{ if ne .chezmoi.os "darwin" }}
+{{ if ne .os "darwin" }}
 .config/yabai
 .config/sketchybar
 .config/skhd
 .config/macos
 .config/homebrew
-{{ else if eq .chezmoi.os "darwin" }}
-.config/dnf
+.config/kmonad
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
@@ -14,8 +13,15 @@
 {{ end }}
 {{ end }}
 
+{{ if eq .gui "false" }}
+.config/wallpapers
+.config/wezterm
+.config/kitty
+.config/wal
+.config/firefox
+{{ end }}
 
-
+LICENSE
 
 # Ignore on All Systems
 # Check: Fix zfm That gets overwritten 
