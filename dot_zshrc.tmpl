@@ -42,7 +42,7 @@ if [[ -d "$HOME/.config/bin" ]]; then
     path=("$HOME/.config/bin" $path)
 fi 
 if [[ -d "$HOME/.local/bin" ]]; then 
-    path=("$HOME/.config/bin")
+    path=("$HOME/.config/bin" $path)
 fi 
 export path
 
@@ -52,7 +52,7 @@ if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
 fi 
 
 # C O M P L E T I O N S
-if [[ type brew &>/dev/null ]]; then 
+if command -v brew &>/dev/null; then
     fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 fi
 
@@ -110,7 +110,7 @@ fi
 alias dnf="sudo dnf --config $HOME/.config/dnf/dnf.conf"
 {{ end }}
 {{ end }}
-if [[ command -v docker &>/dev/null ]]; then 
+if command -v docker &>/dev/null; then 
     alias docker="sudo docker"
     alias docker-compose="sudo docker-compose"
 fi
@@ -123,14 +123,14 @@ alias rsync="rsync -avPz --human-readable --info=name0 -e 'ssh -To RemoteCommand
 
 ## Timg
 # TODO: Should be a case statement with wezterm and iterm 
-if [[ command -v timg &>/dev/null ]]; then
+if command -v timg &>/dev/null; then
     if [[ $TERM_PROGRAM == "kitty" ]]; then 
         alias timg="timg -p kitty"
     fi 
 fi
 
 ## Editor 
-if [[ command -v lvim ]]; then
+if command -v lvim; then
     export EDITOR=$(which lvim)
 else 
     export EDITOR=$(which nvim)
@@ -142,7 +142,7 @@ if ! command -v sudoedit &>/dev/null; then
 fi
 {{ end }}
 
-sudo_lvim() {
+sudo_editor() {
     if [[ -n "${@}" ]]; then
         for ARG in "${@}"; do 
             if [[ -f $ARG && ! -O "$ARG" ]]; then 
@@ -152,9 +152,9 @@ sudo_lvim() {
             fi 
         done 
     fi
-      lvim "${@}"
+      $EDITOR "${@}"
 }
-alias nvim=sudo_lvim
+alias nvim=sudo_editor
 
 
 ## Check if Trash Exists
@@ -171,7 +171,7 @@ else
 fi 
 
 ## EXA
-if [[ command -v exa &>/dev/null ]]; then 
+if command -v exa &>/dev/null; then 
     ## preview directory's content with exa when completing cd
     zstyle ':fzf-tab:complete:cd:*' fzf-preview 'EXA_ICON_SPACING=2 exa -1 --color=always --group-directories-first --icons $realpath'
     alias ls="EXA_ICON_SPACING=2 exa -1 --color=always --icons -a -G --group-directories-first"
@@ -204,7 +204,7 @@ if [[ -f "$HOME/.config/starship/starship.toml" ]]; then
 fi 
 
 # N A V I
-if [[ command -v navi &>/dev/null ]]; then 
+if command -v navi &>/dev/null; then 
     eval "$(navi widget zsh)"
     if [[ -f $HOME/.config/navi/config.yaml ]]; then 
         export NAVI_CONFIG="$HOME/.config/navi/config.yaml"

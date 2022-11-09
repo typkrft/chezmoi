@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Clear old Values
-ex +g/^ip/d -cwq ~/.config/chezmoi/chezmoi.toml
-ex +g/^gui/d -cwq ~/.config/chezmoi/chezmoi.toml
+/usr/bin/ex +g/^ip/d -cwq ~/.config/chezmoi/chezmoi.toml
+/usr/bin/ex +g/^gui/d -cwq ~/.config/chezmoi/chezmoi.toml
 
 # Set IP
 ip_addr=""
@@ -16,7 +16,7 @@ if type hostname &>/dev/null; then
     ip_addr=$(hostname -I | awk '{print $1}')
 fi
 {{ end }}
-sed -i.chez_bak "2i\\
+/usr/bin/sed -i.chez_bak "2i\\
 ip = \"$ip_addr\"
 " ~/.config/chezmoi/chezmoi.toml
 
@@ -27,14 +27,14 @@ xorg=$(ls /usr/share/xsessions)
 {{ end }}
 
 if [[ ( $wayland != "" )  || ( $xorg != "" ) || ( $(uname -s) = "Darwin" ) ]]; then
-    sed -i.chez_bak "2i\\
+    /usr/bin/sed -i.chez_bak "2i\\
 gui = \"true\"
     " ~/.config/chezmoi/chezmoi.toml
 else
-    sed -i.chez_bak "2i\\
+    /usr/bin/sed -i.chez_bak "2i\\
 gui = \"false\"
     " ~/.config/chezmoi/chezmoi.toml
 fi
 
 # Remove Backup Files
-find ~/.config/chezmoi -maxdepth 1 -name '*.chez_bak' -delete
+/usr/bin/find ~/.config/chezmoi -maxdepth 1 -name '*.chez_bak' -delete

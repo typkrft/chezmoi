@@ -2,5 +2,7 @@
 
 if [[ -d $HOME/.local/share/chezmoi/private ]]; then
     # Navi
-    ln -s $HOME/.local/share/chezmoi/private/navi/private.cheat $HOME/.config/navi/private.cheat
+    if [[ ! -f $HOME/.config/navi/private.cheat ]]; then
+        ln -s $HOME/.local/share/chezmoi/private/navi/private.cheat $HOME/.config/navi/private.cheat
+    fi
 fi

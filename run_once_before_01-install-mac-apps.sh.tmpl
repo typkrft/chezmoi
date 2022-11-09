@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 {{ if eq .chezmoi.os "darwin" }}
 # Sign in to the App Store if Needed
 read -p "Are you signed into to the Mac App Store? [y/N]: " yn
@@ -15,5 +16,5 @@ case ${yn:-n} in
 esac
 
 # Install brew taps, casks, pkgs, and mas apps (Set to always succeed)
-# brew bundle --file $HOME/.config/homebrew/brewfile || true
+brew bundle --file $HOME/.config/homebrew/brewfile || true
 {{ end }}
