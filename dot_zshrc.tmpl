@@ -167,8 +167,6 @@ if command -v trash &>/dev/null; then
     {{ if eq .chezmoi.os "linux" }}
     [[ $(uname -s) = "Linux" ]] && alias rm="$(which trash) --trash-dir=$HOME/.Trash" 
     {{ end }}
-else
-  echo Install Trash
 fi 
 
 # EXA
@@ -182,8 +180,6 @@ if command -v exa &>/dev/null; then
       EXA_ICON_SPACING=2 exa -1 --color=always --icons -a -G --group-directories-first --git
     }
     chpwd_functions=(auto-ls $chpwd_functions)
-else
-    echo Install Exa 
 fi
 
 # Z F M
@@ -211,8 +207,6 @@ if command -v navi &>/dev/null; then
     if [[ -f $HOME/.config/navi/config.yaml ]]; then 
         export NAVI_CONFIG="$HOME/.config/navi/config.yaml"
     fi 
-else
-    echo Install Navi
 fi
 
 # Z L E  W I D G E T S
@@ -295,6 +289,6 @@ if [ -d $HOME/.config/zsh ]; then
     done
 fi
 
-{{ if eq .packer "true" -}}
+{{ if eq .packer "true" }}
 export PACKER="true"
-{{- end }}
+{{ end }}

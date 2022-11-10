@@ -11,21 +11,21 @@ if ! command -v fzf &>/dev/null; then
 fi
 
 # Install Starship if not
-if ! command -v starship &>/dev/null; then
-    echo Installing starship...
-    curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir=$HOME/.config/bin &>/dev/null
-fi 
+# if ! command -v starship &>/dev/null; then
+#     echo Installing starship...
+#     curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir=$HOME/.config/bin &>/dev/null
+# fi 
 
 # Install Navi
-if ! command -v navi &>/dev/null; then
-    echo Installing Navi...
-    PATH="/usr/bin:/bin" BIN_DIR="$HOME"/.config/bin /bin/bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install) &>/dev/null
-fi
+# if ! command -v navi &>/dev/null; then
+#     echo Installing Navi...
+#     PATH="/usr/bin:/bin" BIN_DIR="$HOME"/.config/bin /bin/bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install) &>/dev/null
+# fi
 
 # Install LunarVim
-if ! command -v lvim &>/dev/null; then
-    yes | bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
-fi
+# if ! command -v lvim &>/dev/null; then
+#     yes | bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+# fi
 
 {{ if eq .chezmoi.os "darwin" }}
 # Create Sudoedit

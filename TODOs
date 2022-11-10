@@ -2,6 +2,7 @@
 - [ ] Correctly space my templates eg {{- if eq "" "" -}}
 - [ ] Add Ansible play book that is called with a run script that pulls all my private stuff and places it where needed
   - [ ] Chezmoi should look for that script and if it exists run it form a run_ script
+- [ ] Add Git Credentials, keys, etc
 
 # Doing 
 
