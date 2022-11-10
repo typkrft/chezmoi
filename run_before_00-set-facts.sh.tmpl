@@ -21,12 +21,7 @@ ip = \"$ip_addr\"
 " ~/.config/chezmoi/chezmoi.toml
 
 # Set GUI
-{{ if eq .chezmoi.os "linux" }}
-wayland=$(ls /usr/share/wayland-sessions)
-xorg=$(ls /usr/share/xsessions)
-{{ end }}
-
-if [[ ( $wayland != "" )  || ( $xorg != "" ) || ( $(uname -s) = "Darwin" ) ]]; then
+if [[ ( -d /usr/share/wayland-sessions )  || ( -d /usr/share/xsessions ) || ( $(uname -s) = "Darwin" ) ]]; then
     /usr/bin/sed -i.chez_bak "2i\\
 gui = \"true\"
     " ~/.config/chezmoi/chezmoi.toml
