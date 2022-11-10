@@ -21,23 +21,22 @@ setopt HIST_REDUCE_BLANKS
 bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
 
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
 
 # P A T H S
-## B R E W 
-{{ if eq .chezmoi.os "linux" }}
+# B R E W 
+{{- if eq .chezmoi.os "linux" }}
 if [[ -d /home/linuxbrew ]]; then 
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi 
-{{ end }}
-{{ if eq .chezmoi.os "darwin" }}
+{{- end }}
+{{- if eq .chezmoi.os "darwin" }}
 if [[ -d /opt/homebrew ]]; then 
     path=("/opt/homebrew/sbin" $path)
     path=("/opt/homebrew/bin" $path)
 fi 
-{{ end }}
+{{- end }}
 
-## User Binaries
+# User Binaries
 if [[ -d "$HOME/.config/bin" ]]; then 
     path=("$HOME/.config/bin" $path)
 fi 
@@ -56,72 +55,74 @@ if command -v brew &>/dev/null; then
     fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 fi
 
-## Add Completion Paths
+# Add Completion Paths
 fpath=("$HOME/.config/zsh/completions/zsh-completions/src" $fpath)
 fpath=("$HOME/.config/zsh/completions/chezmoi" $fpath)
-## ASDF
+# ASDF
 if [[ -f $HOME/.asdf/asdf.sh ]]; then
     fpath=(${ASDF_DIR}/completions $fpath)
 fi
 
-## Init Completions
+# Init Completions
 autoload -Uz compinit
 compinit
 
 # P L U G I N S
 # TODO: Look in to configurations especially autosuggestions
 ZSH_PLUGINS_DIR="$HOME/.config/zsh/plugins"
-. "$ZSH_PLUGINS_DIR/fzf-tab/fzf-tab.plugin.zsh" # First
-. "$ZSH_PLUGINS_DIR/history/history.zsh"
-. "$ZSH_PLUGINS_DIR/auto-suggestions/zsh-autosuggestions.plugin.zsh"
-. "$ZSH_PLUGINS_DIR/zfm/zfm.plugin.zsh"
-. "$ZSH_PLUGINS_DIR/fzf/completions.zsh"
-. "$ZSH_PLUGINS_DIR/fzf/key-bindings.zsh"
-. "$ZSH_PLUGINS_DIR/sudo/sudo.zsh"
-. "$ZSH_PLUGINS_DIR/auto-pair/zsh-autopair.plugin.zsh"
-. "$ZSH_PLUGINS_DIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+source "$ZSH_PLUGINS_DIR/fzf-tab/fzf-tab.plugin.zsh" # First
+source "$ZSH_PLUGINS_DIR/history/history.zsh"
+source "$ZSH_PLUGINS_DIR/auto-suggestions/zsh-autosuggestions.plugin.zsh"
+source "$ZSH_PLUGINS_DIR/zfm/zfm.plugin.zsh"
+source "$ZSH_PLUGINS_DIR/fzf/completions.zsh"
+source "$ZSH_PLUGINS_DIR/fzf/key-bindings.zsh"
+source "$ZSH_PLUGINS_DIR/sudo/sudo.zsh"
+source "$ZSH_PLUGINS_DIR/auto-pair/zsh-autopair.plugin.zsh"
+source "$ZSH_PLUGINS_DIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 [[ -f "$HOME/.ssh/config" ]] && . "$ZSH_PLUGINS_DIR/ssh/zsh-ssh.zsh"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-## Change/Turn of Paste Highlighting
+# Change/Turn of Paste Highlighting
 # zle_highlight=('paste:fg=black,bg=blue,underline')
 zle_highlight=(paste:none)
 
 # F Z F 
-## Fzf Tab Conf
-### disable sort when completing `git checkout`
+# Fzf Tab Conf
+# disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
-### set descriptions format to enable group support
+# set descriptions format to enable group support
 zstyle ':completion:*:descriptions' format '[%d]'
-### set list-colors to enable filename colorizing
+# set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-### switch group using `,` and `.`
+# switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
-{{ if eq .gui "true" }}
+{{ if eq .gui "true" -}}
 # T E R M  P R O G R A M
 if [[ -z "$TERM_PROGRAM" ]]; then
     [[ ! -z "$KITTY_PID" ]] && export TERM_PROGRAM='kitty'
 fi
-{{ end }}
+{{- end }}
 
 # A L I A S E S 
-{{ if eq .chezmoi.os "linux" }}
-{{ if eq .chezmoi.osRelease.id "fedora" }}
+{{- if eq .chezmoi.os "linux" -}}
+{{- if eq .chezmoi.osRelease.id "fedora" }}
 alias dnf="sudo dnf --config $HOME/.config/dnf/dnf.conf"
-{{ end }}
-{{ end }}
+{{ end -}}
+{{- end }}
+
 if command -v docker &>/dev/null; then 
     alias docker="sudo docker"
     alias docker-compose="sudo docker-compose"
 fi
 
-## SSH
+# SSH
 alias ssh="ssh -o 'SetEnv SSH_HOST_OS=$(uname -s) TERM_PROGRAM=$TERM_PROGRAM'"
 
-## Rsync
+# Rsync
 alias rsync="rsync -avPz --human-readable --info=name0 -e 'ssh -To RemoteCommand=none'"
 
-## Timg
+# Timg
 # TODO: Should be a case statement with wezterm and iterm 
 if command -v timg &>/dev/null; then
     if [[ $TERM_PROGRAM == "kitty" ]]; then 
@@ -129,18 +130,18 @@ if command -v timg &>/dev/null; then
     fi 
 fi
 
-## Editor 
-if command -v lvim; then
+# Editor 
+if command -v lvim &>/dev/null; then
     export EDITOR=$(which lvim)
 else 
     export EDITOR=$(which nvim)
 fi 
 
-{{ if eq .chezmoi.os "darwin" }}
+{{ if eq .chezmoi.os "darwin" -}}
 if ! command -v sudoedit &>/dev/null; then 
     ln -s "$(which sudo)" "$HOME/.config/bin/sudoedit"
 fi
-{{ end }}
+{{- end }}
 
 sudo_editor() {
     if [[ -n "${@}" ]]; then
@@ -157,7 +158,7 @@ sudo_editor() {
 alias nvim=sudo_editor
 
 
-## Check if Trash Exists
+# Check if Trash Exists
 if command -v trash &>/dev/null; then
     [[ ! -d "$HOME/.Trash" ]] && mkdir "$HOME/.Trash"
     {{ if eq .chezmoi.os "darwin" }}
@@ -170,11 +171,12 @@ else
   echo Install Trash
 fi 
 
-## EXA
+# EXA
 if command -v exa &>/dev/null; then 
-    ## preview directory's content with exa when completing cd
+    # preview directory's content with exa when completing cd
     zstyle ':fzf-tab:complete:cd:*' fzf-preview 'EXA_ICON_SPACING=2 exa -1 --color=always --group-directories-first --icons $realpath'
     alias ls="EXA_ICON_SPACING=2 exa -1 --color=always --icons -a -G --group-directories-first"
+    
     # A U T O L S
     auto-ls() {
       EXA_ICON_SPACING=2 exa -1 --color=always --icons -a -G --group-directories-first --git
@@ -184,7 +186,7 @@ else
     echo Install Exa 
 fi
 
-## Z F M
+# Z F M
 if [[ ! -d $HOME/.config/zfm ]]; then 
     mkdir -p $HOME/.config/zfm
     touch $HOME/.config/zfm/zfm
@@ -196,10 +198,10 @@ alias em='nvim $(zfm select --files --multi)'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # S T A R S H I P
-## Init Starship
+# Init Starship
 if [[ -f "$HOME/.config/starship/starship.toml" ]]; then
     eval "$(starship init zsh)"
-    ## Prefer Config in it's own folder
+    # Prefer Config in it's own folder
     export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 fi 
 
@@ -238,10 +240,10 @@ _turn_off_syntax_highlighting() {
 zle -N _turn_off_syntax_highlighting
 
 # FIXME: NO LONGER USING ANTIBODY
-_turn_on_syntax_highlighting() {
-    antibody bundle zdharma-continuum/fast-syntax-highlighting
-}
-zle -N _turn_on_syntax_highlighting
+# _turn_on_syntax_highlighting() {
+#     antibody bundle zdharma-continuum/fast-syntax-highlighting
+# }
+# zle -N _turn_on_syntax_highlighting
 
 _open_editor() {
     $EDITOR +TreeToggle
@@ -249,42 +251,42 @@ _open_editor() {
 zle -N _open_editor
 
 # B I N D I N G S
-## up 
+# up 
 bindkey '\e[A' history-beginning-search-backward
-## down
+# down
 bindkey '\e[B' history-beginning-search-forward
-## alt-right
+# alt-right
 bindkey ";3C" forward-word
-## alt-left
+# alt-left
 bindkey ";3D" backward-word
-## alt-backspace
+# alt-backspace
 bindkey ";^?" backward-delete-word
 
-# if [[ "$TERM_PROGRAM" = "kitty" ]]; then 
-# NOTE: Requires Terminal App Mappings eg: kitty.conf
-## cmd+up
-bindkey "☔︎" _beginning_of_buffer
-## cmd+down
-bindkey "☂︎" _end_of_buffer
-## cmd-left
-bindkey "☀︎" beginning-of-line
-## cmd-right
-bindkey "☼" end-of-line
-## cmd-backspace
-bindkey "☽" backward-kill-line
-## cmd-z
-bindkey "☾" undo
-## cmd+shift-z
-bindkey "☁︎" redo
-## cmd+shift-c 
-bindkey "☃︎" _copy_buffer
-## cmd-|
-bindkey "2;9u" _turn_off_syntax_highlighting 
-## cmd+shift-|
-bindkey "2;10u" _turn_on_syntax_highlighting 
-## cmd+shift+space 
-bindkey ";10u" _open_editor
-# fi
+if [[ "$TERM_PROGRAM" = "kitty" ]]; then 
+    # NOTE: Requires Terminal App Mappings eg: kitty.conf
+    # cmd+up
+    bindkey "☔︎" _beginning_of_buffer
+    # cmd+down
+    bindkey "☂︎" _end_of_buffer
+    # cmd-left
+    bindkey "☀︎" beginning-of-line
+    # cmd-right
+    bindkey "☼" end-of-line
+    # cmd-backspace
+    bindkey "☽" backward-kill-line
+    # cmd-z
+    bindkey "☾" undo
+    # cmd+shift-z
+    bindkey "☁︎" redo
+    # cmd+shift-c 
+    bindkey "☃︎" _copy_buffer
+    # cmd-|
+    bindkey "2;9u" _turn_off_syntax_highlighting 
+    # cmd+shift-|
+    bindkey "2;10u" _turn_on_syntax_highlighting 
+    # cmd+shift+space 
+    bindkey ";10u" _open_editor
+fi
 
 # L O A D  A D D I T I O N A L  Z S H  C O N F I G S  
 if [ -d $HOME/.config/zsh ]; then
@@ -293,6 +295,6 @@ if [ -d $HOME/.config/zsh ]; then
     done
 fi
 
-{{ if eq .packer "true" }}
+{{ if eq .packer "true" -}}
 export PACKER="true"
-{{ end }}
+{{- end }}

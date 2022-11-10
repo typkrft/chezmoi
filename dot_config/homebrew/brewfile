@@ -20,6 +20,7 @@ cask "firefox"
 cask "hammerspoon"
 
 # Brew
+brew "marwanhawari/tap/stew"
 brew "exa", args:  ["--head"]
 brew "iperf"
 brew "bitwarden-cli"
@@ -27,6 +28,7 @@ brew "bpytop"
 brew "fd"
 brew "bat"
 brew "bat-extras"
+brew "macos-trash"
 brew "trash-cli"
 brew "timg"
 brew "wallpaper"

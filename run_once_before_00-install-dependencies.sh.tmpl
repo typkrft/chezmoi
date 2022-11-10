@@ -4,10 +4,10 @@
 ## Install FZF if not
 if ! command -v fzf &>/dev/null; then
     echo Installing fzf...
-    git clone --quiet --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" 
-    "$HOME"/.fzf/install  --no-bash --no-fish --no-zsh --no-update-rc --no-completion --no-key-bindings &>/dev/null
-    mv "$HOME"/.fzf/bin/* "$HOME"/.config/bin
-    \rm -rf "$HOME"/.fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    "$HOME"/.fzf/install  --no-bash --no-fish --no-update-rc --no-completion --no-key-bindings &>/dev/null
+    # mv "$HOME"/.fzf/bin/* "$HOME"/.config/bin
+    # \rm -rf "$HOME"/.fzf
 fi
 
 # Install Starship if not
@@ -20,6 +20,11 @@ fi
 if ! command -v navi &>/dev/null; then
     echo Installing Navi...
     PATH="/usr/bin:/bin" BIN_DIR="$HOME"/.config/bin /bin/bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install) &>/dev/null
+fi
+
+# Install LunarVim
+if ! command -v lvim &>/dev/null; then
+    yes | bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 fi
 
 {{ if eq .chezmoi.os "darwin" }}

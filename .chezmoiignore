@@ -22,11 +22,15 @@
 {{ end }}
 
 LICENSE
+TODOs
 private
 .config/bin
 !.config/bin/helper
 !.config/bin/yabai_teams_helper.sh
 
+*.chezbak
+*/*.chezbak
+*/**/*.chezbak
 
 # Ignore on All Systems
 # Check: Fix zfm That gets overwritten 

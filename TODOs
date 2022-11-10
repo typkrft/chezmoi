@@ -1,0 +1,2 @@
+- [ ] Create a script that downloads private repos on init
+- [ ] Sort out nvim config, using NVChad requires various dependiences that differ on each platform, and LunarVim install is currently borked for macOS homebrew neovim installs.

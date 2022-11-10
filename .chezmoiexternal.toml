@@ -1,3 +1,19 @@
+# [".local/bin/nvim"]
+#     type = "file"
+# {{ if eq .chezmoi.os "darwin" }}
+#     url = "https://github.com/neovim/neovim/releases/download/v0.8.0/nvim-macos.tar.gz"
+# {{ end }}
+# {{ if eq .chezmoi.os "linux" }}
+#     url = "https://github.com/neovim/neovim/releases/download/v0.8.0/nvim-linux64.tar.gz"
+# {{ end }}
+#     executable = true
+#     stripComponents = 2
+# # include = ["*/bin/**"]
+#     [".config/bin/nvim".filter]
+#         command = "tar"
+#         args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "nvim-macos/bin/nvim"]
+
+
 [".config/zsh/plugins/zfm"]
 type = "archive"
 url = "https://github.com/typkrft/zfm/archive/master.tar.gz"
@@ -80,6 +96,7 @@ exact = false
 stripComponents = 0
 refreshPeriod = "168h"
 include = ["*.ttf"]
+
 ["Library/Fonts/victormono"]
 type = "archive"
 url = "https://rubjo.github.io/victor-mono/VictorMonoAll.zip"
@@ -87,6 +104,7 @@ exact = false
 stripComponents = 1
 refreshPeriod = "168h"
 include = ["*TTF/*.ttf"]
+
 ["Library/Fonts/iosevka"]
 type = "archive"
 url = "https://github.com/be5invis/Iosevka/releases/download/v16.1.0/ttf-iosevka-16.1.0.zip"
