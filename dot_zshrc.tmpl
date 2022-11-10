@@ -117,7 +117,7 @@ if command -v docker &>/dev/null; then
 fi
 
 # SSH
-alias ssh="ssh -o 'SetEnv SSH_HOST_OS=$(uname -s) TERM_PROGRAM=$TERM_PROGRAM'"
+# alias ssh="ssh -o 'SetEnv SSH_HOST_OS=$(uname -s) TERM_PROGRAM=$TERM_PROGRAM'"
 
 # Rsync
 alias rsync="rsync -avPz --human-readable --info=name0 -e 'ssh -To RemoteCommand=none'"
@@ -281,9 +281,9 @@ bindkey ";^?" backward-delete-word
     # cmd+shift-c 
     bindkey "☃︎" _copy_buffer
     # cmd-|
-    bindkey "2;9u" _turn_off_syntax_highlighting 
+    # bindkey "2;9u" _turn_off_syntax_highlighting 
     # cmd+shift-|
-    bindkey "2;10u" _turn_on_syntax_highlighting 
+    # bindkey "2;10u" _turn_on_syntax_highlighting 
     # cmd+shift+space 
     bindkey ";10u" _open_editor
 # fi
