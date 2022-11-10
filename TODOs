@@ -1,2 +1,6 @@
 - [ ] Create a script that downloads private repos on init
 - [ ] Sort out nvim config, using NVChad requires various dependiences that differ on each platform, and LunarVim install is currently borked for macOS homebrew neovim installs.
+
+install neovim via brew on linux vm packer
+install exa via brew remove from apt in packer
+make sure zsh complettions for linux brew are getting picked up /home/linuxbrew/.linuxbrew/share/zsh/site-functions in zshrc

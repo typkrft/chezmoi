@@ -262,7 +262,7 @@ bindkey ";3D" backward-word
 # alt-backspace
 bindkey ";^?" backward-delete-word
 
-if [[ "$TERM_PROGRAM" = "kitty" ]]; then 
+# if [[ "$TERM_PROGRAM" = "kitty" ]]; then 
     # NOTE: Requires Terminal App Mappings eg: kitty.conf
     # cmd+up
     bindkey "☔︎" _beginning_of_buffer
@@ -286,7 +286,7 @@ if [[ "$TERM_PROGRAM" = "kitty" ]]; then
     bindkey "2;10u" _turn_on_syntax_highlighting 
     # cmd+shift+space 
     bindkey ";10u" _open_editor
-fi
+# fi
 
 # L O A D  A D D I T I O N A L  Z S H  C O N F I G S  
 if [ -d $HOME/.config/zsh ]; then
