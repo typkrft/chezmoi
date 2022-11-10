@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Platform Agnostic 
+# Platform Agnostic
 ## Install FZF if not
 if ! command -v fzf &>/dev/null; then
     echo Installing fzf...
@@ -43,4 +43,10 @@ sudo dnf install -y $(cat $HOME/.config/dnf/base_pkgs)
 {{ end }}
 {{ if eq .chezmoi.osRelease.id "ubuntu" }}
 {{ end }}
+{{ end }}
+
+{{ if ne (expandenv "$PACKER") "true" }}
+if [[ ! -d ~/.local/share/chezmoi/private ]]; then 
+    git clone https://github.com/typkrft/private-dots ~/.local/share/chezmoi/private
+fi
 {{ end }}

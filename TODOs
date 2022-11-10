@@ -1,6 +1,10 @@
-- [ ] Create a script that downloads private repos on init
-- [ ] Sort out nvim config, using NVChad requires various dependiences that differ on each platform, and LunarVim install is currently borked for macOS homebrew neovim installs.
+# Inbox
+- [ ] Correctly space my templates eg {{- if eq "" "" -}}
+- [ ] Add Ansible play book that is called with a run script that pulls all my private stuff and places it where needed
+  - [ ] Chezmoi should look for that script and if it exists run it form a run_ script
 
-install neovim via brew on linux vm packer
-install exa via brew remove from apt in packer
-make sure zsh complettions for linux brew are getting picked up /home/linuxbrew/.linuxbrew/share/zsh/site-functions in zshrc
+# Doing 
+
+# Done
+- [C] Create a script that downloads private repos on init
+- [X] Sort out nvim config, using NVChad requires various dependiences that differ on each platform, and LunarVim install is currently borked for macOS homebrew neovim installs.
