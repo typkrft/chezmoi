@@ -37,9 +37,9 @@ if ! command -v sudoedit &>/dev/null; then
 fi
 
 # Install Homebrew if needed
-if ! command -v brew; then
-    CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
+# if ! command -v brew; then
+#     CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# fi
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
