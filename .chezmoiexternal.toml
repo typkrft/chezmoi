@@ -14,79 +14,79 @@
 #         args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "nvim-macos/bin/nvim"]
 
 
-[".config/zsh/plugins/zfm"]
+[".config/chezmoi_externals/zsh/plugins/zfm"]
 type = "archive"
 url = "https://github.com/typkrft/zfm/archive/master.tar.gz"
 exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 
-['.config/zsh/plugins/fzf-tab']
+[".config/chezmoi_externals/zsh/plugins/fzf-tab"]
 type = "archive"
 url = "https://github.com/Aloxaf/fzf-tab/archive/master.tar.gz"
 exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/auto-pair"]
+[".config/chezmoi_externals/zsh/plugins/auto-pair"]
 type = "archive"
 url = "https://github.com/hlissner/zsh-autopair/archive/master.tar.gz"
 exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/auto-suggestions"]
+[".config/chezmoi_externals/zsh/plugins/auto-suggestions"]
 type = "archive"
 url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
 exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/fast-syntax-highlighting"]
+[".config/chezmoi_externals/zsh/plugins/fast-syntax-highlighting"]
 type = "archive"
 url = "https://github.com/zdharma-continuum/fast-syntax-highlighting/archive/master.tar.gz"
 exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/fzf/key-bindings.zsh"]
+[".config/chezmoi_externals/zsh/plugins/fzf/key-bindings.zsh"]
 type = "file"
 url = "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/fzf/completions.zsh"]
+[".config/chezmoi_externals/zsh/plugins/fzf/completions.zsh"]
 type = "file"
 url = "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/history/history.zsh"]
+[".config/chezmoi_externals/zsh/plugins/history/history.zsh"]
 type = "file"
 url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib/history.zsh"
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/sudo/sudo.zsh"]
+[".config/chezmoi_externals/zsh/plugins/sudo/sudo.zsh"]
 type = "file"
 url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh"
 refreshPeriod = "168h"
 
-[".config/zsh/completions/zsh-completions"]
+[".config/chezmoi_externals/zsh/completions/zsh-completions"]
 type = "archive"
 url = "https://github.com/zsh-users/zsh-completions/archive/master.tar.gz"
 exact = true
 stripComponents = 1
 refreshPeriod = "168h"
 
-[".config/zsh/completions/chezmoi/_chezmoi"]
+[".config/chezmoi_externals/zsh/completions/chezmoi/_chezmoi"]
 type = "file"
 url = "https://raw.githubusercontent.com/twpayne/chezmoi/master/completions/chezmoi.zsh"
 refreshPeriod = "168h"
 
-[".config/zsh/plugins/ssh/zsh-ssh.zsh"]
+[".config/chezmoi_externals/zsh/plugins/ssh/zsh-ssh.zsh"]
 type = "file"
 url = "https://raw.githubusercontent.com/sunlei/zsh-ssh/master/zsh-ssh.zsh"
 refreshPeriod = "168h"
 
-{{ if .gui }}
+{{ if eq (expandenv "$GUI") "true" }}
 # TODO: Install Fonts https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
 {{ if eq .chezmoi.os "darwin" }}
 ["Library/Fonts/nerdfontsymbols"]

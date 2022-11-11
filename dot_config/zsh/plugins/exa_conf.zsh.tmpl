@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+if command -v exa &>/dev/null; then
+    # preview directory's content with exa when completing cd
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'EXA_ICON_SPACING=2 exa -1 --color=always --group-directories-first --icons $realpath'
+    
+    auto-ls() {
+        EXA_ICON_SPACING=2 exa -1 --color=always --icons -a -G --group-directories-first --git
+    }
+    chpwd_functions=(auto-ls $chpwd_functions)
+fi 

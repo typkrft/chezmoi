@@ -1,0 +1,36 @@
+#!/usr/bin/env zsh 
+
+# Z L E  W I D G E T S
+# NOTE: zle -N adds it to zsh as a widget so that it can be bound
+# NOTE: ZLE Widget to move cursor to beginning of the buffer 
+_beginning_of_buffer() {
+    CURSOR=0
+}
+zle -N _beginning_of_buffer
+
+_end_of_buffer() {
+    CURSOR="${#BUFFER}"
+}
+zle -N _end_of_buffer
+
+_copy_buffer() {
+    echo $BUFFER | pbcopy
+}
+zle -N _copy_buffer
+
+_turn_off_syntax_highlighting() {
+    ZSH_HIGHLIGHT_MAXLENGTH=0
+    region_highlight=()
+}
+zle -N _turn_off_syntax_highlighting
+
+# FIXME: NO LONGER USING ANTIBODY
+# _turn_on_syntax_highlighting() {
+#     antibody bundle zdharma-continuum/fast-syntax-highlighting
+# }
+# zle -N _turn_on_syntax_highlighting
+
+_open_editor() {
+    $EDITOR +TreeToggle
+}
+zle -N _open_editor

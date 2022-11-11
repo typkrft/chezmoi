@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+
+# A L I A S E S 
+if command -v dnf &>/dev/null; then 
+    alias dnf="sudo dnf --config $HOME/.config/dnf/dnf.conf"
+fi 
+
+if command -v docker &>/dev/null; then 
+    alias docker="sudo docker"
+    alias docker-compose="sudo docker-compose"
+fi
+
+# SSH
+# alias ssh="ssh -o 'SetEnv SSH_HOST_OS=$(uname -s) TERM_PROGRAM=$TERM_PROGRAM'"
+
+# Rsync
+alias rsync="rsync -avPz --human-readable --info=name0 -e 'ssh -To RemoteCommand=none'"
+
+# Timg
+if [[ $TERM_PROGRAM = "kitty" ]]; then 
+    alias timg="timg -p kitty"
+fi
+
+alias nvim=sudo_editor
+
+# Check if Trash Exists
+if command -v trash &>/dev/null; then
+    [[ ! -d "$HOME/.Trash" ]] && mkdir "$HOME/.Trash"
+    {{ if eq .chezmoi.os "darwin" }}
+    [[ $(uname -s) = "Darwin" ]] && alias rm="$(which trash)"
+    {{ end }}
+    {{ if eq .chezmoi.os "linux" }}
+    [[ $(uname -s) = "Linux" ]] && alias rm="$(which trash) --trash-dir=$HOME/.Trash" 
+    {{ end }}
+fi 
+
+if command -v exa &>/dev/null; then
+    alias ls="EXA_ICON_SPACING=2 exa -1 --color=always --icons -a -G --group-directories-first"
+fi 

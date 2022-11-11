@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+# C O M P L E T I O N S
+if command -v brew &>/dev/null; then
+    fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+fi
+
+# Add Completion Paths
+fpath=("$ZSH_COMPLETIONS_DIR/zsh-completions/src" $fpath)
+fpath=("$ZSH_COMPLETIONS_DIR/chezmoi" $fpath)
+# ASDF
+if [[ -f $HOME/.asdf/asdf.sh ]]; then
+    fpath=(${ASDF_DIR}/completions $fpath)
+fi
+
+# Init Completions
+autoload -Uz compinit
+compinit

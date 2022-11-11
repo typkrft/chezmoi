@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh 
+# Z F M
+if [[ ! -d $HOME/.config/zfm ]]; then 
+    mkdir -p $HOME/.config/zfm
+    touch $HOME/.config/zfm/zfm
+fi
+export ZFM_BOOKMARKS_FILE="$HOME/.config/zfm/zfm"
+alias em='$EDITOR $(zfm select --files --multi)'

@@ -31,6 +31,11 @@
 # Create Sudoedit
 ln -s $(which sudo) ~/.config/bin/sudoedit
 
+# Create sudoedit
+if ! command -v sudoedit &>/dev/null; then 
+    ln -s "$(which sudo)" "$HOME/.config/bin/sudoedit"
+fi
+
 # Install Homebrew if needed
 if ! command -v brew; then
     CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -45,7 +50,7 @@ sudo dnf install -y $(cat $HOME/.config/dnf/base_pkgs)
 {{ end }}
 {{ end }}
 
-{{ if ne (expandenv "$PACKER") "true" }}
+{{ if eq (expandenv "$PRIVATE") "true" }}
 if [[ ! -d ~/.local/share/chezmoi/private ]]; then 
     git clone https://github.com/typkrft/private-dots ~/.local/share/chezmoi/private
 fi

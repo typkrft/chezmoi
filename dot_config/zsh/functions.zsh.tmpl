@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+sudo_editor() {
+    if [[ -n "${@}" ]]; then
+        for ARG in "${@}"; do 
+            if [[ -f $ARG && ! -O "$ARG" ]]; then 
+                echo $ARG
+                sudoedit "${@}" 
+                return 0
+            fi 
+        done 
+    fi
+      $EDITOR "${@}"
+}

@@ -1,6 +1,3 @@
 [data]
-gui = ""
-ip = ""
 os = "{{ .chezmoi.os }}"
 hostname = "{{ .chezmoi.hostname }}"
-packer = "{{ empty (expandenv "$PACKER") | ternary "false" (expandenv "$PACKER") }}"

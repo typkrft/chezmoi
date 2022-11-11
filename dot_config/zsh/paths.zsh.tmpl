@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+
+# P A T H S
+# Brew
+{{ if eq .chezmoi.os "darwin" }}
+if command -v homebrew &>/dev/null; then 
+    path=("/opt/homebrew/sbin" $path)
+    path=("/opt/homebrew/bin" $path)
+fi 
+{{ end }}
+
+# Bins
+if [[ -d "$HOME/.config/bin" ]]; then 
+    path=("$HOME/.config/bin" $path)
+fi 
+if [[ -d "$HOME/.local/bin" ]]; then 
+    path=("$HOME/.local/bin" $path)
+fi 
+if [[ -d "$HOME/.cargo/bin" ]]; then
+    path=("$HOME/.cargo/bin" $path)
+fi
+export path
+
+# asdf
+if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
+    # Must be sourced after exporting path
+    . "$HOME/.asdf/asdf.sh"
+fi 
+

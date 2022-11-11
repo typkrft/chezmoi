@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-{{ if ne (expandenv "$PACKER") "true" }}
-if [[ -d $HOME/.local/share/chezmoi/private ]]; then
-    # Navi
-    if [[ ! -f $HOME/.config/navi/private.cheat ]]; then
-        ln -s $HOME/.local/share/chezmoi/private/navi/private.cheat $HOME/.config/navi/private.cheat
-    fi
-fi
-{{ end }}

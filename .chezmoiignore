@@ -13,7 +13,7 @@
 {{ end }}
 {{ end }}
 
-{{ if eq .gui "false" }}
+{{ if eq (expandenv "$GUI") "false" }}
 .config/wallpapers
 .config/wezterm
 .config/kitty
