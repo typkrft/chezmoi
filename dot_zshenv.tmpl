@@ -1,0 +1,4 @@
+{{ if eq .chezmoi.os "ubuntu" }}
+# Needed to make history-beginning-search-forward/backward work on Ubuntu
+DEBIAN_PREVENT_KEYBOARD_CHANGES=yes
+{{ end }}
