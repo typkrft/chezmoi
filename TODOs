@@ -7,6 +7,7 @@
 - [ ] Consider setting facts like gui in chezmoi.toml instead of zshrc with functions 
 - [ ] Look for additional .chezmoi.toml functionality
 - [ ] Make .chezmoiignore more percise with template shell commands
+- [ ] Look at order of zshrc in hyrule and see what needs to be sourced where to make history search work
  
 # Doing 
 

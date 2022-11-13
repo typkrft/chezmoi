@@ -2,6 +2,7 @@
 
 # P L U G I N S
 # TODO: Look in to configurations especially autosuggestions
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
 . "$ZSH_PLUGINS_DIR/fzf-tab/fzf-tab.plugin.zsh" # First
 . "$ZSH_PLUGINS_DIR/history/history.zsh"
 . "$ZSH_PLUGINS_DIR/auto-suggestions/zsh-autosuggestions.plugin.zsh"
@@ -12,4 +13,3 @@
 . "$ZSH_PLUGINS_DIR/auto-pair/zsh-autopair.plugin.zsh"
 . "$ZSH_PLUGINS_DIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 [[ -f "$HOME/.ssh/config" ]] && . "$ZSH_PLUGINS_DIR/ssh/zsh-ssh.zsh"
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh

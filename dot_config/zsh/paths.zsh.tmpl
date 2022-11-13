@@ -3,10 +3,8 @@
 # P A T H S
 # Brew
 {{ if eq .chezmoi.os "darwin" }}
-if command -v homebrew &>/dev/null; then 
-    path=("/opt/homebrew/sbin" $path)
-    path=("/opt/homebrew/bin" $path)
-fi 
+[[ -d "/opt/homebrew/bin" ]] && path=("/opt/homebrew/bin" $path)
+[[ -d "/opt/homebrew/sbin" ]] && path=("/opt/homebrew/sbin" $path)
 {{ end }}
 
 # Bins
