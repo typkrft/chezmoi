@@ -29,11 +29,12 @@ default < hyper - down :                                                        
     yabai -m window --resize top:0:100 || yabai -m window --resize bottom:0:100      \
     || yabai -m window --resize top:0:-100 || yabai -m window --resize bottom:0:-100
 
-# Stack Window
 default < meh - return :                                           \
     window_id=$(yabai -m query --windows --window | jq -re '.id'); \
-    sleep 2;                                                       \
-    yabai -m window mouse --stack $window_id
+    sleep 1;                                                       \
+    yabai -m window mouse --stack $window_id                                    
+
+
 
 # Unstack Window
 default < meh - backspace : yabai -m window --toggle float --toggle float;
@@ -72,14 +73,14 @@ scripts < w : . $HOME/.config/bin/helper && set_wallpaper $HOME/.config/wallpape
 # NOTE: Change new Window Shortcuts in System Preferences > Keyboard > Shortcuts > App Shortcuts 
 # or you get an infinite loop.
 default < cmd - n [
-"firefox" : yabai -m window --insert stack; skhd -k "cmd + shift - n"
+"firefox" : yabai -m window mouse --insert stack; skhd -k "cmd + shift - n"
 "code" : yabai -m window --insert stack; skhd -k "cmd + shift - n"
 "iterm2" : . $HOME/.config/bin/helper && new_window "iTerm2" "stack"
 "kitty" : yabai -m window --insert stack; skhd -k "cmd + shift - n"
 ]
 
 default < meh - x [
-# Merge and Clean up windows in Firefox
+# Merge and Clean up windows in Firefox Setup Keybaord Shortcuts for addons for this to work
 "firefox" : skhd -k 'ctrl + shift - m'; skhd -k 'ctrl + shift - x'; skhd -k 'ctrl + shift - a'
 ]
 

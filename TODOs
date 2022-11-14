@@ -4,13 +4,14 @@
   - [ ] Chezmoi should look for that script and if it exists run it form a run_ script
 - [ ] Add Git Credentials, keys, etc
 - [ ] Document Dots 
-- [ ] Consider setting facts like gui in chezmoi.toml instead of zshrc with functions 
 - [ ] Look for additional .chezmoi.toml functionality
 - [ ] Make .chezmoiignore more percise with template shell commands
-- [ ] Look at order of zshrc in hyrule and see what needs to be sourced where to make history search work
+- [ ] Make Keybindings less dependent on kitty.conf with bind keyforward-wordforward-word
  
 # Doing 
 
 # Done
+- [X] Look at order of zshrc in hyrule and see what needs to be sourced where to make history search work NOTE: This was not an order issue, but ubuntu needed a .zshenv setting
+- [X] Consider setting facts like gui in chezmoi.toml instead of zshrc with functions 
 - [C] Create a script that downloads private repos on init
 - [X] Sort out nvim config, using NVChad requires various dependiences that differ on each platform, and LunarVim install is currently borked for macOS homebrew neovim installs.

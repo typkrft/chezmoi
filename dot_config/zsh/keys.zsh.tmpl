@@ -1,43 +1,49 @@
 #!/usr/bin/env zsh
 
 # V I M  B I N D I N G S  O F F
-bindkey -e  
+bindkey -v # -e for emacs
 
 # H I S T O R Y
 bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
 
 # NOTE: Requires Terminal App Mappings eg: kitty.conf
-# cmd+up
-bindkey "☔︎" _beginning_of_buffer
-# cmd+down
-bindkey "☂︎" _end_of_buffer
-# cmd-left
-bindkey "☀︎" beginning-of-line
-# cmd-right
-bindkey "☼" end-of-line
-# cmd-backspace
-bindkey "☽" backward-kill-line
-# cmd-z
-bindkey "☾" undo
-# cmd+shift-z
-bindkey "☁︎" redo
-# cmd+shift-c 
-bindkey "☃︎" _copy_buffer
+# ⌥ ->
+bindkey "zx00" forward-word
+# ⌥ <-
+bindkey "zx01" backward-word
+# ⌥ bksp
+bindkey "zx02" backward-kill-word
+
+# ⌘ <-
+bindkey "zx03" beginning-of-line
+# ⌘ ->
+bindkey "zx04" end-of-line
+# ⌘ ↑
+bindkey "zx05" _beginning_of_buffer
+# ⌘ ↓
+bindkey "zx06" _end_of_buffer
+# ⌘ bksp
+bindkey "zx07" backward-kill-line
+
+# ⌘ ⇧ <-
+# ⌘ ⇧ ->
+# ⌘ ⇧ ↑
+# ⌘ ⇧ ↓
+
+# ⌘ c
+bindkey "zx12" yank
+# ⌘ ⇧ c
+bindkey "zx13" _copy_buffer
+# ⌘ z
+bindkey "zx14" undo
+# ⌘ z
+bindkey "zx15" redo
+
+# TODO:
 # cmd-|
 # bindkey "2;9u" _turn_off_syntax_highlighting 
 # cmd+shift-|
 # bindkey "2;10u" _turn_on_syntax_highlighting 
 # cmd+shift+space 
-bindkey ";10u" _open_editor
-
-# up 
-bindkey '\e[A' history-beginning-search-backward
-# down
-bindkey '\e[B' history-beginning-search-forward
-# alt-right
-bindkey ";3C" forward-word
-# alt-left
-bindkey ";3D" backward-word
-# alt-backspace
-bindkey ";^?" backward-delete-word
+# bindkey ";10u" _open_editor

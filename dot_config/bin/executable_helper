@@ -295,7 +295,6 @@ cycle_windows() {
   xargs -n2 sh -c 'echo $1 $2; yabai -m window $1 --swap $2' sh
 }
 
-
 float_toggle () {
   echo 1
   selected_window=$(yabai -m query --windows --window | jq -re '.id')

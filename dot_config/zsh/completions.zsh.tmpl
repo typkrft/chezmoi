@@ -13,6 +13,8 @@ if [[ -f $HOME/.asdf/asdf.sh ]]; then
     fpath=(${ASDF_DIR}/completions $fpath)
 fi
 
+_comp_options+=(globdots)		# Include hidden files.
+
 # Init Completions
 autoload -Uz compinit
 compinit
