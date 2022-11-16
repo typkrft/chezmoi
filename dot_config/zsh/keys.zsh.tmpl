@@ -7,7 +7,7 @@ bindkey -e # -v for vi
 bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
 
-if [[ $(echo $TERMINFO) == *"kitty"* ]]; then
+if [[ $(echo $TERM) == *"kitty"* ]]; then
     # ⌥ ->
     bindkey ";3C" forward-word
     # ⌥ <-
