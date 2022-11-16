@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+# Needs to run after keys
+# This way it gets keybindings, but doesn't mess with terminfo
+if [[ ! $(infocmp $TERM) ]]; then
+    export TERM=xterm-256color
+fi

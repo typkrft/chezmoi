@@ -8,7 +8,6 @@
 
 # Plugins
 . ~/.config/zsh/plug_init.zsh
-
 for file in $HOME/.config/zsh/plugins/*; do 
     . "$file"
 done
@@ -17,3 +16,8 @@ done
 . ~/.config/zsh/functions.zsh
 . ~/.config/zsh/aliases.zsh # Source after Functions 
 . ~/.config/zsh/keys.zsh # Source After Plugin Confs
+
+# For Things that need to run last
+for file in $HOME/.config/zsh/post/*; do 
+    . "$file"
+done
