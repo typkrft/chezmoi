@@ -2,6 +2,12 @@
 
 # Needs to run after keys
 # This way it gets keybindings, but doesn't mess with terminfo
-if [[ ! $(infocmp $TERM &>/dev/null) ]]; then
-    export TERM=xterm-256color
+if [[ $SSH_TTY != "" ]]; then
+    if [[ ! $(infocmp $TERM &>/dev/null) ]]; then
+        export TERM=xterm-256color
+    fi
 fi
+
+# if [[ $TERMINFO == *"kitty"* ]]; then
+#     alias ssh="kitty +kitten ssh"
+# fi
