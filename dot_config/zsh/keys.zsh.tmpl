@@ -1,44 +1,67 @@
 #!/usr/bin/env zsh
 
 # V I M  B I N D I N G S  O F F
-bindkey -v # -e for emacs
+bindkey -e # -v for vi
 
 # H I S T O R Y
 bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
 
-# NOTE: Requires Terminal App Mappings eg: kitty.conf
-# ⌥ ->
-bindkey "zx00" forward-word
-# ⌥ <-
-bindkey "zx01" backward-word
-# ⌥ bksp
-bindkey "zx02" backward-kill-word
+if [[ $(echo $TERMINFO) == *"kitty"* ]]; then
+    # ⌥ ->
+    bindkey ";3C" forward-word
+    # ⌥ <-
+    bindkey ";3D" backward-word
+    # ⌥ bksp
+    bindkey ";0[" backward-kill-word
+    # ⌘ bksp
+    bindkey ";1[" backward-kill-line
+    # ⌘ <-
+    bindkey ";9D" beginning-of-line
+    # ⌘ ->
+    bindkey ";9C" end-of-line
+    # ⌘ ↑
+    bindkey ";2[" _beginning_of_buffer
+    # ⌘ ↓
+    bindkey ";3[" _end_of_buffer
+    # ⌘ c NOTE: Interfers with cmd+c 
+    # bindkey "zx12" yank
+    # ⌘ ⇧ c
+    bindkey ";4[" _copy_buffer
+    # ⌘ z
+    bindkey ";5[" undo
+    # ⌘ ⇧ z
+    bindkey ";6[" redo
 
-# ⌘ <-
-bindkey "zx03" beginning-of-line
-# ⌘ ->
-bindkey "zx04" end-of-line
-# ⌘ ↑
-bindkey "zx05" _beginning_of_buffer
-# ⌘ ↓
-bindkey "zx06" _end_of_buffer
-# ⌘ bksp
-bindkey "zx07" backward-kill-line
+fi 
+
+
+if [[ "vscode" == *"$TERM_PROGRAM"* ]]; then
+    # ⌥ ->
+    bindkey "^[f" forward-word
+    # ⌥ <-
+    bindkey "^[b" backward-word
+    # ⌥ bksp
+    bindkey "^U" backward-kill-word
+    # ⌘ bksp
+    bindkey "^u" backward-kill-line
+    # ⌘ <-
+    bindkey "^A" beginning-of-line
+    # ⌘ ->
+    bindkey "^E" end-of-line
+fi
+
+
+# NOTE: Requires Terminal App Mappings eg: kitty.conf
+
+
 
 # ⌘ ⇧ <-
 # ⌘ ⇧ ->
 # ⌘ ⇧ ↑
 # ⌘ ⇧ ↓
 
-# ⌘ c NOTE: Interfers with cmd+c 
-# bindkey "zx12" yank
-# ⌘ ⇧ c
-bindkey "zx13" _copy_buffer
-# ⌘ z
-bindkey "zx14" undo
-# ⌘ z
-bindkey "zx15" redo
+
 
 # TODO:
 # cmd-|

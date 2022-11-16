@@ -295,73 +295,19 @@ cycle_windows() {
   xargs -n2 sh -c 'echo $1 $2; yabai -m window $1 --swap $2' sh
 }
 
-float_toggle () {
-  echo 1
-  selected_window=$(yabai -m query --windows --window | jq -re '.id')
-  ids=($(yabai -m query --windows --space | jq -re '.[].id'))
-
-  for window in $ids; do
-      top=$(yabai -m query --windows --window $window | jq -re '."is-topmost"')
-      stacked=$(yabai -m query --windows --window $window | jq -re '."stack-index"')
-      visible=$(yabai -m query --windows --window $window | jq -re '."is-visible"')
-      floating=$(yabai -m query --windows --window $window | jq -re '."is-floating"')
-      echo ID $window Top $top Stacked $stacked Visible $visible Floating $floating
-
-      if [[ $window = $selected_window ]]; then
-          echo Selected Window
-          if $top; then
-              continue
-          fi
-      fi
-
-      if [[ $stacked -gt 0 ]]; then
-          echo "Stacked"
-          continue
-      fi
-
-      if ! $visible; then 
-          echo "Visible"
-          continue
-      fi
-
-      if $floating; then
-          echo "Floating"
-          if ! $top; then 
-              echo "Floating Not Topmost"
-              yabai -m window $window --toggle topmost
-          fi
-          continue
-      fi
-
-      if $top; then 
-          echo Toggle Off Top
-          yabai -m window $window --toggle topmost
-      fi 
-
-  done
-}
-
 float_reset () {
   ids=($(yabai -m query --windows --space | jq -re '.[].id'))
 
   for window in $ids; do
       top=$(yabai -m query --windows --window $window | jq -re '."is-topmost"')
       floating=$(yabai -m query --windows --window $window | jq -re '."is-floating"')
-      echo ID $window Top $top Floating $floating
-
-      if $floating; then
-          echo "Floating"
-          if ! $top; then 
-              echo "Floating Not Topmost"
-              yabai -m window $window --toggle topmost
-          fi
-          continue
-      fi
 
       if $top; then 
-          echo Toggle Off Top
-          yabai -m window $window --toggle topmost
-      fi 
+        if $floating; then
+          continue
+        fi
+        yabai -m window $window --toggle topmost
+      fi
 
   done
 }

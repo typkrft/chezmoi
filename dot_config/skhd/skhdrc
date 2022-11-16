@@ -32,7 +32,9 @@ default < hyper - down :                                                        
 default < meh - return :                                           \
     window_id=$(yabai -m query --windows --window | jq -re '.id'); \
     sleep 1;                                                       \
-    yabai -m window mouse --stack $window_id                                    
+    yabai -m window mouse --stack $window_id  
+
+default < hyper - return : yabai -m window --insert stack                                  
 
 
 
@@ -43,10 +45,10 @@ default < meh - backspace : yabai -m window --toggle float --toggle float;
 default < meh - s : yabai -m window --toggle split
 
 # Rotate Space
-default < meh - r : yabai -m space --rotate 90;
+default < hyper - r : yabai -m space --rotate 90;
 
 # Roatate Windows
-default < hyper - r : . $HOME/.config/bin/helper && cycle_windows;
+default < meh - r : . $HOME/.config/bin/helper && cycle_windows;
 
 # Zoom Window
 default < meh - z : yabai -m window --toggle zoom-fullscreen
