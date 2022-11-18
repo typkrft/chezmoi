@@ -24,14 +24,14 @@
 LICENSE
 TODOs
 private
-.config/bin
-!.config/bin/helper
-!.config/bin/yabai_teams_helper.sh
 
 *.chezbak
 */*.chezbak
 */**/*.chezbak
 
+# TODO: .config/bin/rp should exist if packer does
+# TODO:Use Code to set variables in chezmoi data look at template here https://github.com/felipecrs/dotfiles/commit/749a9e3d72c6aedd3740b389f8c8e95e9e918235#diff-0f79af90a63180dbf048d02ea75bd46c2cab7d53783b5bdd79580ec4706b1c2eR30
+# NOTE: Updates here my need updates to .gitignore
+# FIX: Fix zfm That gets overwritten 
+
 # Ignore on All Systems
-# Check: Fix zfm That gets overwritten 
-# Use Code to set variables in chezmoi data look at template here https://github.com/felipecrs/dotfiles/commit/749a9e3d72c6aedd3740b389f8c8e95e9e918235#diff-0f79af90a63180dbf048d02ea75bd46c2cab7d53783b5bdd79580ec4706b1c2eR30

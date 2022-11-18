@@ -1,4 +1,5 @@
 private
-dot_config/bin/*
-!dot_config/bin/executable_helper
-!dot_config/bin/executable_yabai_teams_helper.sh
+# dot_config/bin/*
+# !dot_config/bin/executable_helper
+# !dot_config/bin/executable_yabai_teams_helper.sh
+# !dot_config/bin/rp

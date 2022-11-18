@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Example 
+# ./run_packer.sh ./ubuntu-20_10-server-template ./templates/user-data.tmpl ./secrets/secrets.yaml yaml ./config/user-data ./secrets/credentials.pkr.hcl ./ubuntu_20_10-server-template.pkr.hcl
+# ./run_packer.sh 
+# Ideally this should be moved into your path
+
+now=$(date +"%m_%d_%Y_%H_%M_%S")
+
+jinja_tmpl=$2
+jinja_var_file=$3
+jinja_format=$4
+jinja_output=$5
+packer_var_file=$6
+packer_tmpl=$7
+
+if [[ -f *.pkr.hcl ]]; then 
+    echo "Packer VM Template Not Found. Move into that directory first and try again"
+    exit 1
+fi
+
+if [[ "$#" -ne 6  ]]; then 
+read -p "Enter the relative path to your Jinja Template: " -i "./" -e jinja_tmpl
+read -p "Enter the relative path to you Jinja variables file: " -i "./" -e jinja_var_file 
+read -p "Enter the format of the input variables (eg: yaml, json, toml): " jinja_format 
+read -p "Enter the relative path where the filed Jinja Template should go: " -i "./" -e jinja_output
+read -p "Enter the relative path where Packer VM Template is: " -i "./" -e packer_tmpl
+read -p "Enter the relative path where the Packer Variable file is located: " -i "./" -e packer_var_file
+fi
+
+jinja2 $jinja_tmpl $jinja_var_file --format=$jinja_format >> $jinja_output
+
+packer build -var-file=$packer_var_file $packer_tmpl >> packer_$now.log
+
+if [[ $? ]]; then
+    rm $jinja_output
+    exit 1
+fi 
