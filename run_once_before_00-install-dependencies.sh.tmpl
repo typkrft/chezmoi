@@ -52,6 +52,6 @@ fi
 
 {{ if eq (expandenv "$PRIVATE") "true" }}
 if [[ ! -d ~/.local/share/chezmoi/private ]]; then 
-    git clone https://github.com/typkrft/private-dots ~/.local/share/chezmoi/private
+    git clone https://github.com/typkrft/chezmoi-private-dots ~/.local/share/chezmoi/private/gh_private_dots
 fi
 {{ end }}
