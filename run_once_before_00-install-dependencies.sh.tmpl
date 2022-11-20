@@ -28,9 +28,6 @@
 # fi
 
 {{ if eq .chezmoi.os "darwin" }}
-# Create Sudoedit
-ln -s $(which sudo) ~/.config/bin/sudoedit
-
 # Create sudoedit
 if ! command -v sudoedit &>/dev/null; then 
     ln -s "$(which sudo)" "$HOME/.config/bin/sudoedit"

@@ -7,7 +7,9 @@
 - [ ] Look for additional .chezmoi.toml functionality
 - [ ] Make .chezmoiignore more percise with template shell commands
 - [ ] Make Keybindings less dependent on kitty.conf with bind keyforward-wordforward-word
- 
+- [ ] Make Ansible Setups for various OSes and Roles
+- [ ] Clean up run before scripts
+
 # Doing 
 
 # Done

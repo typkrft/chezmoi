@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 {{ if eq .chezmoi.os "darwin" }}
 # Sign in to the App Store if Needed
-read -p "Are you signed into to the Mac App Store? [y/N]: " yn
-case ${yn:-n} in 
-    [Yy]*) ;;
-    [Nn]*) 
-        echo 'Please Sign into the App Store First, then press any key to continue.'
-        /usr/bin/open -a 'App Store.app' 
-        while true; do 
-            read -t 3 -n 1
-            if [ $? = 0 ]; then 
-                break
-            fi
-        done
-esac
+# read -p "Are you signed into to the Mac App Store? [y/N]: " yn
+# case ${yn:-n} in 
+#     [Yy]*) ;;
+#     [Nn]*) 
+#         echo 'Please Sign into the App Store First, then press any key to continue.'
+#         /usr/bin/open -a 'App Store.app' 
+#         while true; do 
+#             read -t 3 -n 1
+#             if [ $? = 0 ]; then 
+#                 break
+#             fi
+#         done
+# esac
 
 # Install brew taps, casks, pkgs, and mas apps (Set to always succeed)
-brew bundle --file $HOME/.config/homebrew/brewfile || true
+# brew bundle --file $HOME/.config/homebrew/brewfile || true
 {{ end }}
