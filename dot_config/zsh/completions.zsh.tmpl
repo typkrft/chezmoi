@@ -15,7 +15,7 @@ fi
 
 # kubectl completions
 if command -v kubectl &>/dev/null; then 
-    source <(kubectl completion bash)
+    source <(kubectl completion zsh)
 fi
 
 _comp_options+=(globdots)		# Include hidden files.
