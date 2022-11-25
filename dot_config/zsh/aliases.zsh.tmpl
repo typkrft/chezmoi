@@ -36,4 +36,9 @@ fi
 
 if command -v exa &>/dev/null; then
     alias ls="EXA_ICON_SPACING=2 exa -1 --color=always --icons -a -G --group-directories-first"
-fi 
+fi
+
+if command -v microk8s &>/dev/null; then 
+  alias kubectl='microk8s kubectl'
+fi
+
