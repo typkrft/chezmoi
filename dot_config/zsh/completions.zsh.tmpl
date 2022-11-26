@@ -14,8 +14,8 @@ if [[ -f $HOME/.asdf/asdf.sh ]]; then
 fi
 
 # kubectl completions
-if command -v microk8s &>/dev/null; then 
-    source <(microk8s kubectl completion zsh)
+if command -v k3s &>/dev/null; then 
+    source <(kubectl completion zsh)
 fi
 
 _comp_options+=(globdots)		# Include hidden files.
