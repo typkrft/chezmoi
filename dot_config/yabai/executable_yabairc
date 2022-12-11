@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+# set -x
 #killall autoraise &>/dev/null
 #$HOME/.config/bin/autoraise -delay 2 &>/dev/null &
 sudo killall kmonad &>/dev/null 
@@ -84,7 +84,7 @@ yabai -m rule --add app="^Bitwarden$" sticky=on
 yabai -m rule --add app="^Authy.*" manage=off
 yabai -m rule --add app="^Authy.*" sticky=on
 # System Preferences
-yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
 # App Store
 yabai -m rule --add app="^App Store$" manage=off
 # Archive Utility
@@ -95,13 +95,13 @@ yabai -m rule --add app="^Firefox*" title="^Set Desktop Background$" manage=off
 yabai -m rule --add app="^Firefox*" title="- noVNC$" manage=off
 yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" opacity=1.0
 # Spark
-# yabai -m rule --add app="^Spark$" title="^New Message*" manage=off
-# yabai -m rule --add app="^Spark$" title="^New Message*" sticky=on
-# yabai -m rule --add app="^Spark$" title="^RE:*" manage=off
-# yabai -m rule --add app="^Spark$" title="^RE:*" sticky=on
-# yabai -m rule --add app="^Spark$" title="^FWD:*" manage=off
-# yabai -m rule --add app="^Spark$" title="^FWD:*" sticky=on
-# yabai -m rule --add app="^Spark$" space=2
+yabai -m rule --add app="^Spark$" title="^New Message*" manage=off
+yabai -m rule --add app="^Spark$" title="^New Message*" sticky=on
+yabai -m rule --add app="^Spark$" title="^RE:*" manage=off
+yabai -m rule --add app="^Spark$" title="^RE:*" sticky=on
+yabai -m rule --add app="^Spark$" title="^FWD:*" manage=off
+yabai -m rule --add app="^Spark$" title="^FWD:*" sticky=on
+yabai -m rule --add app="^Spark$" space=2
 # Apple Mail
 yabai -m rule --add app="^Mail$" title="^New Message*" manage=off
 yabai -m rule --add app="^Mail$" title="^New Message*" sticky=on
@@ -111,6 +111,8 @@ yabai -m rule --add app="^Mail$" title="^Fwd:*" manage=off
 yabai -m rule --add app="^Mail$" title="^Fwd:*" sticky=on
 yabai -m rule --add app="^Mail$" space=2
 yabai -m rule --add app="^Mail$" title="^General$" manage=off
+# Dialpad
+yabai -m rule --add app="^Dialpad$" space=2
 # Messages
 yabai -m rule --add app="^Messages$" space=2
 # WeBull
@@ -121,10 +123,12 @@ yabai -m rule --add app="^Screens" title!="Screens Library" manage=off
 # Music
 yabai -m rule --add app="^Music$" space=3
 yabai -m rule --add app="^Music$" title="MiniPlayer" manage=off
+yabai -m rule --add app="^Music$" title="MiniPlayer" sticky=on
 # Microsoft Teams
 yabai -m rule --add app="^Microsoft Teams$" space=2
 # Finder
 yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Finder$" sticky=off
 # FaceTime
 yabai -m rule --add app="^FaceTime$" title="Window" manage=off
 # Font Book

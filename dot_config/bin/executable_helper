@@ -213,8 +213,8 @@ create_spaces ()
 }
 
 set_wallpaper () {
-  path=("$HOME/.config/bin" $path)
-  export path
+  #path=("$HOME/.config/bin" $path)
+  #export path
   # TODO: Add flag to set all spaces to same wallpaper
   # TODO: Set the name of the terminal and center and float it in yabai rules
   # TODO: Bind key to set color scheme
@@ -229,7 +229,7 @@ set_wallpaper () {
   
   /opt/homebrew/bin/yabai -m space --toggle show-desktop
 
-  /Applications/kitty.app/Contents/MacOS/kitty -1 --title=Wallpaper /bin/sh -c "/bin/ls $1 | /Users/brandon/.config/bin/fzf --multi $TOTAL_SPACES --reverse --height 100% --bind 'ctrl-w:execute-silent:(/opt/homebrew/bin/wallpaper set $1{})' --preview '/opt/homebrew/bin/timg -g 80x40 --auto-crop $1{}' | /usr/bin/xargs -I {} /bin/sh -c '/opt/homebrew/bin/wallpaper set $1{}; /opt/homebrew/bin/yabai -m space --focus next; /opt/homebrew/bin/yabai -m space --focus $CURRENT_SPACE; /opt/homebrew/bin/yabai -m space --toggle show-desktop';   /opt/homebrew/bin/skhd -k 'cmd-q'"
+  /Applications/kitty.app/Contents/MacOS/kitty -1 --title=Wallpaper /bin/sh -c "/bin/ls $1 | /opt/homebrew/bin/fzf --multi $TOTAL_SPACES --reverse --height 100% --bind 'ctrl-w:execute-silent:(/opt/homebrew/bin/wallpaper set $1{})' --preview '/opt/homebrew/bin/timg -g 80x40 --auto-crop $1{}' | /usr/bin/xargs -I {} /bin/sh -c '/opt/homebrew/bin/wallpaper set $1{}; /opt/homebrew/bin/yabai -m space --focus next; /opt/homebrew/bin/yabai -m space --focus $CURRENT_SPACE; /opt/homebrew/bin/yabai -m space --toggle show-desktop';   /opt/homebrew/bin/skhd -k 'cmd-q'"
 }
 
 get_pixel_color () {
