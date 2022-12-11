@@ -65,11 +65,11 @@ yabai -m config focus_follows_mouse autoraise
 
 # L A Y O U T
 yabai -m config layout bsp
-yabai -m config top_padding 18
-yabai -m config bottom_padding 18
-yabai -m config left_padding 18
-yabai -m config right_padding 18
-yabai -m config window_gap 18
+yabai -m config top_padding 14
+yabai -m config bottom_padding 14
+yabai -m config left_padding 14
+yabai -m config right_padding 14
+yabai -m config window_gap 14
 
 # S P A C E S
 yabai -m config --space 2 layout stack
@@ -78,13 +78,11 @@ yabai -m config --space 2 layout stack
 # N O T E S
 yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" border=off manage=off
 # Bitwarden
-yabai -m rule --add app="^Bitwarden$" manage=off
-yabai -m rule --add app="^Bitwarden$" sticky=on
+yabai -m rule --add app="^Bitwarden$" sticky=on manage=off 
 # Authy
-yabai -m rule --add app="^Authy.*" manage=off
-yabai -m rule --add app="^Authy.*" sticky=on
+yabai -m rule --add app="^Authy.*" sticky=on manage=off
 # System Preferences
-yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^System Settings$" sticky=on manage=off 
 # App Store
 yabai -m rule --add app="^App Store$" manage=off
 # Archive Utility
@@ -93,24 +91,18 @@ yabai -m rule --add app="^Archive Utility$" manage=off
 yabai -m rule --add app="^Firefox*" title="^Opening*" manage=off
 yabai -m rule --add app="^Firefox*" title="^Set Desktop Background$" manage=off
 yabai -m rule --add app="^Firefox*" title="- noVNC$" manage=off
-yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" opacity=1.0
+# yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" opacity=1.0
 # Spark
-yabai -m rule --add app="^Spark$" title="^New Message*" manage=off
-yabai -m rule --add app="^Spark$" title="^New Message*" sticky=on
-yabai -m rule --add app="^Spark$" title="^RE:*" manage=off
-yabai -m rule --add app="^Spark$" title="^RE:*" sticky=on
-yabai -m rule --add app="^Spark$" title="^FWD:*" manage=off
-yabai -m rule --add app="^Spark$" title="^FWD:*" sticky=on
+yabai -m rule --add app="^Spark$" title="^New Message*" sticky=on manage=off
+yabai -m rule --add app="^Spark$" title="^RE:*" sticky=on manage=off
+yabai -m rule --add app="^Spark$" title="^FWD:*" sticky=on manage=off
 yabai -m rule --add app="^Spark$" space=2
 # Apple Mail
-yabai -m rule --add app="^Mail$" title="^New Message*" manage=off
-yabai -m rule --add app="^Mail$" title="^New Message*" sticky=on
-yabai -m rule --add app="^Mail$" title="^Re:*" manage=off
-yabai -m rule --add app="^Mail$" title="^Re:*" sticky=on
-yabai -m rule --add app="^Mail$" title="^Fwd:*" manage=off
-yabai -m rule --add app="^Mail$" title="^Fwd:*" sticky=on
-yabai -m rule --add app="^Mail$" space=2
+yabai -m rule --add app="^Mail$" title="^New Message*" sticky=on manage=off
+yabai -m rule --add app="^Mail$" title="^Re:*" sticky=on manage=off
+yabai -m rule --add app="^Mail$" title="^Fwd:*" sticky=on manage=off
 yabai -m rule --add app="^Mail$" title="^General$" manage=off
+yabai -m rule --add app="^Mail$" space=2
 # Dialpad
 yabai -m rule --add app="^Dialpad$" space=2
 # Messages
@@ -122,13 +114,11 @@ yabai -m rule --add app="^Screen Sharing$" title="^Screen Sharing$" manage=off
 yabai -m rule --add app="^Screens" title!="Screens Library" manage=off 
 # Music
 yabai -m rule --add app="^Music$" space=3
-yabai -m rule --add app="^Music$" title="MiniPlayer" manage=off
-yabai -m rule --add app="^Music$" title="MiniPlayer" sticky=on
+yabai -m rule --add app="^Music$" title="MiniPlayer" sticky=on manage=off
 # Microsoft Teams
 yabai -m rule --add app="^Microsoft Teams$" space=2
 # Finder
-yabai -m rule --add app="^Finder$" manage=off
-yabai -m rule --add app="^Finder$" sticky=off
+yabai -m rule --add app="Finder" sticky=on layer=above manage=off
 # FaceTime
 yabai -m rule --add app="^FaceTime$" title="Window" manage=off
 # Font Book
@@ -144,7 +134,6 @@ yabai -m rule --add app="^iTerm" title="^Float" manage=off grid=2:1:1000:1000:1:
 yabai -m rule --add app="^kitty" title="^Wallpaper" manage=off grid=2:1:1000:1000:1:1 sticky=on border=off
 # Alfred Preferences
 yabai -m rule --add app="^Alfred Preferences$" manage=off
-# Preview
 
 # S I G N A L S
 # Sketchybar

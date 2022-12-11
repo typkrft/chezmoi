@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 linker () {
-    FILE=$1
+    ORIGIN=$1
     DESTINATION=$2
     BROKEN=$([[ -e $DESTINATION ]] && echo 0 || echo 1 2>&-)
     # LINK=$([[ -L $DESTINATION ]] && echo 1 || echo 0 2>&-)
 
     if [[ $BROKEN -eq 1 ]]; then 
         rm $DESTINATION 2>&-
-        ln -s $FILE $DESTINATION
+        ln -s $ORIGIN $DESTINATION
     fi
 }
 
