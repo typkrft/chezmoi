@@ -303,11 +303,10 @@ float_reset () {
       floating=$(yabai -m query --windows --window $window | jq -re '."is-floating"')
 
       if $top; then 
-        if $floating; then
+        if $floating; then 
           continue
         fi
         yabai -m window $window --toggle topmost
       fi
-
   done
 }
