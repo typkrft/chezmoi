@@ -1,0 +1,69 @@
+{
+  "folders": [
+	{
+		"path": "../dot_config/xresources"
+	},
+	{
+		"path": "../dot_config/yabai"
+	},
+	{
+		"path": "../dot_config/zellij"
+	},
+	{
+		"path": "../dot_config/wezterm"
+	},
+	{
+		"path": "../dot_config/watchman"
+	},
+	{
+		"path": "../dot_config/wallpapers"
+	},
+	{
+		"path": "../dot_config/wal"
+	},
+	{
+		"path": "../dot_config/starship"
+	},
+	{
+		"path": "../dot_config/skhd"
+	},
+	{
+		"path": "../dot_config/sketchybar"
+	},
+	{
+		"path": "../dot_config/navi"
+	},
+	{
+		"path": "../dot_config/macos"
+	},
+	{
+		"path": "../dot_config/firefox"
+	},
+	{
+		"path": "../dot_config/bat"
+	},
+	{
+		"path": "../dot_config/kmonad"
+	},
+	{
+		"path": "../dot_config/bin"
+	},
+	{
+		"path": "../dot_config/zsh"
+	},
+	{
+		"path": "../dot_config/pkgs"
+	},
+	{
+		"path": "../dot_config/kitty"
+	},
+	{
+		"path": "../private/gh_private_dots/navi"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {
+  }
+}

@@ -34,42 +34,21 @@ default < meh - return :                                           \
     sleep 1;                                                       \
     yabai -m window mouse --stack $window_id  
 
-default < hyper - return : yabai -m window --insert stack                                  
-
-
-
-# Unstack Window
-default < meh - backspace : yabai -m window --toggle float --toggle float;
-
-# Toggle Split
-default < meh - s : yabai -m window --toggle split
-
-# Rotate Space
-default < hyper - r : yabai -m space --rotate 90;
-
-# Roatate Windows
-default < meh - r : . $HOME/.config/bin/helper && cycle_windows;
-
-# Zoom Window
-default < meh - z : yabai -m window --toggle zoom-fullscreen
-
-# Toggle Layout
-default < meh - space : . $HOME/.config/bin/helper && toggle_layout
-
-# Balance Windows in Space
-default < meh - 0x18 : yabai -m space --balance
-
-# Toggle Gaps and Padding
-default < meh - g : yabai -m space --toggle padding --toggle gap
-
-# Decrease Gaps
-default < hyper - 0x1B : yabai -m space --padding rel:-6:-6:-6:-6 --gap rel:-6
-
-# Increase Gaps
-default < hyper - 0x18 : yabai -m space --padding rel:6:6:6:6 --gap rel:6
+default < hyper - return : yabai -m window --insert stack                      # Insert in Stack                                 
+default < meh - backspace : yabai -m window --toggle float --toggle float      # Unstack Window                                
+default < meh - s : yabai -m window --toggle split                             # Toggle Split                                  
+default < hyper - r : yabai -m space --rotate 90                               # Rotate Space                                  
+default < meh - r : . $HOME/.config/bin/helper && cycle_windows                # Roatate Windows                               
+default < meh - z : yabai -m window --toggle zoom-fullscreen                   # Zoom Window                                   
+default < meh - space : . $HOME/.config/bin/helper && toggle_layout            # Toggle Layout                                 
+default < meh - 0x18 : yabai -m space --balance                                # Balance Windows in Space                                
+default < meh - g : yabai -m space --toggle padding --toggle gap               # Toggle Gaps and Padding                                
+default < hyper - 0x1B : yabai -m space --padding rel:-6:-6:-6:-6 --gap rel:-6 # Decrease Gaps                                 
+default < hyper - 0x18 : yabai -m space --padding rel:6:6:6:6 --gap rel:6      # Increase Gaps                                 
 
 # Change Wallpaper
-scripts < w : . $HOME/.config/bin/helper && set_wallpaper $HOME/.config/wallpapers/
+default < meh - w : wallpaper set "$HOME/.config/wallpapers/$(\ls ~/.config/wallpapers | shuf -n 1)"
+scripts < shift - w : . $HOME/.config/bin/helper && set_wallpaper $HOME/.config/wallpapers/
 
 # Open New Window in Stack
 # NOTE: Change new Window Shortcuts in System Preferences > Keyboard > Shortcuts > App Shortcuts 
@@ -95,30 +74,31 @@ default < cmd - q [
 default < meh - f : yabai -m window --toggle float
 
 # Reset Topmost and Floats
-default < meh - t : . $HOME/.config/bin/helper && float_reset
-default < hyper - t : yabai -m window --toggle topmost
+default < hyper - t : . $HOME/.config/bin/helper && float_reset
+default < meh - t : yabai -m window --toggle topmost
 
 # Toggle Sticky
 default < hyper - s : yabai -m window --toggle sticky
 
 # Move window through spaces 
-default < meh - 1 : yabai -m window --space 1
-default < meh - 2 : yabai -m window --space 2
-default < meh - 3 : yabai -m window --space 3
-default < meh - 4 : yabai -m window --space 4
-default < meh - 5 : yabai -m window --space 5
+default < hyper - 1 : yabai -m window --space 1
+default < hyper - 2 : yabai -m window --space 2
+default < hyper - 3 : yabai -m window --space 3
+default < hyper - 4 : yabai -m window --space 4
+default < hyper - 5 : yabai -m window --space 5
 
-# Move to Different Space
-default < hyper - 1 : yabai -m space --focus 1
-default < hyper - 2 : yabai -m space --focus 2
-default < hyper - 3 : yabai -m space --focus 3
-default < hyper - 4 : yabai -m space --focus 4
-default < hyper - 5 : yabai -m space --focus 5
+# Focus Space
+default < meh - 1 : yabai -m space --focus 1
+default < meh - 2 : yabai -m space --focus 2
+default < meh - 3 : yabai -m space --focus 3
+default < meh - 4 : yabai -m space --focus 4
+default < meh - 5 : yabai -m space --focus 5
 
 # Open Terminal
 default < cmd - return [
     * : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ &> /dev/null
     "mail" ~
+    "spark" ~
     "messages" ~
     "microsoft teams" ~
 ] 
@@ -127,6 +107,7 @@ default < cmd - return [
 default < cmd + shift - return [
     * : /Applications/Firefox.app/Contents/MacOS/firefox-bin --new-window &> /dev/null
     "mail" ~
+    "spark" ~
     "messages" ~
     "microsoft teams" ~
 ] 

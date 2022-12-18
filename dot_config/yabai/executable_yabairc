@@ -1,185 +1,105 @@
 #!/usr/bin/env bash
-# set -x
-#killall autoraise &>/dev/null
-#$HOME/.config/bin/autoraise -delay 2 &>/dev/null &
-sudo killall kmonad &>/dev/null 
 
-CTRL=$(ioreg -p IOUSB | grep -o CTRL)
-if [[ $CTRL = "CTRL" ]]; then 
-    sudo $HOME/.config/bin/kmonad $HOME/.config/kmonad/ctrl.kbd &>/dev/null &
-else
-    sudo $HOME/.config/bin/kmonad $HOME/.config/kmonad/m1.kbd &>/dev/null &
-fi 
-
-# Y A B A I
+# Unload the macOS WindowManager process
+launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist > /dev/null 2>&1 &
 
 # Get Colors
-background=$(grep -io "background.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-foreground=$(grep -io "foreground.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-color0=$(grep -io "color0.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-color1=$(grep -io "color1:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-color2=$(grep -io "color2.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-color3=$(grep -io "color3.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-color4=$(grep -io "color4.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-color5=$(grep -io "color5.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-# grep -io "color6.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
-# grep -io "color7.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
-color8=$(grep -io "color8.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')
-# grep -io "color9.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
-# grep -io "color10.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
-# grep -io "color11.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
-# grep -io "color12.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
-# grep -io "color13.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
-# grep -io "color14.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
-# grep -io "color15.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/'
+insert="0xFF$(grep -io "color4:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
+active="0xFF$(grep -io "color2:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
+inactive="0xFF$(grep -io "background:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
+
+# Set Bar Height
+BAR_HEIGHT=$(sketchybar -m --query bar | jq -r '.height')
 
 # Load Scripting Additions
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
-# Create Spaces
-. $HOME/.config/bin/helper && create_spaces
+# Source Helper and Create Spaces and set kmonad conf
+source $HOME/.config/bin/helper
+create_spaces 5
+set_kmonad
 
-# T I L I N G
-yabai -m config external_bar main:"$(sketchybar -m --query bar | jq -r '.height')":0
-yabai -m config window_placement second_child
-yabai -m config window_topmost off
-yabai -m config split_ratio 0.50
-yabai -m config split_type auto
-yabai -m config auto_balance off
+# Genral
+yabai -m config external_bar               main:$BAR_HEIGHT:0 \
+                window_topmost             on                 \
+                split_type                 auto               \
+                split_ratio                0.66               \
+                window_placement           first_child
 
-# W I N D O W S
-yabai -m config window_shadow off
-yabai -m config window_opacity on
-yabai -m config active_window_opacity 1.0
-yabai -m config normal_window_opacity 0.92
-yabai -m config window_animation_duration 0.0
+# Windows
+yabai -m config window_shadow              off                \
+                window_opacity             on                 \
+                active_window_opacity      1.0                \
+                normal_window_opacity      0.85               \
+                window_animation_duration  0.15               \
+                window_opacity_duration    0.15
 
-# M O U S E
-yabai -m config mouse_modifier ctrl
-yabai -m config mouse_action1 resize
-yabai -m config mouse_action2 move
-yabai -m config mouse_drop_action swap
-yabai -m config mouse_follows_focus on
-yabai -m config focus_follows_mouse autoraise
+# Layout
+yabai -m config layout                     bsp                \
+                top_padding                10                 \
+                bottom_padding             10                 \
+                left_padding               10                 \
+                right_padding              10                 \
+                window_gap                 14
 
-# L A Y O U T
-yabai -m config layout bsp
-yabai -m config top_padding 14
-yabai -m config bottom_padding 14
-yabai -m config left_padding 14
-yabai -m config right_padding 14
-yabai -m config window_gap 14
+# Borders & Colors
+yabai -m config window_border              on                 \
+                window_border_blur         on                 \
+                window_border_hidpi        on                 \
+                window_border_width        2                  \
+                window_border_radius       12                 \
+                active_window_border_color $active            \
+                normal_window_border_color $inactive          \
+                insert_feedback_color      $insert
 
-# S P A C E S
+# Mouse
+yabai -m config mouse_modifier             ctrl               \
+                mouse_action1              resize             \
+                mouse_action2              move               \
+                mouse_drop_action          swap               \
+                mouse_follows_focus        on                 \
+                focus_follows_mouse        autoraise
+
+# Spaces
 yabai -m config --space 2 layout stack
-
-# R U L E S
-# N O T E S
-yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" border=off manage=off
-# Bitwarden
-yabai -m rule --add app="^Bitwarden$" sticky=on manage=off
-yabai -m signal --add event="window_created" app="^Bitwarden$" action="yabai -m window $YABAI_WINDOW_ID --toggle topmost"
-# Authy
-yabai -m rule --add app="^Authy.*" sticky=on manage=off
-yabai -m signal --add event="window_created" app="^Authy.*" action="yabai -m window $YABAI_WINDOW_ID --toggle topmost"
-# System Preferences
-yabai -m rule --add app="^System Settings$" sticky=on manage=off 
-# App Store
-yabai -m rule --add app="^App Store$" manage=off
-# Archive Utility
-yabai -m rule --add app="^Archive Utility$" manage=off
-# Firefox
-yabai -m rule --add app="^Firefox*" title="^Opening*" manage=off
-yabai -m rule --add app="^Firefox*" title="^Set Desktop Background$" manage=off
-yabai -m rule --add app="^Firefox*" title="- noVNC$" manage=off
-# yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" opacity=1.0
-# Spark
-yabai -m rule --add app="^Spark$" title="^New Message*" sticky=on manage=off
-yabai -m rule --add app="^Spark$" title="^RE:*" sticky=on manage=off
-yabai -m rule --add app="^Spark$" title="^FWD:*" sticky=on manage=off
-yabai -m rule --add app="^Spark$" space=2
-yabai -m signal --add event="window_created" app="^Spark$" title!="Spark -.*" action="yabai -m window $YABAI_WINDOW_ID --toggle topmost"
-
-# Apple Mail
-yabai -m rule --add app="^Mail$" title="^New Message*" sticky=on manage=off
-yabai -m rule --add app="^Mail$" title="^Re:*" sticky=on manage=off
-yabai -m rule --add app="^Mail$" title="^Fwd:*" sticky=on manage=off
-yabai -m rule --add app="^Mail$" title="^General$" manage=off
-yabai -m rule --add app="^Mail$" space=2
-# Dialpad
 yabai -m rule --add app="^Dialpad.*" space=2
-# Messages
+yabai -m rule --add app="^Spark$" space=2
+yabai -m rule --add app="^Mail$" space=2
 yabai -m rule --add app="^Messages$" space=2
-# WeBull
-yabai -m rule --add app="^Webull Desktop$" space=4
-# Screen Sharing
-yabai -m rule --add app="^Screen Sharing$" title="^Screen Sharing$" manage=off
-yabai -m rule --add app="^Screens" title!="Screens Library" manage=off 
-# Music
-yabai -m rule --add app="^Music$" space=3
-yabai -m rule --add app="^Music$" title="MiniPlayer" sticky=on manage=off
-yabai -m signal --add event="window_created" app="^Music$" title="MiniPlayer" action="yabai -m window $YABAI_WINDOW_ID --toggle topmost"
-# Microsoft Teams
 yabai -m rule --add app="^Microsoft Teams$" space=2
-# Finder
-yabai -m rule --add app="Finder" sticky=on manage=off
-yabai -m signal --add event="window_created" app="Finder" action="yabai -m window $YABAI_WINDOW_ID --toggle topmost"
-# FaceTime
-yabai -m rule --add app="^FaceTime$" title="Window" manage=off
-yabai -m signal --add event="window_created" app="^FaceTime$" action="yabai -m window $YABAI_WINDOW_ID --toggle topmost"
-# Font Book
-yabai -m rule --add app="^Font Book$" manage=off
-# Etcher
-yabai -m rule --add app="^balenaEtcher.*" manage=off
-# Epson Scanner
-yabai -m rule --add app="^Epson.*" manage=off
-# iTerm2
-yabai -m rule --add app="^iTerm" title="^Quake" manage=off
-yabai -m rule --add app="^iTerm" title="^Float" manage=off grid=2:1:1000:1000:1:1 sticky=on
-# Kitty
-yabai -m rule --add app="^kitty" title="^Wallpaper" manage=off grid=2:1:1000:1000:1:1 sticky=on border=off
-# Alfred Preferences
-yabai -m rule --add app="^Alfred Preferences$" manage=off
-yabai -m signal --add event="window_created" app="^Alfred Preferences$" action="yabai -m window $YABAI_WINDOW_ID --toggle topmost"
+yabai -m rule --add app="^Music$" space=3
 
+# Rules
+yabai -m rule --add label="Unmanged" app="^(Calculator|Software Update|Dictionary|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor|Finder|Authy|Bitwarden|System Preferences|System Settings)$" manage=off
+yabai -m rule --add label="LayerAbove" title="^(Colors.*|Character Viewer)$" manage=off layer=above
+yabai -m rule --add label="Sticky" app="^(Authy Desktop|Bitwarden|System Preferences|System Settings)$" sticky=on
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="Spark" app="^Spark$" title="^(New Message)$" manage=off sticky=on layer=normal
+yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+yabai -m rule --add label="Firefox" app="Firefox" title="^(Opening|Set Desktop Background)$" manage=off
+yabai -m rule --add label="noVNC" app="Firefox" title="^.* - noVNC$" manage=off native-fullscreen=on
+yabai -m rule --add label="wallpaper" app="kitty" title="^Wallpaper$" manage=off sticky=on
+yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" border=off manage=off layer=normal
+yabai -m rule --add app="^Screens$" title!="Screens Library" manage=off native-fullscreen=on
+yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote Desktop" manage=off native-fullscreen=on
+yabai -m rule --add app="^Screen Sharing$" title="^Screen Sharing$" manage=off native-fullscreen=on
 
-# S I G N A L S
-# Sketchybar
+# Signals
 yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_window &> /dev/null;"
 yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
 
-# Keep Specific Apps On top
-# Finder
-# Authy 
-# Bitwarden
-# Alfred
+# Teams Notification Fix
+yabai -m signal --add                                \
+event=application_activated                          \
+app="^Microsoft Teams$"                              \
+action="${HOME}/.config/bin/yabai_teams_helper.sh"
 
-
-# Teams
-yabai -m signal --add \
-      event=application_activated \
-      app="^Microsoft Teams$" \
-      action='${HOME}/.config/bin/yabai_teams_helper.sh'
-
-yabai -m signal --add \
-      event=window_focused \
-      app="^Microsoft Teams$" \
-      title="^Microsoft Teams Notification$" \
-      action='${HOME}/.config/bin/yabai_teams_helper.sh'
-
-# B O R D E R S
-yabai -m config window_border on
-yabai -m config window_border_width 2
-yabai -m config active_window_border_color 0XFF50fa7b
-yabai -m config normal_window_border_color 0xFF$color8
-yabai -m config insert_feedback_color 0XFF$color1
-yabai -m config window_border_blur on
-# yabai -m config window_opacity_duration 0.0
-
-echo "Yabai Loaded..."
-
-# NOTE: If not using Felix Fork disable autoraise
+yabai -m signal --add                                \
+event=window_focused                                 \
+app="^Microsoft Teams$"                              \
+title="^Microsoft Teams Notification$"               \
+action="${HOME}/.config/bin/yabai_teams_helper.sh"

@@ -2,6 +2,17 @@
 
 # set -ex
 
+set_kmonad ()
+{
+  sudo killall kmonad &>/dev/null 
+  CTRL=$(ioreg -p IOUSB | grep -o CTRL)
+  if [[ $CTRL = "CTRL" ]]; then 
+    sudo $HOME/.config/bin/kmonad $HOME/.config/kmonad/ctrl.kbd &>/dev/null &
+  else
+    sudo $HOME/.config/bin/kmonad $HOME/.config/kmonad/m1.kbd &>/dev/null &
+  fi
+} 
+
 toggle_layout ()
 {
   LAYOUT=$(yabai -m query --spaces --space | jq .type)
@@ -198,18 +209,20 @@ new_window ()
   fi
 }
 
-create_spaces ()
-{
-  SPACES=$(yabai -m query --spaces | jq -r '.[]."index"' | tail -n 1)
+create_spaces () {
+  CURRENT_SPACES=$(yabai -m query --spaces | jq -r '[.[]."is-native-fullscreen"| select(.==false) ]| length')
+  NEEDED_SPACES=$1
 
-  if [[ $SPACES -lt 5 ]]; then
-    NUM_SPACES_TO_CREATE=$(echo 5 - $SPACES| bc)
-    
-    for i in {1..$NUM_SPACES_TO_CREATE}; do
-      yabai -m space --create 
-    done
-
+  if [[ $CURRENT_SPACES -ge $NEEDED_SPACES ]]; then 
+    return
   fi
+  SPACES_TO_CREATE=$(($NEEDED_SPACES - $CURRENT_SPACES))
+  
+  for i in $(seq $((1 + CURRENT_SPACES)) $NEEDED_SPACES); do 
+    echo $i 
+    yabai -m space --create
+    yabai -m space --focus $i && wallpaper set "$HOME/.config/wallpapers/$(\ls ~/.config/wallpapers | shuf -n 1)"
+  done
 }
 
 set_wallpaper () {
@@ -309,4 +322,39 @@ float_reset () {
         yabai -m window $window --toggle topmost
       fi
   done
+}
+
+float_signal () {
+  QUERY=$(yabai -m query --windows --window $1 | jq -re '."is-topmost",."is-floating"' )
+  declare -a PROPERTIES
+  PROPERTIES=("$QUERY")
+
+  if ! ${PROPERTIES[0]} && ${PROPERTIES[1]}; then
+    yabai -m window $1 --toggle topmost 
+    echo 1 ${PROPERTIES[0]} ${PROPERTIES[1]}
+  fi
+
+  if ${PROPERTIES[0]} && ! ${PROPERTIES[1]}; then
+    yabai -m window $1 --toggle topmost 
+    echo 2 ${PROPERTIES[0]} ${PROPERTIES[1]}
+  fi
+
+
+
+}
+
+set_layer () {
+  QUERY=$(yabai -m query --windows --window $1 | jq -re '."is-topmost",."is-floating"' )
+  declare -a PROPERTIES
+  PROPERTIES=("$QUERY")
+
+  if ! ${PROPERTIES[1]}; then 
+    yabai -m window $YABAI_WINDOW_ID --layer below
+    return
+  fi 
+
+    # yabai -m window $YABAI_WINDOW_ID --layer normal
+
+
+
 }
