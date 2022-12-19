@@ -99,7 +99,7 @@ default < meh - 5 : yabai -m space --focus 5
 
 # Open Terminal
 default < cmd - return [
-    * : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ & disown
+    * : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~
     "mail" ~
     "spark" ~
     "messages" ~
