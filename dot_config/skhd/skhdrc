@@ -48,7 +48,7 @@ default < hyper - 0x18 : yabai -m space --padding rel:6:6:6:6 --gap rel:6      #
 
 # Change Wallpaper
 default < meh - w : wallpaper set "$HOME/.config/wallpapers/$(\ls ~/.config/wallpapers | shuf -n 1)"
-scripts < shift - w : . $HOME/.config/bin/helper && set_wallpaper $HOME/.config/wallpapers/
+scripts < w : . $HOME/.config/bin/helper && set_wallpaper $HOME/.config/wallpapers/
 
 # Open New Window in Stack
 # NOTE: Change new Window Shortcuts in System Preferences > Keyboard > Shortcuts > App Shortcuts 

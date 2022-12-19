@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-
 # set -ex
 
-set_kmonad ()
-{
+PATH="$HOME/.config/bin":$PATH
+PATH="/opt/homebrew/bin":$PATH
+PATH="/usr/bin":$PATH
+PATH="/bin":$PATH
+export PATH
+
+set_kmonad (){
   sudo killall kmonad &>/dev/null 
   CTRL=$(ioreg -p IOUSB | grep -o CTRL)
   if [[ $CTRL = "CTRL" ]]; then 
@@ -13,8 +17,7 @@ set_kmonad ()
   fi
 } 
 
-toggle_layout ()
-{
+toggle_layout (){
   LAYOUT=$(yabai -m query --spaces --space | jq .type)
  
   if [[ $LAYOUT =~ "bsp" ]]; then 
@@ -26,8 +29,7 @@ toggle_layout ()
   fi
 }
 
-opacity_up ()
-{
+opacity_up (){
   OPACITY=$(yabai -m query --windows --window | jq .opacity)
   if [[ $OPACITY -eq 1.0 ]]; then
     yabai -m window --opacity 0.1
@@ -37,8 +39,7 @@ opacity_up ()
   fi
 }
 
-opacity_down ()
-{
+opacity_down (){
   OPACITY=$(yabai -m query --windows --window | jq .opacity)
   if [[ $OPACITY -eq 0.1 ]]; then
     yabai -m window --opacity 1.0
@@ -48,8 +49,7 @@ opacity_down ()
   fi
 }
 
-close_window () 
-{
+close_window () {
   FULLSCREEN=$(yabai -m query --windows --window | jq '."is-native-fullscreen"')
   APP=$(yabai -m query --windows --window | jq -r '."app"')
   skhd -k "escape"; 
@@ -65,8 +65,7 @@ close_window ()
   fi
 }
 
-toggle_border ()
-{
+toggle_border (){
   BORDER=$(yabai -m config window_border)
   if [[ $BORDER = "on" ]]; then
     yabai -m config window_border off
@@ -76,26 +75,22 @@ toggle_border ()
   yabai -m config window_border
 }
 
-increase_gaps ()
-{
+increase_gaps () {
   GAP=$(yabai -m config window_gap)
   yabai -m config window_gap $(echo $GAP + 1| bc)
 }
 
-decrease_gaps ()
-{
+decrease_gaps () {
   GAP=$(yabai -m config window_gap)
   yabai -m config window_gap $(echo $GAP - 1| bc)
 }
 
-increase_padding_top ()
-{
+increase_padding_top () {
   PADDING=$(yabai -m config top_padding)
   yabai -m config top_padding $(echo $PADDING + 1| bc)
 }
 
-increase_padding_bottom ()
-{
+increase_padding_bottom () {
   PADDING=$(yabai -m config bottom_padding)
   yabai -m config bottom_padding $(echo $PADDING + 1| bc)
 }
@@ -166,8 +161,7 @@ decrease_padding_all ()
   yabai -m config window_gap $(echo $WINDOW_GAP - 10| bc)
 }
 
-new_window ()
-{
+new_window () {
   APP_TO_OPEN="$1"
   CURRENT_APP=$(yabai -m query --windows --window | jq -r '.app')
   
@@ -226,23 +220,19 @@ create_spaces () {
 }
 
 set_wallpaper () {
-  #path=("$HOME/.config/bin" $path)
-  #export path
   # TODO: Add flag to set all spaces to same wallpaper
   # TODO: Set the name of the terminal and center and float it in yabai rules
   # TODO: Bind key to set color scheme
   # TODO: Bind key to show desktop
-  /opt/homebrew/bin/skhd -k 'escape'
+  skhd -k 'escape'
 
-  RUNNING=$(/usr/bin/osascript -e 'tell application "System Events" to set Appli_Launch to exists (processes where name is "kitty")')
-  TOTAL_SPACES=$(/opt/homebrew/bin/yabai -m query --spaces | jq '.[].id' | wc -l | xargs)
-  CURRENT_SPACE=$(/opt/homebrew/bin/yabai -m query --spaces --space | jq -r ."index")
+  RUNNING=$(osascript -e 'tell application "System Events" to set Appli_Launch to exists (processes where name is "kitty")')
+  TOTAL_SPACES=$(yabai -m query --spaces | jq -r '[.[]."is-native-fullscreen"| select(.==false) ]| length')
+  CURRENT_SPACE=$(yabai -m query --spaces --space | jq -r ."index")
   
-  if [[ $CURRENT_SPACE -ne 1 ]]; then /opt/homebrew/bin/yabai -m space --focus 1; fi
-  
-  /opt/homebrew/bin/yabai -m space --toggle show-desktop
+  yabai -m space --focus 1 
 
-  /Applications/kitty.app/Contents/MacOS/kitty -1 --title=Wallpaper /bin/sh -c "/bin/ls $1 | /opt/homebrew/bin/fzf --multi $TOTAL_SPACES --reverse --height 100% --bind 'ctrl-w:execute-silent:(/opt/homebrew/bin/wallpaper set $1{})' --preview '/opt/homebrew/bin/timg -g 80x40 --auto-crop $1{}' | /usr/bin/xargs -I {} /bin/sh -c '/opt/homebrew/bin/wallpaper set $1{}; /opt/homebrew/bin/yabai -m space --focus next; /opt/homebrew/bin/yabai -m space --focus $CURRENT_SPACE; /opt/homebrew/bin/yabai -m space --toggle show-desktop';   /opt/homebrew/bin/skhd -k 'cmd-q'"
+  /Applications/kitty.app/Contents/MacOS/kitty -1 --title=Wallpaper sh -c "ls $1 | fzf --multi $TOTAL_SPACES --reverse --height 100% --bind 'ctrl-w:execute-silent:(wallpaper set $1{})' --preview 'timg -g 80x40 --auto-crop $1{}' | xargs -I {} sh -c 'yabai -m config active_window_opacity 0.01 normal_window_opacity 0.01; wallpaper set $1{}; yabai -m space --focus next;'; yabai -m space --focus $CURRENT_SPACE; yabai -m config active_window_opacity 1.00 normal_window_opacity 0.85; skhd -k 'cmd - w'"
 }
 
 get_pixel_color () {

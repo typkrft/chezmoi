@@ -72,10 +72,11 @@ yabai -m config --space 6 window_topmost off layout float
 yabai -m space 6 --label scratch
 
 # Rules
-yabai -m rule --add label="Unmanged" app="^(Calculator|Software Update|Dictionary|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor|Finder|Authy|Bitwarden|System Preferences|System Settings)$" manage=off
+yabai -m rule --add label="Unmanged" app="^(Calculator|Software Update|Dictionary|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor|Finder|Authy|Bitwarden|System Preferences|System Settings|ScanSnap.*)$" manage=off
 yabai -m rule --add label="Space2" app="^(Microsoft Teams|Mail|Messages|Spark|Dialpad|Mail)$" layer=normal space=2 opacity=100.0
 yabai -m rule --add app="^Music$" space=3
-yabai -m rule --add label="LayerAbove" title="^(Colors.*|Character Viewer)$" manage=off layer=above
+yabai -m rule --add label="LayerAboveApp" app="^(Finder|ScanSnap.*)$" layer=above
+yabai -m rule --add label="LayerAboveTitle" title="^(Colors.*|Character Viewer|MiniPlayer)$" manage=off layer=above
 yabai -m rule --add label="Sticky" app="^(Authy Desktop|Bitwarden|System Preferences|System Settings)$" sticky=on
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add label="Spark" app="^Spark$" title!="^Spark - .*$" manage=off sticky=on layer=normal
@@ -88,6 +89,7 @@ yabai -m rule --add app="^Screens$" title!="Screens Library" manage=off native-f
 yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote Desktop" manage=off native-fullscreen=on
 yabai -m rule --add app="^Screen Sharing$" title="^Screen Sharing$" manage=off native-fullscreen=on
 yabai -m rule --add app="kitty" title="KUAKE" manage=off grid=8:8:0:0:8:3  layer=above border=on
+yabai -m rule --add app="kitty" title="Wallpaper" manage=off grid=8:8:0:5:8:3  layer=above border=on sticky=on opacity=0.85
 
 # Signals
 yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
