@@ -80,6 +80,9 @@ default < meh - t : yabai -m window --toggle topmost
 # Toggle Sticky
 default < hyper - s : yabai -m window --toggle sticky
 
+# Kuake
+default < hyper - 0x32 : . $HOME/.config/bin/helper && kuake
+
 # Move window through spaces 
 default < hyper - 1 : yabai -m window --space 1
 default < hyper - 2 : yabai -m window --space 2
@@ -96,7 +99,7 @@ default < meh - 5 : yabai -m space --focus 5
 
 # Open Terminal
 default < cmd - return [
-    * : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ &> /dev/null
+    * : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~ & disown
     "mail" ~
     "spark" ~
     "messages" ~

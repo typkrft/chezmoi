@@ -338,9 +338,6 @@ float_signal () {
     yabai -m window $1 --toggle topmost 
     echo 2 ${PROPERTIES[0]} ${PROPERTIES[1]}
   fi
-
-
-
 }
 
 set_layer () {
@@ -352,9 +349,35 @@ set_layer () {
     yabai -m window $YABAI_WINDOW_ID --layer below
     return
   fi 
-
     # yabai -m window $YABAI_WINDOW_ID --layer normal
+}
 
+auto_stack () {
+  INSTANCES=$(yabai -m query --windows | jq "[.[] |select(.\"app\"==\"$1\")| .\"id\"]| length")
+  if [[ $INSTANCES -eq 1 ]]; then
+    return 0
+  fi
 
+  NEW_APP=$YABAI_WINDOW_ID
+  APP=$(yabai -m query --windows | jq "[.[] |select(.\"app\"==\"$1\" )|select(.\"id\"!=\"$NEW_APP\")][1].\"id\"")
+  yabai -m window $APP --stack $NEW_APP
+}
 
+kuake () {
+  if [[ $(yabai -m query --windows | jq "[.[]|select(.\"title\"==\"KUAKE\").\"title\"]| length") -eq 0 ]]; then
+    /Applications/kitty.app/Contents/MacOS/kitty -1 -T KUAKE -d ~ & disown
+    KUAKE_ID=$(yabai -m query --windows | jq ".[]|select(.\"title\"==\"KUAKE\").\"id\"")
+    return 0
+  fi 
+
+  KUAKE_ID=$(yabai -m query --windows | jq ".[]|select(.\"title\"==\"KUAKE\").\"id\"")
+  KUAKE_SPACE=$(yabai -m query --windows --window $KUAKE_ID | jq '."space"')
+  CURRENT_SPACE=$(yabai -m query --spaces --space | jq '."index"')
+
+  if [[ $KUAKE_SPACE -eq $CURRENT_SPACE ]]; then 
+    yabai -m window $KUAKE_ID --space scratch
+    return 0 
+  fi 
+
+  yabai -m window $KUAKE_ID --opacity 0.1 --space $CURRENT_SPACE --focus $KUAKE_ID --opacity 0.0 
 }
