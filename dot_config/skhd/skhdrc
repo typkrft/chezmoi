@@ -81,7 +81,7 @@ default < meh - t : yabai -m window --toggle topmost
 default < hyper - s : yabai -m window --toggle sticky
 
 # Kuake
-default < hyper - 0x32 : . $HOME/.config/bin/helper && kuake
+default < cmd - 0x32 : . $HOME/.config/bin/helper && kuake
 
 # Move window through spaces 
 default < hyper - 1 : yabai -m window --space 1
