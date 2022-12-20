@@ -205,7 +205,19 @@ new_window () {
 
 create_spaces () {
   CURRENT_SPACES=$(yabai -m query --spaces | jq -r '[.[]."is-native-fullscreen"| select(.==false) ]| length')
+  CURRENT_SPACE=$(yabai -m query --spaces --space | jq -r ."index")
   NEEDED_SPACES=$1
+
+  if [[ $1 == "a" ]]; then
+    yabai -m space --create
+    yabai -m space last --label $2
+    if [ -n "$YABAI_WINDOW_ID" ]; then
+      yabai -m window $YABAI_WINDOW_ID --space $2
+    fi
+    yabai -m space --focus $2
+    wallpaper set "$HOME/.config/wallpapers/$(/bin/ls ~/.config/wallpapers | shuf -n 1)"
+    return 0
+  fi
 
   if [[ $CURRENT_SPACES -ge $NEEDED_SPACES ]]; then 
     return
@@ -215,8 +227,11 @@ create_spaces () {
   for i in $(seq $((1 + CURRENT_SPACES)) $NEEDED_SPACES); do 
     echo $i 
     yabai -m space --create
-    yabai -m space --focus $i && wallpaper set "$HOME/.config/wallpapers/$(\ls ~/.config/wallpapers | shuf -n 1)"
+    yabai -m space --focus $i
+    wallpaper set "$HOME/.config/wallpapers/$(/bin/ls ~/.config/wallpapers | shuf -n 1)"
   done
+  yabai -m space $CURRENT_SPACE --focus
+
 }
 
 set_wallpaper () {

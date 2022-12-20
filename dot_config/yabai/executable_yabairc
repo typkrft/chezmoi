@@ -83,8 +83,7 @@ yabai -m rule --add label="Sticky" app="^(Authy Desktop|Bitwarden|System Prefere
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add label="Spark" app="^Spark$" title!="^Spark - .*$" manage=off sticky=on layer=normal
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
-yabai -m rule --add label="Firefox" app="Firefox" title="^(Opening|Set Desktop Background)$" manage=off
-yabai -m rule --add label="noVNC" app="Firefox" title="^.* - noVNC$" manage=off native-fullscreen=on
+yabai -m rule --add label="Firefox" app="Firefox" title="^(Opening|Set Desktop Background|VM.*|QEMU.*|.*noVNC)$" manage=off layer=above
 yabai -m rule --add label="wallpaper" app="kitty" title="^Wallpaper$" manage=off sticky=on
 yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" border=off manage=off layer=normal
 yabai -m rule --add app="^Screens$" title!="Screens Library" manage=off native-fullscreen=on
@@ -102,6 +101,8 @@ yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_
 yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_created app="Code" action="source $HOME/.config/bin/helper && auto_stack Code"
 yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source $HOME/.config/bin/helper && auto_stack Firefox"
+yabai -m signal --add event=window_created app="Firefox" title="^VM.*" action="source $HOME/.config/bin/helper && create_spaces a noVNC $YABAI_WINDOW_ID"
+yabai -m signal --add event=window_destroyed app="Firefox" title="^QEMU.*noVNC$" action="yabai -m space noVNC --destroy"
 yabai -m signal --add event=window_destroyed action="yabai -m window --focus mouse||yabai -m window --focus next"
 
 # Teams Notification Fix
