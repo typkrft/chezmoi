@@ -101,7 +101,7 @@ yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_
 yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_created app="Code" action="source $HOME/.config/bin/helper && auto_stack Code"
 yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source $HOME/.config/bin/helper && auto_stack Firefox"
-yabai -m signal --add event=window_created app="Firefox" title="^VM.*" action="source $HOME/.config/bin/helper && create_spaces a noVNC $YABAI_WINDOW_ID"
+yabai -m signal --add event=window_created app="Firefox" title="^VM [0-9]+ .*$" action="source $HOME/.config/bin/helper && create_spaces a noVNC $YABAI_WINDOW_ID"
 yabai -m signal --add event=window_destroyed app="Firefox" title="^QEMU.*noVNC$" action="yabai -m space noVNC --destroy"
 yabai -m signal --add event=window_destroyed action="yabai -m window --focus mouse||yabai -m window --focus next"
 
