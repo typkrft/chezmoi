@@ -32,7 +32,7 @@ yabai -m config window_shadow              float              \
                 window_opacity             on                 \
                 active_window_opacity      1.00               \
                 normal_window_opacity      0.85               \
-                window_animation_duration  0.05               \
+                window_animation_duration  0.00               \
                 window_origin_display      focused            \
                 window_opacity_duration    0.15
 
