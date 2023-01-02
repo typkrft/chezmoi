@@ -22,8 +22,6 @@ default < alt + ctrl - up : yabai -m window --swap north || yabai -m window --sw
 default < alt + ctrl - down : yabai -m window --swap south || yabai -m window --swap west
 default < alt + ctrl - space : yabai -m window --swap largest
 
-
-
 # Resize Windows
 default < ctrl + shift - left : yabai -m window --resize left:-100:0 || yabai -m window --resize right:-100:0 || yabai -m window --resize left:100:0 || yabai -m window --resize right:100:0
 default < ctrl + shift - right : yabai -m window --resize left:100:0 || yabai -m window --resize right:100:0 || yabai -m window --resize left:-100:0 || yabai -m window --resize right:-100:0
@@ -85,11 +83,11 @@ default < hyper - s : yabai -m window --toggle sticky
 default < cmd - 0x32 : . $HOME/.config/bin/helper && kuake
 
 # Move window through spaces 
-default < hyper - 1 : yabai -m window --space 1
-default < hyper - 2 : yabai -m window --space 2
-default < hyper - 3 : yabai -m window --space 3
-default < hyper - 4 : yabai -m window --space 4
-default < hyper - 5 : yabai -m window --space 5
+default < ctrl + alt - 1 : yabai -m window --space 1
+default < ctrl + alt - 2 : yabai -m window --space 2
+default < ctrl + alt - 3 : yabai -m window --space 3
+default < ctrl + alt - 4 : yabai -m window --space 4
+default < ctrl + alt - 5 : yabai -m window --space 5
 
 # Focus Space
 default < ctrl - 1 : yabai -m space --focus 1
@@ -100,7 +98,7 @@ default < ctrl - 5 : yabai -m space --focus 5
 
 # Open Terminal
 default < cmd - return [
-    * : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~
+    * : /Applications/Kitty.app/Contents/MacOS/kitty -1 -T DEFAULT -d ~
     "mail" ~
     "spark" ~
     "messages" ~
