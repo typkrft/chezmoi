@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Unload the macOS WindowManager process
-launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist > /dev/null 2>&1 &
+# launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist > /dev/null 2>&1 &
 
 # Get Colors
 insert="0xFF$(grep -io "color4:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
@@ -37,11 +37,11 @@ yabai -m config window_shadow              float              \
 
 # Layout
 yabai -m config layout                     bsp                \
-                top_padding                10                 \
-                bottom_padding             10                 \
-                left_padding               10                 \
-                right_padding              10                 \
-                window_gap                 14
+                top_padding                6                  \
+                bottom_padding             6                  \
+                left_padding               6                  \
+                right_padding              6                  \
+                window_gap                 10
 
 # Borders & Colors
 yabai -m config window_border              on                 \
