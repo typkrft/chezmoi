@@ -102,7 +102,7 @@ yabai -m rule --add label="Firefox" app="Firefox" title="^(Opening|Set Desktop B
 # Signals
 yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source $HOME/.config/bin/helper && auto_stack Firefox"
 yabai -m signal --add event=window_created app="Firefox" title="^VM [0-9]+" action="source $HOME/.config/bin/helper && create_spaces a noVNC $YABAI_WINDOW_ID"
-yabai -m signal --add event=window_destroyed app="Firefox" title="- noVNC$" action="yabai -m space noVNC --destroy"
+# yabai -m signal --add event=window_destroyed app="Firefox" title="- noVNC$" action="yabai -m space noVNC --destroy"
 yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
