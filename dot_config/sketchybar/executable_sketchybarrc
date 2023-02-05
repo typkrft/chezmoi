@@ -21,6 +21,7 @@ sh $config_dir/stack
 sh $config_dir/battery
 ## Date and Time
 sh $config_dir/time
-
+## Music
+sh $config_dir/music
 
 sketchybar --update

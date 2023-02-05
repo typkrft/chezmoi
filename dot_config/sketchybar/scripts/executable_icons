@@ -378,7 +378,7 @@ case $@ in
 "Sequel Ace")
   icon_result=":sequel_ace:"
   ;;
-"false Mostly Cloudy")
+"false Mostly Cloudy"| "false Cloudy")
   icon_result="􀇚"
   ;;
 *)

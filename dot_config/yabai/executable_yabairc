@@ -4,10 +4,10 @@
 # launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist > /dev/null 2>&1 &
 
 # Get Colors
-insert="0xFF$(grep -io "color4:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
-active="0xFF$(grep -io "color2:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
-inactive="0xFF$(grep -io "background:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
-echo $inactive $active $insert
+insert="0xFF$(awk -F '[#]' '/color4/{print $2}' ~/.Xresources)"
+active="0xFF$(awk -F '[#]' '/color2/{print $2}' ~/.Xresources)"
+inactive="0xFF$(awk -F '[#]' '/background/{print $2}' ~/.Xresources)"
+
 # Set Bar Height
 BAR_HEIGHT=$(sketchybar -m --query bar | jq -r '.height')
 
@@ -21,9 +21,10 @@ create_spaces 6
 
 # Genral
 yabai -m config external_bar               main:$BAR_HEIGHT:0 \
-                split_type                 auto               \
-                split_ratio                0.66               \
-                window_placement           first_child
+                split_type                 horizontal         \
+                split_ratio                0.60               \
+                window_placement           first_child        \
+                auto_balance               off                
                 # window_topmost             off               
 
 # Windows
@@ -46,7 +47,7 @@ yabai -m config layout                     bsp                \
 # Borders & Colors
 yabai -m config window_border              on                 \
                 window_border_blur         off                \
-                window_border_hidpi        on                 \
+                window_border_hidpi        off                \
                 window_border_width        2                  \
                 window_border_radius       12                 \
                 active_window_border_color $active            \
@@ -71,18 +72,18 @@ yabai -m config --space 6 window_topmost off layout float
 
 # Label Spaces
 yabai -m space 1 --label main
-yabai -m space 2 --label comms
-yabai -m space 3 --label media
-yabai -m space 4 --label alt1
-yabai -m space 5 --label alt2
+yabai -m space 2 --label work
+yabai -m space 3 --label comms
+yabai -m space 4 --label media
+yabai -m space 5 --label misc
 yabai -m space 6 --label scratch
 
 # Rules
 yabai -m rule --add label="Unmanged" app="^(Calculator|Software Update|Dictionary|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor|Finder|Authy|Bitwarden|System Preferences|System Settings|ScanSnap.*)$" manage=off
-yabai -m rule --add label="Space2" app="^(Microsoft Teams|Mail|Messages|Spark|Mail|Discord)$" layer=normal space=2 opacity=1.0
-yabai -m rule --add label="DialpadSplash" app="Dialpad" title=".*- Loading.*$" manage=off layer=below space=6 opacity=0.0
-yabai -m rule --add app="Dialpad" space=2 layer=normal opacity=1.0
-yabai -m rule --add app="^Music$" space=3
+yabai -m rule --add label="comms" app="^(Microsoft Teams|Mail|Messages|Spark|Mail|Discord)$" layer=normal space=comms opacity=1.0
+yabai -m rule --add label="DialpadSplash" app="Dialpad" title=".*- Loading.*$" manage=off layer=below space=scratch opacity=0.0
+yabai -m rule --add app="Dialpad" space=comms layer=normal opacity=1.0
+yabai -m rule --add app="^Music$" space=media
 yabai -m rule --add label="LayerAboveApp" app="^(Finder|ScanSnap.*)$" layer=above
 yabai -m rule --add label="LayerAboveTitle" title="^(Colors.*|Character Viewer|MiniPlayer)$" manage=off layer=above
 yabai -m rule --add label="Sticky" app="^(Authy Desktop|Bitwarden|System Preferences|System Settings)$" sticky=on
