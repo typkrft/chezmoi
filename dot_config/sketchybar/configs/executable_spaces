@@ -1,17 +1,29 @@
 #!/usr/bin/env bash
 
+# Source Colors
+# error=$(awk -F '[#]' '/color1/{print $2}' ~/.Xresources)
+highlight=$(awk -F '[#]' '/color2/{print $2}' ~/.Xresources)
+background=$(awk -F '[#]' '/background/{print $2}' ~/.Xresources)
+text=$(awk -F '[#]' '/foreground/{print $2}' ~/.Xresources)
+black=$(awk -F '[#]' '/color0/{print $2}' ~/.Xresources)
+icon=$(awk -F '[#]' '/color4/{print $2}' ~/.Xresources)
+
 spaces=("main" "comms" "work" "media" "misc")
 icons=("󰀶" "󰍪" "󰄧" "󰎅" "")
+
 for i in ${!spaces[@]}
 do 
     id=$(($i+1))
     sketchybar --add space space.${spaces[i]} left     \
     --set space.${spaces[i]} associated_space=$id      \
     icon=${icons[i]}                                   \
-    background.color=00x000000                         \
+    icon.highlight_color=0xFF$background               \
+    background.drawing=off                             \
     background.padding_left=0                          \
     background.padding_right=-1                        \
-    click_script="yabai -m space --focus $id"          
+    background.color=0xFF$icon                         \
+    click_script="yabai -m space --focus $id"          \
+    script="~/.config/sketchybar/scripts/spaces"
 done
 
 sketchybar --add bracket spaces space.main             \
