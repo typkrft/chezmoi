@@ -384,6 +384,10 @@ case $@ in
 "false Slight Chance Rain Showers")
   icon_result="􀇝"
   ;;
+"true Rain Showers Likely")
+  icon_result="􀇖"
+  ;;
+
 *)
   icon_result=""
   ;;
