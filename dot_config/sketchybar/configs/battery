@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+sketchybar -m --add item battery right                            \
+              --set battery update_freq=30                         \
+              label.padding_right=12                              \
+              background.padding_right=-5                         \
+              icon=""                                            \
+              script="$HOME/.config/sketchybar/scripts/battery"

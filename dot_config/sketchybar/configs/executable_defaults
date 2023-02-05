@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Source Colors
+# error=$(awk -F '[#]' '/color1/{print $2}' ~/.Xresources)
+highlight=$(awk -F '[#]' '/color2/{print $2}' ~/.Xresources)
+background=$(awk -F '[#]' '/background/{print $2}' ~/.Xresources)
+text=$(awk -F '[#]' '/foreground/{print $2}' ~/.Xresources)
+black=$(awk -F '[#]' '/color0/{print $2}' ~/.Xresources)
+icon=$(awk -F '[#]' '/color4/{print $2}' ~/.Xresources)
+
+sketchybar --bar                              \
+position=top                                  \
+height=38                                     \
+color=0xFF$black                              \
+display=main                                  \
+corner_radius=0                               \
+padding_left=0                                \
+padding_right=16                              \
+                                              \
+--default                                     \
+label.font="Iosevka Nerd Font:Regular:20.0"   \
+label.color="0xFF$text"                       \
+label.padding_left=0                          \
+label.padding_right=0                         \
+                                              \
+background.color="0xFF$background"            \
+background.height=28                          \
+background.padding_left=10                    \
+background.padding_right=10                   \
+background.corner_radius=4                    \
+                                              \
+icon.font="Iosevka Nerd Font:Bold:20.0"       \
+icon.color="0xFF$icon"                        \
+icon.highlight_color="0xFF$highlight"         \
+icon.padding_left=10                          \
+icon.padding_right=10                         \
+                                              \
+--add event yabai_window                      \
+space_change
+

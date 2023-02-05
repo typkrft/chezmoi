@@ -1,0 +1,9 @@
+url=$(awk  '/https/{print $0}' ~/.local/share/chezmoi/private/gh_private_dots/weather_url)
+weather=$(curl -s $url)
+temp=$(echo $weather | jq -r '.properties.periods[0].temperature')
+forecast=$(echo $weather | jq -r '.properties.periods[0].shortForecast')
+time=$(echo $weather | jq -r '.properties.periods[0].isDaytime')
+icon=$($HOME/.config/sketchybar/scripts/icons "$time $forecast")
+
+sketchybar --set weather icon="$icon" label="$temp""°"
+

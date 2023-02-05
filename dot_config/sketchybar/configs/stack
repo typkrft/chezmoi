@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+sketchybar --add item stack left                                  \
+    --set stack script="$HOME/.config/sketchybar/scripts/stack"   \
+    icon.padding_left=0                                           \
+    icon.padding_right=0                                          \
+    label.padding_right=12                                        \
+    label.padding_left=8                                          \
+    background.padding_left=0                                     \
+    drawing=off                                                   \
+    --subscribe stack yabai_window space_change                                              

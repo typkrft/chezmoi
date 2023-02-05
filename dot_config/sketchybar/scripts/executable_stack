@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+current_stack_level=$(yabai -m query --windows --window | jq -r ."[\"stack-index\"]")
+if [[ current_stack_level -eq 0 ]]; then
+    sketchybar --set stack drawing=off
+    exit 0
+fi
+
+num_stacked_windows=$(yabai -m query --windows --window stack.last | jq -r ."[\"stack-index\"]")
+
+sketchybar --set stack                                                      \
+    label=$(printf "[%s/%s]" "$current_stack_level" "$num_stacked_windows") \
+    drawing=on
+

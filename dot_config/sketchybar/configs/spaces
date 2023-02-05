@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+spaces=("main" "work" "comms" "media" "misc")
+icons=("󰀶" "" "󰍪" "󰎅" "")
+for i in ${!spaces[@]}
+do 
+    id=$(($i+1))
+    sketchybar --add space space.${spaces[i]} left     \
+    --set space.${spaces[i]} associated_space=$id      \
+    icon=${icons[i]}                                   \
+    background.color=00x000000                         \
+    background.padding_left=0                          \
+    background.padding_right=-1                        \
+    click_script="yabai -m space --focus $id"          
+done
+
+sketchybar --add bracket spaces space.main             \
+    space.work                                         \
+    space.comms                                        \
+    space.media                                        \
+    space.misc                                           
+

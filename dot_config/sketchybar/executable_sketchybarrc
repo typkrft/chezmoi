@@ -1,33 +1,26 @@
 #!/usr/bin/env bash
+config_dir="$HOME/.config/sketchybar/configs"
 
-#TODO: File issue about why 24 background height on modal indicator works but 25 doesn't
+# General
+## Bar and Defaults
+sh $config_dir/defaults
+## Custom Events
 
-# I N I T 
-  # Custom Events
-    sh ~/.config/sketchybar/custom_events
-  # Defaults
-    sh ~/.config/sketchybar/defaults
+# Left
+## Modal Indicator
+sh $config_dir/modal
+## Spaces
+sh $config_dir/spaces
+## Window Title
+sh $config_dir/focus
+## Stack Indicator
+sh $config_dir/stack
 
-# L E F T
-  # Modal Indicator
-    sh ~/.config/sketchybar/modal
-  # Spaces
-    sh ~/.config/sketchybar/spaces
-  # Window Title
-    sh ~/.config/sketchybar/window_title
-  # Stack Indicator
-    sh ~/.config/sketchybar/stack_indicator
+# Right
+## Battery
+sh $config_dir/battery
+## Date and Time
+sh $config_dir/time
 
-# R I G H T
-  # Battery
-    sh ~/.config/sketchybar/battery
-  # Date & Clock
-    sh ~/.config/sketchybar/date_time
-  # Investments
-    # sh ~/.config/sketchybar/investments
 
-# U P D A T E  B A R
-  sketchybar --update
-
-# F I N I S H 
-echo "Sketchybar Loaded..."
+sketchybar --update

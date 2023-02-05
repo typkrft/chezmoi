@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+sketchybar --add item focus left                                 \
+              --set focus                                        \
+                script="$HOME/.config/sketchybar/scripts/focus"  \
+                label.padding_right=10                           \
+              --subscribe focus yabai_window

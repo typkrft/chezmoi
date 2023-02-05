@@ -7,7 +7,7 @@
 insert="0xFF$(grep -io "color4:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
 active="0xFF$(grep -io "color2:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
 inactive="0xFF$(grep -io "background:.*#[[:alnum:]]*" ~/.Xresources | sed -E 's/.*\#([0-9]*)/\1/')"
-
+echo $inactive $active $insert
 # Set Bar Height
 BAR_HEIGHT=$(sketchybar -m --query bar | jq -r '.height')
 

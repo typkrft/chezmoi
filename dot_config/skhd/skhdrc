@@ -1,7 +1,7 @@
 # Modes
-:: default : echo default && sketchybar -m --set modal_indicator icon="N" icon.color="0xFFf6c177" --bar color="0xFF000000"
-:: window @ : echo window && sketchybar -m --set modal_indicator icon="W" icon.color="0xFFf8f8f2" --bar color="0xFFffb86c"
-:: scripts @ : echo scripts && sketchybar -m --set modal_indicator icon="S" icon.color="0xFFf8f8f2" --bar color="0xFF50fa7b"
+:: default : sketchybar -m --set modal icon="N" icon.color="0xFF$(awk -F '[#]' '/color4/{print $2}' ~/.Xresources)" background.color="0xFF$(awk -F '[#]' '/background/{print $2}' ~/.Xresources)"
+:: window @ : sketchybar -m --set modal icon="W" icon.color="0xFF$(awk -F '[#]' '/background/{print $2}' ~/.Xresources)" background.color="0xFF$(awk -F '[#]' '/color4/{print $2}' ~/.Xresources)"
+:: scripts @ : sketchybar -m --set modal icon="S" icon.color="0xFF$(awk -F '[#]' '/color0/{print $2}' ~/.Xresources)" background.color="0xFF$(awk -F '[#]' '/color2/{print $2}' ~/.Xresources)"
 
 # Mode Shortcuts
 # NOTE: This will toggle through modes with ctrl - escape
