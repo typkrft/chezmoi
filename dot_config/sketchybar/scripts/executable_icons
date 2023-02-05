@@ -381,6 +381,9 @@ case $@ in
 "false Mostly Cloudy"| "false Cloudy")
   icon_result="􀇚"
   ;;
+"false Slight Chance Rain Showers")
+  icon_result="􀇝"
+  ;;
 *)
   icon_result=""
   ;;

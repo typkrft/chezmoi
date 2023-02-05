@@ -48,5 +48,5 @@ fi
 # fi
 
 sketchybar -m --set music icon="$icon"          \
-    --set music label="${title} x ${artist}"    \
+    --set music label="${title} - ${artist}"    \
     --set music drawing=on
