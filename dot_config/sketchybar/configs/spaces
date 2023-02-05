@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-spaces=("main" "work" "comms" "media" "misc")
-icons=("󰀶" "" "󰍪" "󰎅" "")
+spaces=("main" "comms" "work" "media" "misc")
+icons=("󰀶" "󰍪" "󰄧" "󰎅" "")
 for i in ${!spaces[@]}
 do 
     id=$(($i+1))

@@ -72,8 +72,8 @@ yabai -m config --space 6 window_topmost off layout float
 
 # Label Spaces
 yabai -m space 1 --label main
-yabai -m space 2 --label work
-yabai -m space 3 --label comms
+yabai -m space 2 --label comms
+yabai -m space 3 --label work
 yabai -m space 4 --label media
 yabai -m space 5 --label misc
 yabai -m space 6 --label scratch
