@@ -55,7 +55,7 @@ case $@ in
   icon_result="􀍙"
   ;;
 "Microsoft To Do" | "Things")
-  icon_result=":things:"
+  icon_result=""
   ;;
 "DEVONthink 3")
   icon_result=":devonthink3:"
@@ -64,10 +64,10 @@ case $@ in
   icon_result=":git_hub:"
   ;;
 "App Store")
-  icon_result=":app_store:"
+  icon_result=""
   ;;
 "Chromium" | "Google Chrome" | "Google Chrome Canary")
-  icon_result=":google_chrome:"
+  icon_result=""
   ;;
 "zoom.us")
   icon_result=":zoom:"
@@ -169,7 +169,7 @@ case $@ in
   icon_result=":evernote_legacy:"
   ;;
 "Calendar" | "Fantastical")
-  icon_result=":calendar:"
+  icon_result=""
   ;;
 "Android Studio")
   icon_result=":android_studio:"
@@ -187,7 +187,7 @@ case $@ in
   icon_result="󰢁"
   ;;
 "System Preferences" | "System Settings")
-  icon_result=":gear:"
+  icon_result=""
   ;;
 "Discord" | "Discord Canary" | "Discord PTB")
   icon_result="󰙯"
@@ -322,10 +322,10 @@ case $@ in
   icon_result=":omni_focus:"
   ;;
 "Reminders")
-  icon_result=":reminders:"
+  icon_result=""
   ;;
-"Preview" | "Skim" | "zathura")
-  icon_result=":pdf:"
+"Preview" | "Skim" | "zathura" | "PDF Expert")
+  icon_result=""
   ;;
 "1Password 7")
   icon_result=":one_password:"
@@ -379,15 +379,17 @@ case $@ in
   icon_result=":sequel_ace:"
   ;;
 "false Mostly Cloudy"| "false Cloudy")
-  icon_result="􀇚"
+  icon_result="󰼱"
   ;;
 "false Slight Chance Rain Showers")
-  icon_result="􀇝"
+  icon_result=""
+  ;;
+"true Chance Rain Showers")
+  icon_result=""
   ;;
 "true Rain Showers Likely")
-  icon_result="􀇖"
+  icon_result=""
   ;;
-
 *)
   icon_result=""
   ;;
