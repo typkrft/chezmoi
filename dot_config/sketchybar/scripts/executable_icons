@@ -387,7 +387,7 @@ case $@ in
 "true Rain Showers Likely" | "true Rain Showers" | "true Chance Rain Showers")
   icon_result=""
   ;;
-"false Patchy Fog"| "false Areas Of Fog")
+"false Patchy Fog"| "false Areas Of Fog" | "false Widespread Fog")
   icon_result=""
   ;;
 *)
