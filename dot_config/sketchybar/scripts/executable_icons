@@ -390,6 +390,9 @@ case $@ in
 "false Patchy Fog"| "false Areas Of Fog" | "false Widespread Fog")
   icon_result=""
   ;;
+"true Sunny")
+  icon_result=""
+  ;;
 *)
   icon_result=""
   ;;
