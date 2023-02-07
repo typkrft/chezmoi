@@ -393,6 +393,9 @@ case $@ in
 "true Sunny")
   icon_result=""
   ;;
+"false Clear")
+  icon_result="󰖔"
+  ;;
 *)
   icon_result=""
   ;;
