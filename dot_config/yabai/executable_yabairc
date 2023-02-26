@@ -18,7 +18,7 @@ source "${HOME}"/.config/bin/helper && create_spaces 6
 GENERAL=(
     external_bar main:"${BAR_HEIGHT}":0
     split_type auto
-    split_ratio 0.66
+    split_ratio 0.5
     auto_balance off
     insert_feedback_color "${INSERT}"
 )
@@ -37,7 +37,7 @@ WINDOWS=(
 
 BORDERS=(
     window_border on
-    window_border_blur off
+    window_border_blur on
     window_border_hidpi on
     window_border_width 2
     window_border_radius 12
@@ -69,21 +69,28 @@ yabai -m config "${BORDERS[@]}"
 yabai -m config "${LAYOUT[@]}"
 yabai -m config "${MOUSE[@]}"
 
-# Space Configs
-yabai -m config --space 1 window_topmost on 
-yabai -m config --space 2 window_topmost off layout stack 
-yabai -m config --space 3 window_topmost off layout stack 
-yabai -m config --space 4 window_topmost on 
-yabai -m config --space 5 window_topmost on 
-yabai -m config --space 6 window_topmost off layout float
+# SPACE LABELS
+LABELS=(
+    main
+    comms
+    work
+    media
+    misc
+    scratch
+)
 
-# Label Spaces
-yabai -m space 1 --label main
-yabai -m space 2 --label comms
-yabai -m space 3 --label work
-yabai -m space 4 --label media
-yabai -m space 5 --label misc
-yabai -m space 6 --label scratch
+for (( i=0; i<"${#LABELS[@]}"; i++)); do 
+    yabai -m space $i --label ${LABLELS[$i]}
+done
+
+# # TOPMOST
+# yabai -m config --space 1 window_topmost on 
+# yabai -m config --space 2 window_topmost off layout stack 
+# yabai -m config --space 3 window_topmost off layout stack 
+# yabai -m config --space 4 window_topmost on 
+# yabai -m config --space 5 window_topmost on 
+# yabai -m config --space 6 window_topmost off layout float
+
 
 # Rules
 # yabai -m rule --add label="Unmanged" app="^(Calculator|Software Update|Dictionary|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor|Finder|Authy|Bitwarden|System Preferences|System Settings|ScanSnap.*)$" manage=off
