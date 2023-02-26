@@ -151,7 +151,7 @@ yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote De
 yabai -m rule --add app="^Music$" space=media
 yabai -m rule --add app="^Spark$" title!="^Spark - .*$" manage=off border=off sticky=on layer=below
 yabai -m rule --add app="^Screens$" title!="Screens Library" native-fullscreen=on
-yabai -m rule --add subrole="kAXUnknownSubrole" layer=above
+yabai -m rule --add subrole="kAXSystemDialogSubrole" layer=above
 # TODO: Test this
 yabai -m rule --add app="^Screen Sharing$" title!="^Screen Sharing$" native-fullscreen=on
 
