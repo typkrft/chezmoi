@@ -25,7 +25,6 @@ GENERAL=(
 
 WINDOWS=(
     window_placement=second_child
-    window_topmost=on
     window_zoom_persist=on
     window_shadow=float
     window_opacity=on
@@ -69,6 +68,7 @@ yabai -m config "${WINDOWS[@]}"
 yabai -m config "${BORDERS[@]}"
 yabai -m config "${LAYOUT[@]}"
 yabai -m config "${MOUSE[@]}"
+
 # Space Configs
 yabai -m config --space 1 window_topmost on 
 yabai -m config --space 2 window_topmost off layout stack 
@@ -86,47 +86,47 @@ yabai -m space 5 --label misc
 yabai -m space 6 --label scratch
 
 # Rules
-yabai -m rule --add label="Unmanged" app="^(Calculator|Software Update|Dictionary|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor|Finder|Authy|Bitwarden|System Preferences|System Settings|ScanSnap.*)$" manage=off
-yabai -m rule --add label="comms" app="^(Microsoft Teams|Mail|Messages|Spark|Mail|Discord)$" layer=normal space=comms opacity=1.0
-yabai -m rule --add label="DialpadSplash" app="Dialpad" title=".*- Loading.*$" manage=off layer=below space=scratch opacity=0.0
-yabai -m rule --add app="Dialpad" space=comms layer=normal opacity=1.0
-yabai -m rule --add app="^Music$" space=media
-yabai -m rule --add label="LayerAboveApp" app="^(Finder|ScanSnap.*)$" layer=above
-yabai -m rule --add label="LayerAboveTitle" title="^(Colors.*|Character Viewer|MiniPlayer)$" manage=off layer=above
-yabai -m rule --add label="Sticky" app="^(Authy Desktop|Bitwarden|System Preferences|System Settings)$" sticky=on
-yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-yabai -m rule --add label="Spark" app="^Spark$" title!="^Spark - .*$" manage=off sticky=on layer=normal
-yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
-yabai -m rule --add label="wallpaper" app="kitty" title="^Wallpaper$" manage=off sticky=on
-yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" border=off manage=off layer=normal
-yabai -m rule --add app="^Screens$" title!="Screens Library" manage=off native-fullscreen=on
-yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote Desktop" native-fullscreen=on
-yabai -m rule --add app="^Microsoft Remote Desktop$" title="Microsoft Remote Desktop" manage=off layer=normal
-yabai -m rule --add app="^Screen Sharing$" title="^Screen Sharing$" manage=off native-fullscreen=on
-yabai -m rule --add app="kitty" title="KUAKE" manage=off grid=8:8:0:0:8:3  layer=above border=on
-yabai -m rule --add app="kitty" title="Wallpaper" manage=off grid=8:8:0:5:8:3  layer=above border=on sticky=on opacity=0.85
-yabai -m rule --add label="Firefox" app="Firefox" title="^(Opening|Set Desktop Background|VM.*|QEMU.*|.*noVNC)$" manage=off layer=above
+# yabai -m rule --add label="Unmanged" app="^(Calculator|Software Update|Dictionary|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor|Finder|Authy|Bitwarden|System Preferences|System Settings|ScanSnap.*)$" manage=off
+# yabai -m rule --add label="comms" app="^(Microsoft Teams|Mail|Messages|Spark|Mail|Discord)$" layer=normal space=comms opacity=1.0
+# yabai -m rule --add label="DialpadSplash" app="Dialpad" title=".*- Loading.*$" manage=off layer=below space=scratch opacity=0.0
+# yabai -m rule --add app="Dialpad" space=comms layer=normal opacity=1.0
+# yabai -m rule --add app="^Music$" space=media
+# yabai -m rule --add label="LayerAboveApp" app="^(Finder|ScanSnap.*)$" layer=above
+# yabai -m rule --add label="LayerAboveTitle" title="^(Colors.*|Character Viewer|MiniPlayer)$" manage=off layer=above
+# yabai -m rule --add label="Sticky" app="^(Authy Desktop|Bitwarden|System Preferences|System Settings)$" sticky=on
+# yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+# yabai -m rule --add label="Spark" app="^Spark$" title!="^Spark - .*$" manage=off sticky=on layer=normal
+# yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+# yabai -m rule --add label="wallpaper" app="kitty" title="^Wallpaper$" manage=off sticky=on
+# yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" border=off manage=off layer=normal
+# yabai -m rule --add app="^Screens$" title!="Screens Library" manage=off native-fullscreen=on
+# yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote Desktop" native-fullscreen=on
+# yabai -m rule --add app="^Microsoft Remote Desktop$" title="Microsoft Remote Desktop" manage=off layer=normal
+# yabai -m rule --add app="^Screen Sharing$" title="^Screen Sharing$" manage=off native-fullscreen=on
+# yabai -m rule --add app="kitty" title="KUAKE" manage=off grid=8:8:0:0:8:3  layer=above border=on
+# yabai -m rule --add app="kitty" title="Wallpaper" manage=off grid=8:8:0:5:8:3  layer=above border=on sticky=on opacity=0.85
+# yabai -m rule --add label="Firefox" app="Firefox" title="^(Opening|Set Desktop Background|VM.*|QEMU.*|.*noVNC)$" manage=off layer=above
 
-# Signals
-yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source $HOME/.config/bin/helper && auto_stack Firefox"
-yabai -m signal --add event=window_created app="Firefox" title="^VM [0-9]+" action="source $HOME/.config/bin/helper && create_spaces a noVNC $YABAI_WINDOW_ID"
-# yabai -m signal --add event=window_destroyed app="Firefox" title="- noVNC$" action="yabai -m space noVNC --destroy"
-yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
-yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
-yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
-yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_window &> /dev/null;"
-yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
-yabai -m signal --add event=window_created app="Code" action="source $HOME/.config/bin/helper && auto_stack Code"
-yabai -m signal --add event=window_destroyed action="yabai -m window --focus mouse||yabai -m window --focus next"
+# # Signals
+# yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source $HOME/.config/bin/helper && auto_stack Firefox"
+# yabai -m signal --add event=window_created app="Firefox" title="^VM [0-9]+" action="source $HOME/.config/bin/helper && create_spaces a noVNC $YABAI_WINDOW_ID"
+# # yabai -m signal --add event=window_destroyed app="Firefox" title="- noVNC$" action="yabai -m space noVNC --destroy"
+# yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
+# yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
+# yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
+# yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_window &> /dev/null;"
+# yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
+# yabai -m signal --add event=window_created app="Code" action="source $HOME/.config/bin/helper && auto_stack Code"
+# yabai -m signal --add event=window_destroyed action="yabai -m window --focus mouse||yabai -m window --focus next"
 
-# Teams Notification Fix
-yabai -m signal --add                                \
-event=application_activated                          \
-app="^Microsoft Teams$"                              \
-action="${HOME}/.config/bin/yabai_teams_helper.sh"
+# # Teams Notification Fix
+# yabai -m signal --add                                \
+# event=application_activated                          \
+# app="^Microsoft Teams$"                              \
+# action="${HOME}/.config/bin/yabai_teams_helper.sh"
 
-yabai -m signal --add                                \
-event=window_focused                                 \
-app="^Microsoft Teams$"                              \
-title="^Microsoft Teams Notification$"               \
-action="${HOME}/.config/bin/yabai_teams_helper.sh"
+# yabai -m signal --add                                \
+# event=window_focused                                 \
+# app="^Microsoft Teams$"                              \
+# title="^Microsoft Teams Notification$"               \
+# action="${HOME}/.config/bin/yabai_teams_helper.sh"
