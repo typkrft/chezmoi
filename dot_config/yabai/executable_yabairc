@@ -25,6 +25,7 @@ GENERAL=(
 
 WINDOWS=(
     window_placement second_child
+    window_topmost on
     window_zoom_persist on
     window_shadow float
     window_opacity on
@@ -79,8 +80,34 @@ LABELS=(
     scratch
 )
 
-for (( i=0; i<"${#LABELS[@]}"; i++)); do 
-    yabai -m space $i --label ${LABLELS[$i]}
+for (( i=1; i<="${#LABELS[@]}"; i++ )); do 
+    yabai -m space "${i}" --label "${LABELS[(( $i - 1 ))]}"
+done
+
+# RULES
+UNMANAGED=(
+    Calculator
+    Software Update
+    Dictionary
+    zoom.us
+    Photo Booth
+    Archive Utility
+    Python
+    LibreOffice
+    App Store
+    Steam
+    Alfred
+    Activity Monitor
+    Finder
+    Authy
+    Bitwarden
+    System Preferences
+    System Settings
+    ScanSnap
+)
+
+for (( i=1; i<="${#UNMANAGED[@]}"; i++ )); do 
+    yabai -m rule --add label="unmanaged" app="^${UNMANAGED[(( $i - 1 ))]}$" manage=off
 done
 
 # # TOPMOST
