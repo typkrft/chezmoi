@@ -27,7 +27,7 @@ GENERAL=(
 
 WINDOWS=(
     window_placement second_child
-    window_topmost off
+    window_topmost on
     window_shadow float
     window_opacity on
     active_window_opacity 1.0
@@ -116,7 +116,7 @@ UNMANAGED=(
 )
 
 for (( i=1; i<="${#UNMANAGED[@]}"; i++ )); do 
-    yabai -m rule --add label="unmanage_${UNMANAGED[(( $i - 1 ))]}" app="^${UNMANAGED[(( $i - 1 ))]}.*$" manage=off border=off layer=above
+    yabai -m rule --add label="unmanage_${UNMANAGED[(( $i - 1 ))]}" app="^${UNMANAGED[(( $i - 1 ))]}.*$" manage=off border=off
 done
 
 COMMS=(
@@ -141,7 +141,7 @@ STICKY=(
 )
 
 for (( i=1; i<="${#STICKY[@]}"; i++ )); do 
-    yabai -m rule --add label="sticky_${STICKY[(( $i - 1 ))]}" app="^${STICKY[(( $i - 1 ))]}.*$" sticky=on layer=above
+    yabai -m rule --add label="sticky_${STICKY[(( $i - 1 ))]}" app="^${STICKY[(( $i - 1 ))]}.*$" sticky=on
 done
 
 yabai -m rule --add app="kitty" title="KUAKE" manage=off border=off grid=8:8:0:0:8:3 
