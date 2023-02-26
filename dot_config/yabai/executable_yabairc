@@ -153,7 +153,7 @@ yabai -m rule --add app="^Spark$" title!="^Spark - .*$" manage=off border=off st
 yabai -m rule --add app="^Screens$" title!="Screens Library" native-fullscreen=on
 # TODO: Test this
 yabai -m rule --add app="^Screen Sharing$" title!="^Screen Sharing$" native-fullscreen=on
-yabai -m rule --add app="Firefox" title="^QEMU (.*) - noVNC$" native-fullscreen=on
+yabai -m rule --add app="Firefox" title="^QEMU.*noVNC$" native-fullscreen=on
 
 # SIGNALS
 yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source ${HOME}/.config/bin/helper && auto_stack Firefox"
