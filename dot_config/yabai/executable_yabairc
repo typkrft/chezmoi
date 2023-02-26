@@ -91,25 +91,28 @@ yabai -m config --space scratch layout float
 
 # RULES
 UNMANAGED=(
-    Calculator
-    Software Update
-    Dictionary
-    zoom.us
-    Photo Booth
-    Archive Utility
-    Python
-    LibreOffice
-    App Store
-    Steam
-    Alfred
     Activity Monitor
-    Finder
+    Alfred
+    App Store
+    Archive Utility
     Authy
     Bitwarden
+    Calculator
+    Dictionary
+    Finder
+    LibreOffice
+    Microsoft Remote Desktop
+    Photo Booth
+    Python
+    ScanSnap
+    Screens
+    Screen Sharing
+    Software Update
+    Steam
+    System Information
     System Preferences
     System Settings
-    ScanSnap
-    System Information
+    zoom.us
 )
 
 for (( i=1; i<="${#UNMANAGED[@]}"; i++ )); do 
@@ -123,6 +126,7 @@ COMMS=(
     Spark
     Mail
     Discord
+    Dialpad
 )
 
 for (( i=1; i<="${#COMMS[@]}"; i++ )); do 
@@ -140,10 +144,15 @@ for (( i=1; i<="${#STICKY[@]}"; i++ )); do
     yabai -m rule --add label="sticky_${STICKY[(( $i - 1 ))]}" app="^${STICKY[(( $i - 1 ))]}.*$" sticky=on
 done
 
-yabai -m rule --add app="^Music$" space=media
 yabai -m rule --add app="kitty" title="KUAKE" manage=off border=off grid=8:8:0:0:8:3 
+yabai -m rule --add app="kitty" title="^Wallpaper$" manage=off order=off sticky=on grid=8:8:0:5:8:3 opacity=0.85
 yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" manage=off border=off
+yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote Desktop" native-fullscreen=on
+yabai -m rule --add app="^Music$" space=media
 yabai -m rule --add app="^Spark$" title!="^Spark - .*$" manage=off border=off sticky=on
+yabai -m rule --add app="^Screens$" title!="Screens Library" native-fullscreen=on
+# TODO: Test this
+yabai -m rule --add app="^Screen Sharing$" title!="^Screen Sharing$" native-fullscreen=on
 
 # SIGNALS
 yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source $HOME/.config/bin/helper && auto_stack Firefox"
@@ -157,16 +166,8 @@ yabai -m signal --add event=window_created app="Code" action="source $HOME/.conf
 # TODO: Cleanup
 # Rules
 # yabai -m rule --add label="DialpadSplash" app="Dialpad" title=".*- Loading.*$" manage=off layer=below space=scratch opacity=0.0
-# yabai -m rule --add app="Dialpad" space=comms layer=normal opacity=1.0
-# yabai -m rule --add label="LayerAboveApp" app="^(Finder|ScanSnap.*)$" layer=above
 # yabai -m rule --add label="LayerAboveTitle" title="^(Colors.*|Character Viewer|MiniPlayer)$" manage=off layer=above
 # yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-# yabai -m rule --add label="wallpaper" app="kitty" title="^Wallpaper$" manage=off sticky=on
-# yabai -m rule --add app="^Screens$" title!="Screens Library" manage=off native-fullscreen=on
-# yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote Desktop" native-fullscreen=on
-# yabai -m rule --add app="^Microsoft Remote Desktop$" title="Microsoft Remote Desktop" manage=off layer=normal
-# yabai -m rule --add app="^Screen Sharing$" title="^Screen Sharing$" manage=off native-fullscreen=on
-# yabai -m rule --add app="kitty" title="Wallpaper" manage=off grid=8:8:0:5:8:3  layer=above border=on sticky=on opacity=0.85
 # yabai -m rule --add label="Firefox" app="Firefox" title="^(Opening|Set Desktop Background|VM.*|QEMU.*|.*noVNC)$" manage=off layer=above
 
 # # Signals
