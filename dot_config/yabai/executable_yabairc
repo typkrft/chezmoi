@@ -85,8 +85,8 @@ for (( i=1; i<="${#LABELS[@]}"; i++ )); do
 done
 
 # SPACE LAYOUTS
-yabai -m config --space comms layout stack 
-yabai -m config --space media layout stack 
+yabai -m config --space comms layout stack window_opacity 1.0
+yabai -m config --space media layout stack window_opacity 1.0
 yabai -m config --space scratch layout float
 
 # RULES
@@ -126,20 +126,40 @@ COMMS=(
 )
 
 for (( i=1; i<="${#COMMS[@]}"; i++ )); do 
-    yabai -m rule --add label="comms_${COMMS[(( $i - 1 ))]}" app="^${COMMS[(( $i - 1 ))]}.*$"  space=comms opacity=1.0
+    yabai -m rule --add label="comms_${COMMS[(( $i - 1 ))]}" app="^${COMMS[(( $i - 1 ))]}.*$" space=comms
+done
+
+STICKY=(
+    Authy Desktop
+    Bitwarden
+    System Preferences
+    System Settings
+)
+
+for (( i=1; i<="${#STICKY[@]}"; i++ )); do 
+    yabai -m rule --add label="sticky_${STICKY[(( $i - 1 ))]}" app="^${STICKY[(( $i - 1 ))]}.*$" sticky=on
 done
 
 yabai -m rule --add app="^Music$" space=media
 yabai -m rule --add app="kitty" title="KUAKE" manage=off border=off grid=8:8:0:0:8:3 
 yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" manage=off border=off
-yabai -m rule --add app="^Spark$" title!="^Spark - .*$" manage=off sticky=on border=off
+yabai -m rule --add app="^Spark$" title!="^Spark - .*$" manage=off border=off sticky=on
 
+# SIGNALS
+yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source $HOME/.config/bin/helper && auto_stack Firefox"
+yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_window &> /dev/null;"
+yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=window_created app="Code" action="source $HOME/.config/bin/helper && auto_stack Code"
+
+# TODO: Cleanup
 # Rules
 # yabai -m rule --add label="DialpadSplash" app="Dialpad" title=".*- Loading.*$" manage=off layer=below space=scratch opacity=0.0
 # yabai -m rule --add app="Dialpad" space=comms layer=normal opacity=1.0
 # yabai -m rule --add label="LayerAboveApp" app="^(Finder|ScanSnap.*)$" layer=above
 # yabai -m rule --add label="LayerAboveTitle" title="^(Colors.*|Character Viewer|MiniPlayer)$" manage=off layer=above
-# yabai -m rule --add label="Sticky" app="^(Authy Desktop|Bitwarden|System Preferences|System Settings)$" sticky=on
 # yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 # yabai -m rule --add label="wallpaper" app="kitty" title="^Wallpaper$" manage=off sticky=on
 # yabai -m rule --add app="^Screens$" title!="Screens Library" manage=off native-fullscreen=on
@@ -150,14 +170,7 @@ yabai -m rule --add app="^Spark$" title!="^Spark - .*$" manage=off sticky=on bor
 # yabai -m rule --add label="Firefox" app="Firefox" title="^(Opening|Set Desktop Background|VM.*|QEMU.*|.*noVNC)$" manage=off layer=above
 
 # # Signals
-# yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source $HOME/.config/bin/helper && auto_stack Firefox"
 # yabai -m signal --add event=window_created app="Firefox" title="^VM [0-9]+" action="source $HOME/.config/bin/helper && create_spaces a noVNC $YABAI_WINDOW_ID"
 # yabai -m signal --add event=window_destroyed app="Firefox" title="- noVNC$" action="yabai -m space noVNC --destroy"
-# yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
-# yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
-# yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
-# yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_window &> /dev/null;"
-# yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
-# yabai -m signal --add event=window_created app="Code" action="source $HOME/.config/bin/helper && auto_stack Code"
 # yabai -m signal --add event=window_destroyed action="yabai -m window --focus mouse||yabai -m window --focus next"
 
