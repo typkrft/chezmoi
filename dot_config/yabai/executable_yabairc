@@ -145,7 +145,7 @@ for (( i=1; i<="${#STICKY[@]}"; i++ )); do
 done
 
 yabai -m rule --add app="kitty" title="KUAKE" manage=off border=off grid=8:8:0:0:8:3 
-yabai -m rule --add app="kitty" title="^Wallpaper$" manage=off order=off sticky=on grid=8:8:0:5:8:3 opacity=0.85
+yabai -m rule --add app="kitty" title="^Wallpaper$" manage=off border=off sticky=on grid=8:8:0:5:8:3 opacity=0.85
 yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" manage=off border=off
 yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote Desktop" native-fullscreen=on
 yabai -m rule --add app="^Music$" space=media
