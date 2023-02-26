@@ -85,8 +85,8 @@ for (( i=1; i<="${#LABELS[@]}"; i++ )); do
 done
 
 # SPACE LAYOUTS
-yabai -m config --space comms layout stack window_opacity 1.0
-yabai -m config --space media layout stack window_opacity 1.0
+yabai -m config --space comms layout stack window_opacity off
+yabai -m config --space media layout stack window_opacity off
 yabai -m config --space scratch layout float
 
 # RULES
