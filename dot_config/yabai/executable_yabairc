@@ -158,7 +158,7 @@ yabai -m rule --add app="^Screen Sharing$" title!="^Screen Sharing$" native-full
 yabai -m signal --add event=window_created app="Code" action="source ${HOME}/.config/bin/helper && auto_stack Code"
 yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source ${HOME}/.config/bin/helper && auto_stack Firefox"
 yabai -m signal --add event=window_title_changed app="Firefox" title="- noVNC$" action="yabai -m window ${WINDOW_ID} --toggle native-fullscreen"
-yabai -m signal --add event=window_created app="Firefox" title="Picture-in-Picture" action="yabai -m window ${WINDOW_ID} --toggle float"
+yabai -m signal --add event=window_title_changed app="Firefox" title="Picture-in-Picture" action="yabai -m window ${WINDOW_ID} --toggle float"
 yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
