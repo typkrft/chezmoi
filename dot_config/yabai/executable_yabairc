@@ -151,7 +151,6 @@ yabai -m rule --add app="^Microsoft Remote Desktop$" title!="Microsoft Remote De
 yabai -m rule --add app="^Music$" space=media
 yabai -m rule --add app="^Spark$" title!="^Spark - .*$" manage=off border=off sticky=on
 yabai -m rule --add app="^Screens$" title!="Screens Library" native-fullscreen=on
-yabai -m rule --add app="^Firefox$" title="^Picture-in-Picture$" manage=off border=off sticky=on
 # TODO: Test this
 yabai -m rule --add app="^Screen Sharing$" title!="^Screen Sharing$" native-fullscreen=on
 
@@ -164,6 +163,7 @@ yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yab
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=space_changed action="sketchybar -m --trigger yabai_window &> /dev/null;"
 yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=window_title_changed app="Firefox" title="Picture-in-Picture" action="yabai -m window ${WINDOW_ID} --toggle pip"
 
 # TODO: Cleanup
 # Rules
