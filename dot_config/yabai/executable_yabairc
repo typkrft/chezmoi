@@ -144,6 +144,7 @@ for (( i=1; i<="${#STICKY[@]}"; i++ )); do
     yabai -m rule --add label="sticky_${STICKY[(( $i - 1 ))]}" app="^${STICKY[(( $i - 1 ))]}.*$" sticky=on
 done
 
+yabai -m rule --add app="Firefox" title="Picture-in-Picture" manage=off border=off sticky=on
 yabai -m rule --add app="kitty" title="KUAKE" manage=off border=off grid=8:8:0:0:8:3 
 yabai -m rule --add app="kitty" title="^Wallpaper$" manage=off border=off sticky=on grid=8:8:0:5:8:3 opacity=0.85
 yabai -m rule --add app="^LinkedNotesUIService$" title="^Window$" manage=off border=off
@@ -158,7 +159,7 @@ yabai -m rule --add app="^Screen Sharing$" title!="^Screen Sharing$" native-full
 yabai -m signal --add event=window_created app="Code" action="source ${HOME}/.config/bin/helper && auto_stack Code"
 yabai -m signal --add event=window_created app="Firefox" title!="— Private Browsing$" action="source ${HOME}/.config/bin/helper && auto_stack Firefox"
 yabai -m signal --add event=window_title_changed app="Firefox" title="- noVNC$" action="yabai -m window ${WINDOW_ID} --toggle native-fullscreen"
-yabai -m signal --add event=window_title_changed app="Firefox" title="Picture-in-Picture" action="yabai -m window ${WINDOW_ID} --toggle float"
+yabai -m signal --add event=window_created app="Firefox" title="Picture-in-Picture" action="yabai -m window ${WINDOW_ID} --toggle float"
 yabai -m signal --add event=window_created action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
