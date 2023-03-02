@@ -136,3 +136,13 @@ default < cmd - return [
     "messages" ~
     "microsoft teams" ~
 ] 
+
+default < meh - s [
+# Remove Duplicates and Sort tabs in firefox
+"firefox" : skhd -k 'ctrl + shift - x'; skhd -k 'ctrl + shift - a'
+]
+
+default < meh - m [
+# Merge windows in firefox
+"firefox" : skhd -k 'ctrl + shift - m'
+]
